@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import userRoutes from './routes/userRoutes.js';
 
 const app = express();
+app.use(express.json());
 
 dotenv.config();
 
