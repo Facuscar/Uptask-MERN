@@ -1,9 +1,9 @@
 import express from "express"
+import { register } from "../controllers/userController.js";
 
 const router = express.Router()
 
-router.get('/', (req, res) => {
-    res.send("FROM API/USERS")
-});
+router.post('/', register);
+
 
 export default router;
