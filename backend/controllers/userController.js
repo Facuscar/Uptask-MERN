@@ -55,3 +55,7 @@ export const authUser = async (req, res) => {
         token: generateJWT(user._id),
     })
 }
+
+export const confirm = async (req, res) => {
+    req.params.token
+}
