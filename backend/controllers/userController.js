@@ -1,5 +1,6 @@
 import { User } from "../models/User.js";
 import generateId from "../helpers/generateId.js";
+import generateJWT from "../helpers/generateJWT.js";
 
 export const registerUser = async (req, res) => {
     const { email } = req.body;
@@ -51,5 +52,6 @@ export const authUser = async (req, res) => {
         _id: user._id,
         name: user.name,
         email: user.email,
+        token: generateJWT(user._id),
     })
 }
