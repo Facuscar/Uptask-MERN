@@ -24,3 +24,21 @@ export const registerUser = async (req, res) => {
         console.log(error);
     }
 }
+
+export const authUser = async (req, res) => {
+
+    const { email, password } = req.body;
+
+    const user = await User.findOne({ email })
+
+    if (!user) {
+        const error = new Error('The user does not exist');
+        return res.status(404).json({msg: error.message});
+    }
+
+    if (!user.confirmed) {
+        const error = new Error('Your account is not confirmed yet');
+        return res.status(403).json({msg: error.message});
+    }
+
+}
