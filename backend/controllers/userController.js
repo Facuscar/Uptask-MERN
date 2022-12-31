@@ -73,3 +73,20 @@ export const confirm = async (req, res) => {
         console.log(error);
     }
 }
+
+export const forgotPassword = async (req, res) => {
+    const { email } = req.body;
+    const user = await User.findOne({ email });
+    if (!user) {
+        const error = new Error('Email not found');
+        return res.status(404).json({ msg: error.message });
+    }
+
+    try {
+        user.token = generateId();
+        await user.save();
+        res.json({ msg: 'We sent an email to your inbox with the instructions' })
+    } catch (error) {
+        console.log(error);
+    }
+}
