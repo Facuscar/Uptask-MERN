@@ -22,6 +22,7 @@ const userSchema = mongoose.Schema({
     },
     confirmed: {
         type: Boolean,
+        default: false,
     }
 }, {
     timestamps: true,
@@ -33,5 +34,9 @@ userSchema.pre('save', async function(next) {
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
 });
+
+userSchema.methods.verifyPassword = async function (password) {
+    return await bcrypt.compare(password, this.password);
+}
 
 export const User = mongoose.model("User", userSchema)

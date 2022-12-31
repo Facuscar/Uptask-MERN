@@ -29,6 +29,7 @@ export const authUser = async (req, res) => {
 
     const { email, password } = req.body;
 
+    console.log(req.body);
     const user = await User.findOne({ email })
 
     if (!user) {
@@ -41,4 +42,14 @@ export const authUser = async (req, res) => {
         return res.status(403).json({msg: error.message});
     }
 
+    if (!await user.verifyPassword(password)) {
+        const error = new Error('Your password and email do not match');
+        return res.status(404).json({msg: error.message});
+    }
+
+    res.json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+    })
 }
