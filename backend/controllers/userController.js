@@ -97,7 +97,29 @@ export const verifyToken = async (req, res) => {
     const user = await User.findOne({ token }); 
 
     if (!user) {
+        
+    }
+
+    return res.json({ msg: 'Token valid' });
+}
+
+export const newPassword = async (req, res) => {
+    const { token } = req.params;
+    const { password } = req.body;
+
+    const user = await User.findOne({ token });
+
+    if (!user) {
         const error = new Error('Invalid token');
         return res.status(403).json({ msg: error.message });
+    }
+
+    user.password = password;
+    user.token = null;
+    try {
+        await user.save();
+        res.json({msg: 'Password modified successfully'});
+    } catch (error) {
+        console.log(error);
     }
 }
