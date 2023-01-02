@@ -90,3 +90,14 @@ export const forgotPassword = async (req, res) => {
         console.log(error);
     }
 }
+
+export const verifyToken = async (req, res) => {
+    const { token } = req.params;
+
+    const user = await User.findOne({ token }); 
+
+    if (!user) {
+        const error = new Error('Invalid token');
+        return res.status(403).json({ msg: error.message });
+    }
+}
