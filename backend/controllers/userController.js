@@ -123,3 +123,7 @@ export const newPassword = async (req, res) => {
         console.log(error);
     }
 }
+
+export const profile = async (req, res) => {
+    console.log('Second');
+}
