@@ -1,7 +1,8 @@
 import Project from "../models/Project.js";
 
 export const getProjects = async (req, res) => {
-
+    const projects = await Project.find().where('creator').equals(req.user);
+    res.json(projects);
 };
 
 export const newProject = async (req, res) => {
