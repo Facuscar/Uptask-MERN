@@ -18,7 +18,21 @@ export const newProject = async (req, res) => {
 };
 
 export const getProject = async (req, res) => {
+    const { id } = req.params;
 
+    const project = await Project.findById(id);
+
+    if (!project) {
+        const error = new Error('Not found')
+        return res.status(404).json({ msg: error.message });
+    }
+
+    if (project.creator.toString() !== req.user._id.toString()) {
+        const error = new Error('You dont have access to this project')
+        return res.status(401).json({ msg: error.message });
+    }
+
+    res.json(project);
 };
 
 export const editProject = async (req, res) => {
