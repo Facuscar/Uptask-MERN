@@ -23,12 +23,12 @@ export const getProject = async (req, res) => {
     const project = await Project.findById(id);
 
     if (!project) {
-        const error = new Error('Not found')
+        const error = new Error('Not found');
         return res.status(404).json({ msg: error.message });
     }
 
     if (project.creator.toString() !== req.user._id.toString()) {
-        const error = new Error('You dont have access to this project')
+        const error = new Error('You dont have access to this project');
         return res.status(401).json({ msg: error.message });
     }
 
@@ -41,19 +41,19 @@ export const editProject = async (req, res) => {
     const project = await Project.findById(id);
 
     if (!project) {
-        const error = new Error('Not found')
+        const error = new Error('Not found');
         return res.status(404).json({ msg: error.message });
     }
 
     if (project.creator.toString() !== req.user._id.toString()) {
-        const error = new Error('You dont have access to this project')
+        const error = new Error('You dont have access to this project');
         return res.status(401).json({ msg: error.message });
     }
 
-    project.name = req.body.name || project.name
-    project.descriptin = req.body.descriptin || project.descriptin
-    project.dueDate = req.body.dueDate || project.dueDate
-    project.client = req.body.client || project.client
+    project.name = req.body.name || project.name;
+    project.description = req.body.description || project.description;
+    project.dueDate = req.body.dueDate || project.dueDate;
+    project.client = req.body.client || project.client;
 
     try {
         const dbProject = await project.save();
@@ -64,7 +64,26 @@ export const editProject = async (req, res) => {
 };
 
 export const deleteProject = async (req, res) => {
+    const { id } = req.params;
 
+    const project = await Project.findById(id);
+
+    if (!project) {
+        const error = new Error('Not found');
+        return res.status(404).json({ msg: error.message });
+    }
+
+    if (project.creator.toString() !== req.user._id.toString()) {
+        const error = new Error('You dont have access to this project');
+        return res.status(401).json({ msg: error.message });
+    }
+
+    try {
+        await project.deleteOne();
+        res.json({ msg: 'Project deleted successfully' });
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 export const addCollaborator = async (req, res) => {
