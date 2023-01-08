@@ -5,6 +5,7 @@ import Register from "./pages/Register";
 import ForgotPassword from "./pages/ForgotPassword";
 import NewPassword from "./pages/NewPassword";
 import ConfirmAccount from "./pages/ConfirmAccount";
+import { PATH } from "./constants/path"
 
 function App() {
   return (
@@ -12,10 +13,10 @@ function App() {
       <Routes>
         <Route path="/" element={ <AuthLayout /> }>
           <Route index element={ <Login /> } />
-          <Route path="register" element={ <Register /> } />
-          <Route path="forgot-password" element={ <ForgotPassword /> } />
-          <Route path="forgot-password/:token" element={ <NewPassword /> } />
-          <Route path="confirm-account/:token" element={ <ConfirmAccount /> } />
+          <Route path={PATH.REGISTER} element={ <Register /> } />
+          <Route path={PATH.FORGOT_PASSWORD} element={ <ForgotPassword /> } />
+          <Route path={`${PATH.FORGOT_PASSWORD}/:token`} element={ <NewPassword /> } />
+          <Route path={`${PATH.CONFIRM_ACCOUNT}/:token`} element={ <ConfirmAccount /> } />
         </Route>
       </Routes>
     </BrowserRouter>
