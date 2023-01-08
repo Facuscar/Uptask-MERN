@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 
 import Input from "../components/Form/Input";
 import SubmitButton from "../components/Form/SubmitButton";
+import { PATH } from "../constants/path";
 
 const Login: React.FC = () => {
     return (
@@ -15,7 +16,8 @@ const Login: React.FC = () => {
             </form>
 
             <nav className="lg:flex lg:justify-between">
-
+                <Link className="block text-center my-5 text-slate-500 uppercase text-sm" to={PATH.REGISTER} >Sign up</Link>
+                <Link className="block text-center my-5 text-slate-500 uppercase text-sm" to={PATH.FORGOT_PASSWORD} >I forgot my password</Link>
             </nav>
         </>
     )
