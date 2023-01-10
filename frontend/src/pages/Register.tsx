@@ -18,7 +18,7 @@ const Register: React.FC = () => {
             </form>
 
             <nav className="lg:flex lg:justify-between">
-                <Link className="block text-center my-5 text-slate-500 uppercase text-sm" to={PATH.REGISTER} >Log in</Link>
+                <Link className="block text-center my-5 text-slate-500 uppercase text-sm" to={PATH.LOGIN} >Log in</Link>
                 <Link className="block text-center my-5 text-slate-500 uppercase text-sm" to={PATH.FORGOT_PASSWORD} >I forgot my password</Link>
             </nav>
         </>
