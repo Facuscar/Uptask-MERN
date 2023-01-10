@@ -1,6 +1,27 @@
+import { Link } from "react-router-dom";
+
+import Input from "../components/Form/Input";
+import SubmitButton from "../components/Form/SubmitButton";
+import { PATH } from "../constants/path";
+
 const Register: React.FC = () => {
     return (
-        <div>Register</div>
+        <>
+            <h1 className="text-sky-600 font-black text-6xl">Create your account and <span className="text-slate-700">projects</span></h1>
+            <form action="" className="my-10 bg-white shadow rounded-lg p-10">
+                <Input type="email" name="Email" placeholder="example@example.com" />
+                <Input type="text" name="Name" placeholder="Your name" />
+                <Input type="password" name="Password" placeholder="Your password" />
+                <Input type="password" name="Repeat the password" placeholder="Repeat your password" id="second_password" />
+
+                <SubmitButton value="Create your account" />
+            </form>
+
+            <nav className="lg:flex lg:justify-between">
+                <Link className="block text-center my-5 text-slate-500 uppercase text-sm" to={PATH.REGISTER} >Log in</Link>
+                <Link className="block text-center my-5 text-slate-500 uppercase text-sm" to={PATH.FORGOT_PASSWORD} >I forgot my password</Link>
+            </nav>
+        </>
     )
 }
 
