@@ -13,22 +13,38 @@ const Register: React.FC = () => {
     const secondPasswordRef = useRef<HTMLInputElement>(null);
 
     const [showAlert, setShowAlert] = useState<boolean>(false);
+    const [message, setMessage] = useState<string>('');
 
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if ([emailRef.current?.value, nameRef.current?.value, passwordRef.current?.value, secondPasswordRef.current?.value].includes('')) {
+            setMessage('All fields are required')
             setShowAlert(true);
             return;
-        } else {
-            setShowAlert(false);
         }
+
+        if (passwordRef.current?.value !== secondPasswordRef.current?.value) {
+            setMessage('The passwords do not match');
+            setShowAlert(true);
+            return;
+        }
+
+        if (passwordRef.current && passwordRef.current.value.length < 6) {
+            setMessage('The password must have at least 6 characters');
+            setShowAlert(true);
+            return;
+        }
+
+        setShowAlert(false);
+        console.log('Sending user to the API');
+        
     }
 
     return (
         <>
             <h1 className="text-sky-600 font-black text-6xl">Create your account and <span className="text-slate-700">projects</span></h1>
 
-            {showAlert && <Alert message="All fields are required" error={true} />}
+            {showAlert && <Alert message={message} error={true} />}
 
             <form className="my-10 bg-white shadow rounded-lg p-10" onSubmit={e => onSubmit(e)} >
                 <Input type="email" name="Email" placeholder="example@example.com" ref={emailRef} />
