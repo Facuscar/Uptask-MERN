@@ -1,6 +1,7 @@
-import { useRef, FormEvent } from 'react';
+import { useState, useRef, FormEvent } from "react";
 import { Link } from "react-router-dom";
 
+import Alert from "../components/Alert";
 import Input from "../components/Form/Input";
 import SubmitButton from "../components/Form/SubmitButton";
 import { PATH } from "../constants/path";
@@ -11,18 +12,24 @@ const Register: React.FC = () => {
     const passwordRef = useRef<HTMLInputElement>(null);
     const secondPasswordRef = useRef<HTMLInputElement>(null);
 
+    const [showAlert, setShowAlert] = useState<boolean>(false);
+
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (emailRef.current) {
-            console.log({
-                email: emailRef.current.value
-            });
+        if ([emailRef.current?.value, nameRef.current?.value, passwordRef.current?.value, secondPasswordRef.current?.value].includes('')) {
+            setShowAlert(true);
+            return;
+        } else {
+            setShowAlert(false);
         }
     }
 
     return (
         <>
             <h1 className="text-sky-600 font-black text-6xl">Create your account and <span className="text-slate-700">projects</span></h1>
+
+            {showAlert && <Alert message="All fields are required" error={true} />}
+
             <form className="my-10 bg-white shadow rounded-lg p-10" onSubmit={e => onSubmit(e)} >
                 <Input type="email" name="Email" placeholder="example@example.com" ref={emailRef} />
                 <Input type="text" name="Name" placeholder="Your name" ref={nameRef} />
