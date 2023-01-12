@@ -1,4 +1,5 @@
-import { useState, useRef, FormEvent } from "react";
+import axios from "axios";
+import { useState, useRef, FormEvent, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import Alert from "../components/Alert";
@@ -36,8 +37,17 @@ const Register: React.FC = () => {
         }
 
         setShowAlert(false);
-        console.log('Sending user to the API');
         
+        const createUser = async () => {
+            try {
+                const response = await axios.post(`${import.meta.env.VITE_API_URL}`, { name: emailRef.current?.value, email: emailRef.current?.value, password: passwordRef.current?.value })
+                console.log(response);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        createUser();
     }
 
     return (

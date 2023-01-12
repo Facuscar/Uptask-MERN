@@ -1,5 +1,3 @@
-import { FormEvent } from "react";
-
 const SubmitButton: React.FC<{ value: string }> = ({ value }) => {
     return (
         <input 
