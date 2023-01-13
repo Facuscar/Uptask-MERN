@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState, useRef, FormEvent, useEffect } from "react";
+import { useState, useRef, FormEvent } from "react";
 import { Link } from "react-router-dom";
 
 import Alert from "../components/Alert";
@@ -15,24 +15,28 @@ const Register: React.FC = () => {
 
     const [showAlert, setShowAlert] = useState<boolean>(false);
     const [message, setMessage] = useState<string>('');
+    const [error, setError] = useState<boolean>(false);
 
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if ([emailRef.current?.value, nameRef.current?.value, passwordRef.current?.value, secondPasswordRef.current?.value].includes('')) {
             setMessage('All fields are required')
             setShowAlert(true);
+            setError(true);
             return;
         }
 
         if (passwordRef.current?.value !== secondPasswordRef.current?.value) {
             setMessage('The passwords do not match');
             setShowAlert(true);
+            setError(true);
             return;
         }
 
         if (passwordRef.current && passwordRef.current.value.length < 6) {
             setMessage('The password must have at least 6 characters');
             setShowAlert(true);
+            setError(true);
             return;
         }
 
@@ -40,10 +44,14 @@ const Register: React.FC = () => {
         
         const createUser = async () => {
             try {
-                const response = await axios.post(`${import.meta.env.VITE_API_URL}`, { name: emailRef.current?.value, email: emailRef.current?.value, password: passwordRef.current?.value })
-                console.log(response);
-            } catch (error) {
-                console.log(error);
+                const response = await axios.post<{ msg: string }>(`${import.meta.env.VITE_API_URL}`, { name: emailRef.current?.value, email: emailRef.current?.value, password: passwordRef.current?.value });
+                setShowAlert(true);
+                setMessage(response.data.msg);
+                setError(false);
+            } catch (error: any) {
+                setShowAlert(true);
+                setMessage(error.response.data.msg);
+                setError(true);
             }
         }
 
@@ -54,7 +62,7 @@ const Register: React.FC = () => {
         <>
             <h1 className="text-sky-600 font-black text-6xl">Create your account and <span className="text-slate-700">projects</span></h1>
 
-            {showAlert && <Alert message={message} error={true} />}
+            {showAlert && <Alert message={message} error={error} />}
 
             <form className="my-10 bg-white shadow rounded-lg p-10" onSubmit={e => onSubmit(e)} >
                 <Input type="email" name="Email" placeholder="example@example.com" ref={emailRef} />
