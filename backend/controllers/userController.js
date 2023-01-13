@@ -19,8 +19,8 @@ export const registerUser = async (req, res) => {
     try {
         const user = new User(req.body);
         user.token = generateId();
-        const saveUser = await user.save();
-        res.json(saveUser);
+        await user.save();
+        res.json({ msg: 'Account created successfully, check your email to confirm it' });
     } catch (error) {
         console.log(error);
     }

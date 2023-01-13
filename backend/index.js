@@ -1,9 +1,10 @@
-import express from 'express';
-import connectDB from './config/db.js';
+import express from "express";
+import connectDB from "./config/db.js";
+import cors from "cors"
 import dotenv from "dotenv";
-import userRoutes from './routes/userRoutes.js';
-import projectRoutes from './routes/projectRoutes.js';
-import tasksRoutes from './routes/tasksRoutes.js';
+import userRoutes from "./routes/userRoutes.js";
+import projectRoutes from "./routes/projectRoutes.js";
+import tasksRoutes from "./routes/tasksRoutes.js";
 
 const app = express();
 app.use(express.json());
@@ -11,6 +12,20 @@ app.use(express.json());
 dotenv.config();
 
 connectDB();
+
+const whitelist = [process.env.WHITELISTED_URL];
+
+const corsOptions = {
+    origin: function(origin, callback) {
+        if (whitelist.includes(origin)) {
+            callback(null, true)
+        } else {
+            callback(new Error('Cors error'));
+        }
+    },
+};
+
+app.use(cors(corsOptions));
 
 app.use("/api/users", userRoutes);
 app.use("/api/projects", projectRoutes);
