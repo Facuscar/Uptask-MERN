@@ -1,4 +1,4 @@
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { useState, useRef, FormEvent } from "react";
 import { Link } from "react-router-dom";
 
@@ -44,7 +44,7 @@ const Register: React.FC = () => {
         
         const createUser = async () => {
             try {
-                const response = await axios.post<{ msg: string }>(`${import.meta.env.VITE_API_URL}`, { name: emailRef.current?.value, email: emailRef.current?.value, password: passwordRef.current?.value });
+                const response = await axios.post<{ msg: string }>(`${import.meta.env.VITE_API_URL}`, { name: nameRef.current?.value, email: emailRef.current?.value, password: passwordRef.current?.value });
                 setShowAlert(true);
                 setMessage(response.data.msg);
                 setError(false);
