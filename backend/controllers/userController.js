@@ -99,7 +99,7 @@ export const forgotPassword = async (req, res) => {
             name: user.name,
             token: user.token,
         });
-        
+
         res.json({ msg: 'We sent an email to your inbox with the instructions' })
     } catch (error) {
         console.log(error);
@@ -112,7 +112,8 @@ export const verifyToken = async (req, res) => {
     const user = await User.findOne({ token }); 
 
     if (!user) {
-        
+        const error = new Error('Invalid token');
+        return res.status(403).json({ msg: error.message });
     }
 
     return res.json({ msg: 'Token valid' });

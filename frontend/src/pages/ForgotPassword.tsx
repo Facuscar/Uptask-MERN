@@ -30,6 +30,8 @@ const ForgotPassword: React.FC = () => {
             setShowAlert(true);
             setMessage(data.msg);
             setError(false);
+
+            (e.target as HTMLFormElement).reset()
         } catch (error: any) {
             setShowAlert(true);
             setMessage(error.response.data.msg);

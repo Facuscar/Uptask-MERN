@@ -48,7 +48,7 @@ export const recoverPassword = async (data) => {
         html: `
             <p>Hi ${name}! This email was sent to you because someone requested to recover your password.</p>
             <p>If it was you, click the following link.</p>
-            <a href="${process.env.WHITELISTED_URL}/forgot-password/${token}">Confirm account</a>
+            <a href="${process.env.WHITELISTED_URL}/forgot-password/${token}">Recover account</a>
             <p>If you didn't request this, you can just ignore this email.</p>
         `,
     })
