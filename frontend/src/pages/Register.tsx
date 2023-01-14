@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { useState, useRef, FormEvent } from "react";
 import { Link } from "react-router-dom";
 
@@ -48,9 +48,10 @@ const Register: React.FC = () => {
                 setShowAlert(true);
                 setMessage(response.data.msg);
                 setError(false);
+                (e.target as HTMLFormElement).reset()
             } catch (error: any) {
                 setShowAlert(true);
-                setMessage(error.response.data.msg);
+                setMessage(error.response.data?.msg);
                 setError(true);
             }
         }
