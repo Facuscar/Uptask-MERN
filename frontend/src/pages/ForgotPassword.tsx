@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState, useRef, FormEvent } from "react";
 import { Link } from "react-router-dom";
 
@@ -13,11 +14,25 @@ const ForgotPassword: React.FC = () => {
     const [message, setMessage] = useState<string>('');
     const [error, setError] = useState<boolean>(false);
 
-    const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (!emailRef.current?.value) {
+        const email = emailRef.current?.value
+        if (!email) {
             setShowAlert(true);
             setMessage('The email field is required');
+            setError(true);
+
+            return;
+        }
+
+        try {
+            const { data } = await axios.post<{ msg: string }>(`${import.meta.env.VITE_API_USERS_URL}/forgot-password`, { email })
+            setShowAlert(true);
+            setMessage(data.msg);
+            setError(false);
+        } catch (error: any) {
+            setShowAlert(true);
+            setMessage(error.response.data.msg);
             setError(true);
         }
     };
