@@ -1,15 +1,33 @@
+import { useState, useRef, FormEvent } from "react";
 import { Link } from "react-router-dom";
 
+import Alert from "../components/Alert";
 import Input from "../components/Form/Input";
 import SubmitButton from "../components/Form/SubmitButton";
 import { PATH } from "../constants/path";
 
 const ForgotPassword: React.FC = () => {
+
+    const emailRef = useRef<HTMLInputElement>(null);
+    const [showAlert, setShowAlert] = useState<boolean>(false);
+    const [message, setMessage] = useState<string>('');
+    const [error, setError] = useState<boolean>(false);
+
+    const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (!emailRef.current?.value) {
+            setShowAlert(true);
+            setMessage('The email field is required');
+            setError(true);
+        }
+    };
+
     return (
         <>
             <h1 className="text-sky-600 font-black text-6xl">Reset your account to access your <span className="text-slate-700">projects</span></h1>
-            <form action="" className="my-10 bg-white shadow rounded-lg p-10">
-                <Input type="email" name="Email" placeholder="example@example.com" />
+            {showAlert && <Alert message={message} error={error} /> }
+            <form action="" className="my-10 bg-white shadow rounded-lg p-10" onSubmit={(e) => onSubmit(e)}>
+                <Input type="email" name="Email" placeholder="example@example.com" ref={emailRef} />
 
                 <SubmitButton value="Send the email" />
             </form>
