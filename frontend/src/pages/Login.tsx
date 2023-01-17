@@ -16,6 +16,8 @@ const Login: React.FC = () => {
     const [message, setMessage] = useState<string>('');
     const [error, setError] = useState<boolean>(false);
 
+    const userContext = useAuth();
+
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
