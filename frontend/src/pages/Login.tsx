@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState, useRef, FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -14,7 +15,7 @@ const Login: React.FC = () => {
     const [message, setMessage] = useState<string>('');
     const [error, setError] = useState<boolean>(false);
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         if ([emailRef.current?.value, passwordRef.current?.value].includes('')) {
@@ -22,6 +23,15 @@ const Login: React.FC = () => {
             setError(true);
             setMessage('All fields are required');
             return;
+        }
+
+        try {
+            const { data } = await axios.post<{ msg: string, token: string }>(`${import.meta.env.VITE_API_USERS_URL}/login`, { email: emailRef.current?.value, password: passwordRef.current?.value });
+            localStorage.setItem('token', data.token)
+        } catch (error: any) {
+            setShowAlert(true);
+            setError(true);
+            setMessage(error.response.data.msg);
         }
     }
 
