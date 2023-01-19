@@ -9,6 +9,7 @@ type User = {
 
 type ContextType = {
     setAuth: (auth: User) => void,
+    auth: User | null,
 };
 
 
@@ -47,7 +48,8 @@ export const AuthProvider = ({ children } : { children: ReactNode}) => {
 
     return (
         <AuthContext.Provider value={{
-            setAuth
+            auth,
+            setAuth,
         }}>
             {children}
         </AuthContext.Provider>
