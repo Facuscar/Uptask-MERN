@@ -2,17 +2,18 @@ import { Outlet, Navigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
 const ProtectedRoute = () => {
-    const context = useAuth();
+    const userContext = useAuth();
 
-    let auth;
+    let auth = null;
+    let loading = null;
 
-    if ( context ) ({ auth } = context);
+    if ( userContext ) ({ auth, loading } = userContext);
 
-    console.log(auth);
+    if (loading) return 'Loading...';
 
     return (
         <>
-            {auth?._id ? 'Auth' : <Navigate to={"/"} />}
+            {auth?._id ? <Outlet /> : <Navigate to={"/"} />}
         </>
     )
 }
