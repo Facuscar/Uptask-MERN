@@ -140,5 +140,7 @@ export const newPassword = async (req, res) => {
 }
 
 export const profile = async (req, res) => {
-    console.log('Second');
+    const { user } = req;
+
+    res.json(user);
 }
