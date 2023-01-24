@@ -5,6 +5,7 @@ import { AuthProvider } from "./context/AuthProvider";
 import ConfirmAccount from "./pages/ConfirmAccount";
 import ForgotPassword from "./pages/ForgotPassword";
 import NewPassword from "./pages/NewPassword";
+import NewProject from "./pages/NewProject";
 import Login from "./pages/Login";
 import Projects from "./pages/Projects";
 import Register from "./pages/Register";
@@ -25,6 +26,7 @@ function App() {
           </Route>
           <Route path="/projects" element={<ProtectedRoute />}>
             <Route index element={<Projects />} />
+            <Route path={PATH.CREATE_PROJECT} element={<NewProject />} />
           </Route>
         </Routes>
         </AuthProvider>
