@@ -13,5 +13,5 @@ export const PATH: Path = {
     FORGOT_PASSWORD: '/forgot-password',
     CONFIRM_ACCOUNT: '/confirm-account',
     PROJECTS: '/projects',
-    CREATE_PROJECT: '/create-project'
+    CREATE_PROJECT: '/projects/create-project',
 };
