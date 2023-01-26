@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 
-import Alert from "../components/Alert";
+import Alert from "../components/Atoms/Alert";
 import { PATH } from "../constants/path";
 
 const ConfirmAccount: React.FC = () => {

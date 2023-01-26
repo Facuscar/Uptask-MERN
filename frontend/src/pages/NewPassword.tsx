@@ -3,9 +3,9 @@ import { useState, useEffect, useRef, FormEvent  }from "react";
 import { Link, useParams } from "react-router-dom";
 
 import { PATH } from "../constants/path";
-import Alert from "../components/Alert";
-import Input from "../components/Form/Input";
-import SubmitButton from "../components/Form/SubmitButton";
+import Alert from "../components/Atoms/Alert";
+import Input from "../components/Atoms/Form/Input";
+import SubmitButton from "../components/Atoms/Form/SubmitButton";
 
 const NewPassword: React.FC = () => {
     const params = useParams();

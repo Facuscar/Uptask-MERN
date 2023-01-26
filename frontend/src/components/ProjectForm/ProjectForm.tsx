@@ -1,7 +1,7 @@
 import { useRef } from "react";
 
-import Input from "../Form/Input";
-import SubmitButton from '../Form/SubmitButton';
+import Input from "../Atoms/Form/Input";
+import SubmitButton from '../Atoms/Form/SubmitButton';
 
 const ProjectForm: React.FC = () => {
     const nameRef = useRef<HTMLInputElement>(null);

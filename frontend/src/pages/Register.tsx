@@ -2,9 +2,9 @@ import axios from "axios";
 import { useState, useRef, FormEvent } from "react";
 import { Link } from "react-router-dom";
 
-import Alert from "../components/Alert";
-import Input from "../components/Form/Input";
-import SubmitButton from "../components/Form/SubmitButton";
+import Alert from "../components/Atoms/Alert";
+import Input from "../components/Atoms/Form/Input";
+import SubmitButton from "../components/Atoms/Form/SubmitButton";
 import { PATH } from "../constants/path";
 
 const Register: React.FC = () => {
