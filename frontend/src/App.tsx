@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import { PATH } from "./constants/path"
 import { AuthProvider } from "./context/AuthProvider";
-import { ProjectsProvider } from "./context/ProjectContext";
+import { ProjectsProvider } from "./context/ProjectProvider";
 import ConfirmAccount from "./pages/ConfirmAccount";
 import ForgotPassword from "./pages/ForgotPassword";
 import NewPassword from "./pages/NewPassword";

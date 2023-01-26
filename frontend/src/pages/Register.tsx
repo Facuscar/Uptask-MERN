@@ -17,7 +17,7 @@ const Register: React.FC = () => {
     const [message, setMessage] = useState<string>('');
     const [error, setError] = useState<boolean>(false);
 
-    const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if ([emailRef.current?.value, nameRef.current?.value, passwordRef.current?.value, secondPasswordRef.current?.value].includes('')) {
             setMessage('All fields are required')
@@ -44,7 +44,7 @@ const Register: React.FC = () => {
         
         const createUser = async () => {
             try {
-                const response = await axios.post<{ msg: string }>(`${import.meta.env.VITE_API_USERS_URL}`, { name: nameRef.current?.value, email: emailRef.current?.value, password: passwordRef.current?.value });
+                const response = await axios.post<{ msg: string }>(import.meta.env.VITE_API_USERS_URL, { name: nameRef.current?.value, email: emailRef.current?.value, password: passwordRef.current?.value });
                 setShowAlert(true);
                 setMessage(response.data.msg);
                 setError(false);
@@ -65,7 +65,7 @@ const Register: React.FC = () => {
 
             {showAlert && <Alert message={message} error={error} />}
 
-            <form className="my-10 bg-white shadow rounded-lg p-10" onSubmit={e => onSubmit(e)} >
+            <form className="my-10 bg-white shadow rounded-lg p-10" onSubmit={e => handleSubmit(e)} >
                 <Input type="email" name="Email" placeholder="example@example.com" ref={emailRef} />
                 <Input type="text" name="Name" placeholder="Your name" ref={nameRef} />
                 <Input type="password" name="Password" placeholder="Your password" ref={passwordRef} />

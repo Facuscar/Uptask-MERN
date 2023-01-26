@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 
 import { PATH } from "../constants/path";
-import SearchInput from "./SearchInput";
-import Button from "./Button";
+import SearchInput from "./Atoms/SearchInput";
+import Button from "./Atoms/Button";
 
 const Header: React.FC = () => {
     return (

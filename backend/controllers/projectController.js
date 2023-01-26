@@ -11,8 +11,8 @@ export const newProject = async (req, res) => {
     project.creator = req.user._id;
 
     try {
-        const dbProject = await project.save();
-        res.json(dbProject);
+        await project.save();
+        res.json({ msg: 'Project created successfully' });
     } catch (error) {
         console.log(error);
     }

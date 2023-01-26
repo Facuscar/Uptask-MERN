@@ -8,14 +8,14 @@ type User = {
     _id: string,
 };
 
-type ContextType = {
+type Context = {
     setAuth: (auth: User) => void,
     auth: User | null,
     loading: boolean,
 };
 
 
-const AuthContext = createContext<ContextType | null>(null);
+const AuthContext = createContext<Context | null>(null);
 
 export const AuthProvider = ({ children } : { children: ReactNode}) => {
 
