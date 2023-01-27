@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState, useEffect, createContext, ReactNode } from "react";
+import { useNavigate } from "react-router-dom";
 
 type Project = {
     name: string;
@@ -16,6 +17,8 @@ const ProjectsContext = createContext<Context | null>(null);
 
 export const ProjectsProvider = ({ children } : { children: ReactNode }) => {
 
+    const navigate = useNavigate();
+
     const submitProject = async (project: Project) => {
         
         let success = false;
@@ -24,7 +27,7 @@ export const ProjectsProvider = ({ children } : { children: ReactNode }) => {
         try {
             const token = localStorage.getItem('token');
             
-            if (!token) return; //TODO: Redirect to login page
+            if (!token) navigate('/');
 
             const config = {
                 headers: {
