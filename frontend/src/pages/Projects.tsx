@@ -2,13 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
-type Project = {
-    name: string;
-    description: string;
-    dueDate: string;
-    client: string;
-};
-
+import ProjectList from "../components/ProjectList";
+import { Project } from "../types/Project";
 
 const Projects: React.FC = () => {
 
@@ -47,8 +42,8 @@ const Projects: React.FC = () => {
     if (loading) return <div>Projects skeletons..</div>
 
     return (
-        <div className="bg-white shadow mt-10 rounded-lg p-5">
-            {!projects?.length ? <p>Projects</p> : <p className="text-center text-gray-600 uppercase">You haven't created any projects yet</p>}
+        <div className="bg-white shadow mt-10 rounded-lg">
+            {projects?.length ? <ProjectList projects={projects} /> : <p className="text-center text-gray-600 uppercase p-5">You haven't created any projects yet</p>}
         </div>
     )
 }

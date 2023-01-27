@@ -8,6 +8,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import NewPassword from "./pages/NewPassword";
 import NewProject from "./pages/NewProject";
 import Login from "./pages/Login";
+import Project from "./pages/Project";
 import Projects from "./pages/Projects";
 import Register from "./pages/Register";
 import AuthLayout from "./layouts/AuthLayout";
@@ -29,6 +30,7 @@ function App() {
               <Route path="/projects" element={<ProtectedRoute />}>
                 <Route index element={<Projects />} />
                 <Route path={PATH.CREATE_PROJECT} element={<NewProject />} />
+                <Route path={":id"} element={<Project />} />
               </Route>
             </Routes>
           </ProjectsProvider>
