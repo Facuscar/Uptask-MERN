@@ -24,7 +24,7 @@ export const ProjectsProvider = ({ children } : { children: ReactNode }) => {
         try {
             const token = localStorage.getItem('token');
             
-            if (!token) return;
+            if (!token) return; //TODO: Redirect to login page
 
             const config = {
                 headers: {
@@ -38,7 +38,7 @@ export const ProjectsProvider = ({ children } : { children: ReactNode }) => {
             message = data.msg;
         } catch (error: any) {
             console.log(error);
-            message = 'There was an error... please try again later';
+            message = error.response.data.msg;
         } 
         return { 
             success,
