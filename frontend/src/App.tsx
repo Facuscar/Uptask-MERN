@@ -4,6 +4,7 @@ import { PATH } from "./constants/path"
 import { AuthProvider } from "./context/AuthProvider";
 import { ProjectsProvider } from "./context/ProjectProvider";
 import ConfirmAccount from "./pages/ConfirmAccount";
+import EditProject from "./pages/EditProject";
 import ForgotPassword from "./pages/ForgotPassword";
 import NewPassword from "./pages/NewPassword";
 import NewProject from "./pages/NewProject";
@@ -27,10 +28,11 @@ function App() {
                 <Route path={`${PATH.FORGOT_PASSWORD}/:token`} element={ <NewPassword /> } />
                 <Route path={`${PATH.CONFIRM_ACCOUNT}/:token`} element={ <ConfirmAccount /> } />
               </Route>
-              <Route path="/projects" element={<ProtectedRoute />}>
+              <Route path={PATH.PROJECTS} element={<ProtectedRoute />}>
                 <Route index element={<Projects />} />
                 <Route path={PATH.CREATE_PROJECT} element={<NewProject />} />
                 <Route path={":id"} element={<Project />} />
+                <Route path={`${PATH.EDIT_PROJECT}/:id`} element={<EditProject />} />
               </Route>
             </Routes>
           </ProjectsProvider>

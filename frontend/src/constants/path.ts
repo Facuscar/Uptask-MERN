@@ -5,6 +5,7 @@ type Path = {
     CONFIRM_ACCOUNT: string,
     PROJECTS: string,
     CREATE_PROJECT: string,
+    EDIT_PROJECT: string,
 };
 
 export const PATH: Path = {
@@ -14,4 +15,5 @@ export const PATH: Path = {
     CONFIRM_ACCOUNT: '/confirm-account',
     PROJECTS: '/projects',
     CREATE_PROJECT: '/projects/create-project',
+    EDIT_PROJECT: '/projects/edit-project',
 };
