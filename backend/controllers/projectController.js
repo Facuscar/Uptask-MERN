@@ -1,5 +1,4 @@
 import Project from "../models/Project.js";
-import Task from "../models/Tasks.js";
 
 export const getProjects = async (req, res) => {
     const projects = await Project.find().where('creator').equals(req.user);
