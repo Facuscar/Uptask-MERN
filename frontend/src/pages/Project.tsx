@@ -1,4 +1,36 @@
-const Project = () => {
+import { useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
+
+const Project: React.FC = () => {
+    const params = useParams();
+    const navigate = useNavigate();
+
+    const { id } = params;
+
+    useEffect(() => {
+        const getProject = async () => {
+            try {
+                const token = localStorage.getItem('token');
+                if (!token) {
+                    navigate('/'); 
+                    return;
+                }
+
+                const config = {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`
+                    },
+                };
+                
+                const { data } = await axios.get(`${import.meta.env.VITE_API_PROJECTS_URL}/${id}`, config)
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    }, []);
+
     return <></>
 }
 
