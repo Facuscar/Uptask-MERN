@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
 
 import RestaurantPageComponent from '../components/ProjectPage';
 import { Project } from "../types/Project";
+import { getProject } from '../utils/getProject';
 
 const ProjectPage: React.FC = () => {
     const params = useParams();
@@ -14,32 +14,15 @@ const ProjectPage: React.FC = () => {
     const { id } = params;
 
     useEffect(() => {
-        const getProject = async () => {
-            try {
-                const token = localStorage.getItem('token');
-                if (!token) {
-                    navigate('/'); 
-                    return;
-                }
-
-                const config = {
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`
-                    },
-                };
-                
-                const { data } = await axios.get<Project>(`${import.meta.env.VITE_API_PROJECTS_URL}/${id}`, config)
-                setProject(data);
-            } catch (error) {
-                console.log(error);
-            }
-        }
-
-        getProject();
+        const loadProject = async () => {
+            const data = await getProject(id);
+            if (!data) navigate('/');
+            setProject(data);
+        } 
+        loadProject();
     }, []);
 
-    if (!project) return <>Loading...</>;
+    if (!project) return <>Project skeleton...</>;
 
     return (
         <RestaurantPageComponent project={project} />
