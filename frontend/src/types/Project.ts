@@ -3,5 +3,5 @@ export type Project = {
     description: string;
     dueDate: string;
     client: string;
-    _id: string;
+    _id?: string;
 };

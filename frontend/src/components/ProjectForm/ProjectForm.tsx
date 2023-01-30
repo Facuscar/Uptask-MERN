@@ -48,14 +48,14 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ project }) => {
             return;
         }
 
-        const project = {
+        const newProject = {
             name: nameRef.current.value,
             description: descriptionRef.current.value,
             dueDate:  dueDateRef.current.value,
             client: clientRef.current.value,
         }
 
-        const response = await ProjectContext?.submitProject(project);
+        const response = await ProjectContext?.submitProject(newProject);
         setShowAlert(true)
 
         if (response && !response.success) {
