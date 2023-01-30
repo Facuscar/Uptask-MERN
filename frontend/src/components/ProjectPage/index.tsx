@@ -1,18 +1,19 @@
 import { Link } from "react-router-dom";
 
+import ProjectTitle from "../Atoms/ProjectTitle";
 import { PATH } from "../../constants/path";
 import { Project } from "../../types/Project"
 
-type RestaurantPageProps = {
+type ProjectPageProps = {
     project: Project;
 };
 
-const RestaurantPage: React.FC<RestaurantPageProps> = ({ project }) => {
+const ProjectPage: React.FC<ProjectPageProps> = ({ project }) => {
     const { name, _id } = project;
     return (
         <div className="flex justify-between">
             <div>
-                <h1 className="font-black text-4xl">{name}</h1>
+                <ProjectTitle title={name} />
             </div>
 
             <div className="flex items-center gap-2 text-gray-400 hover:text-black">
@@ -25,4 +26,4 @@ const RestaurantPage: React.FC<RestaurantPageProps> = ({ project }) => {
     );
 }
 
-export default RestaurantPage;
+export default ProjectPage;

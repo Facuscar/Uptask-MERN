@@ -1,14 +1,19 @@
-import { useState ,useRef, FormEvent } from "react";
+import { useState ,useRef, FormEvent, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { PATH } from "../../constants/path";
 
 import useProjects from "../../hooks/useProjects";
+import { Project } from "../../types/Project";
 
 import Alert from "../Atoms/Alert";
 import Input from "../Atoms/Form/Input";
 import SubmitButton from '../Atoms/Form/SubmitButton';
 
-const ProjectForm: React.FC = () => {
+type ProjectFormProps = {
+    project?: Project;
+};
+
+const ProjectForm: React.FC<ProjectFormProps> = ({ project }) => {
     const nameRef = useRef<HTMLInputElement>(null);
     const descriptionRef = useRef<HTMLInputElement>(null);
     const dueDateRef = useRef<HTMLInputElement>(null);
@@ -17,10 +22,19 @@ const ProjectForm: React.FC = () => {
     const [showAlert, setShowAlert] = useState<boolean>(false);
     const [message, setMessage] = useState<string>('');
     const [error, setError] = useState<boolean>(false);
+    const [isEditing, setIsEditing] = useState<boolean>(false);
+
+    useEffect(() => {
+        if (project?._id) setIsEditing(true);    
+    }, []);
 
     const navigate = useNavigate();
 
     const ProjectContext = useProjects();
+
+    const formatDate = (date: string | undefined) => {
+        if (date) return date.split('T')[0];
+    }
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -67,12 +81,12 @@ const ProjectForm: React.FC = () => {
     return (
         <form className="bg-white py-10 px-5 md:w-1/2 rounded-lg" onSubmit={e => handleSubmit(e)}>
             { showAlert && <Alert error={error} message={message} /> }
-            <Input type="text" name="Project name" placeholder="Online Store" id="project_name" ref={nameRef} />
-            <Input type="text" name="Description" placeholder="Build an online store for my client" id="description" ref={descriptionRef} />
-            <Input type="date" name="Due date" id="due_date" ref={dueDateRef} />
-            <Input type="text" name="Client's name" placeholder="Uncle Joe" id="client" ref={clientRef} />
+            <Input type="text" name="Project name" placeholder="Online Store" id="project_name" ref={nameRef} value={project?.name} />
+            <Input type="text" name="Description" placeholder="Build an online store for my client" id="description" ref={descriptionRef} value={project?.description} />
+            <Input type="date" name="Due date" id="due_date" ref={dueDateRef} value={formatDate(project?.dueDate)} />
+            <Input type="text" name="Client's name" placeholder="Uncle Joe" id="client" ref={clientRef} value={project?.client} />
 
-            <SubmitButton value="Create project" />
+            <SubmitButton value={isEditing ? "Update project" : "Create project"} />
 
         </form>
     );

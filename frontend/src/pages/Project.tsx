@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
 
-import RestaurantPageComponent from '../components/ProjectPage';
+import ProjectPageComponent from '../components/ProjectPage';
 import { Project } from "../types/Project";
 import { getProject } from '../utils/getProject';
 
@@ -25,7 +25,7 @@ const ProjectPage: React.FC = () => {
     if (!project) return <>Project skeleton...</>;
 
     return (
-        <RestaurantPageComponent project={project} />
+        <ProjectPageComponent project={project} />
     );
 }
 

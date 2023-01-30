@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
+import ProjectTitle from "../components/Atoms/ProjectTitle";
+import ProjectForm from "../components/ProjectForm/ProjectForm";
 import { Project } from "../types/Project";
 import { getProject } from "../utils/getProject";
 
@@ -21,7 +23,18 @@ const EditProject: React.FC = () => {
         loadProject();
     }, []);
 
-    return <>{project?.name}</>;
+    if (!project) return <>Edit project skeleton...</>
+
+    const { name } = project;
+
+    return (
+        <>
+            <ProjectTitle title={`Edit: ${name}`} />
+            <div className="p-5 flex justify-center">
+                <ProjectForm project={project} />
+            </div>
+        </>
+    );
 }
 
 export default EditProject;
