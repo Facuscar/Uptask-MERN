@@ -57,7 +57,7 @@ export const editProject = async (req, res) => {
 
     try {
         const dbProject = await project.save();
-        res.json(dbProject);
+        res.json({ msg: 'Project modified successfully' });
     } catch (error) {
         console.log(error);
     }

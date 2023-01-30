@@ -53,9 +53,13 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ project }) => {
             description: descriptionRef.current.value,
             dueDate:  dueDateRef.current.value,
             client: clientRef.current.value,
+            _id: isEditing ? project?._id : '',
         }
 
-        const response = await ProjectContext?.submitProject(newProject);
+        const response = isEditing 
+        ? await ProjectContext?.editProject(newProject) 
+        : await ProjectContext?.submitProject(newProject);
+
         setShowAlert(true)
 
         if (response && !response.success) {
@@ -81,10 +85,10 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ project }) => {
     return (
         <form className="bg-white py-10 px-5 md:w-1/2 rounded-lg" onSubmit={e => handleSubmit(e)}>
             { showAlert && <Alert error={error} message={message} /> }
-            <Input type="text" name="Project name" placeholder="Online Store" id="project_name" ref={nameRef} value={project?.name} />
-            <Input type="text" name="Description" placeholder="Build an online store for my client" id="description" ref={descriptionRef} value={project?.description} />
-            <Input type="date" name="Due date" id="due_date" ref={dueDateRef} value={formatDate(project?.dueDate)} />
-            <Input type="text" name="Client's name" placeholder="Uncle Joe" id="client" ref={clientRef} value={project?.client} />
+            <Input type="text" name="Project name" placeholder="Online Store" id="project_name" ref={nameRef} defaultValue={project?.name} />
+            <Input type="text" name="Description" placeholder="Build an online store for my client" id="description" ref={descriptionRef} defaultValue={project?.description} />
+            <Input type="date" name="Due date" id="due_date" ref={dueDateRef} defaultValue={formatDate(project?.dueDate)} />
+            <Input type="text" name="Client's name" placeholder="Uncle Joe" id="client" ref={clientRef} defaultValue={project?.client} />
 
             <SubmitButton value={isEditing ? "Update project" : "Create project"} />
 

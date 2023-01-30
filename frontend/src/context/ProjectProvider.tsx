@@ -62,12 +62,12 @@ export const ProjectsProvider = ({ children } : { children: ReactNode }) => {
                 }
             }
 
-            const { data } = await axios.put<{msg: string}>(import.meta.env.VITE_API_PROJECTS_URL, project, config);
+            const { data } = await axios.put<{msg: string}>(`${import.meta.env.VITE_API_PROJECTS_URL}/${project._id}`, project, config);
             success = true;
             message = data.msg; 
 
         } catch (error: any) {
-            console.log(error);
+            console.log(error.response.data);
             message = error.response.data.msg
         }
 
