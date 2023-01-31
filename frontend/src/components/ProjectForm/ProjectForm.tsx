@@ -48,12 +48,15 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ project }) => {
             return;
         }
 
-        const newProject = {
+        const newProject: Project = {
             name: nameRef.current.value,
             description: descriptionRef.current.value,
             dueDate:  dueDateRef.current.value,
             client: clientRef.current.value,
-            _id: isEditing ? project?._id : '',
+        }
+
+        if (isEditing) {
+            newProject._id = project?._id;
         }
 
         const response = isEditing 
