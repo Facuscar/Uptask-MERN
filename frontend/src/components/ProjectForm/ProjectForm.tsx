@@ -55,9 +55,8 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ project }) => {
             client: clientRef.current.value,
         }
 
-        if (isEditing) {
-            newProject._id = project?._id;
-        }
+        if (isEditing) newProject._id = project?._id;
+        
 
         const response = isEditing 
         ? await ProjectContext?.editProject(newProject) 
@@ -71,7 +70,10 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ project }) => {
             return;
         }
 
-        (e.target as HTMLFormElement).reset()
+        nameRef.current.value = '';
+        descriptionRef.current.value = '';
+        dueDateRef.current.value = '';
+        clientRef.current.value = '';
 
         if(response) {
             setMessage(response.message);
