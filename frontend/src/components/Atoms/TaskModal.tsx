@@ -62,7 +62,7 @@ const TaskModal: React.FC<TaskModalProps> = ({ showModal, setShowModal, title, c
                             <div className="sm:flex sm:items-start">
                                 <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
                                     <Dialog.Title className="text-lg leading-6 font-bold text-gray-900">
-                                        <h1 className='text-4xl'>{title}</h1>
+                                        <p className='text-4xl'>{title}</p>
                                     </Dialog.Title>
                                     {children}
                                 </div>

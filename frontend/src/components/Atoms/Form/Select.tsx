@@ -13,7 +13,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(({ name, placeho
             <div className="my-5">
                 <label htmlFor={id} className="uppercase text-gray-600 block text-xl font-bold">{name}</label>
                 <select id={id} placeholder={placeholder} className="w-full mt-3 p-3 border rounded-xl bg-gray-50" ref={ref} defaultValue={defaultValue} >
-                    {options.map( option => <option value={option}>{option}</option> )}
+                    {options.map( option => <option key={option} value={option}>{option}</option> )}
                 </select>
             </div>
     )
