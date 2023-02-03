@@ -2,8 +2,9 @@ import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import ProjectTitle from "../Atoms/ProjectTitle";
 import Alert from "../Atoms/Alert";
+import ProjectTitle from "../Atoms/ProjectTitle";
+import TaskModal from "../Atoms/TaskModal";
 import { PATH } from "../../constants/path";
 import { Project } from "../../types/Project"
 
@@ -68,9 +69,9 @@ const ProjectPage: React.FC<ProjectPageProps> = ({ project }) => {
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-
                 New task
             </button>
+            <TaskModal />
         </>
     );
 }
