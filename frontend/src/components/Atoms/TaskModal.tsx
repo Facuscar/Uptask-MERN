@@ -10,7 +10,7 @@ const TaskModal: React.FC<TaskModalProps> = ({ showModal, setShowModal }) => {
  
     return (
         <Transition.Root show={showModal} as={Fragment}>
-            <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={() => setShowModal(false)}>
+            <Dialog className="fixed z-10 inset-0 overflow-y-auto" onClose={() => setShowModal(false)}>
                 <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
                     <Transition.Child
                         as={Fragment}
@@ -59,7 +59,7 @@ const TaskModal: React.FC<TaskModalProps> = ({ showModal, setShowModal }) => {
 
                             <div className="sm:flex sm:items-start">
                                 <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
-                                    <Dialog.Title as="h3" className="text-lg leading-6 font-bold text-gray-900">
+                                    <Dialog.Title className="text-lg leading-6 font-bold text-gray-900">
                                         <h1 className='text-4xl'>Title</h1>
                                     </Dialog.Title>
                                     <p>Content</p>
