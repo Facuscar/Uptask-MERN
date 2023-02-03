@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import Alert from "../Atoms/Alert";
 import ProjectTitle from "../Atoms/ProjectTitle";
 import TaskModal from "../Atoms/TaskModal";
+import TaskForm from "../TaskForm";
+
 import { PATH } from "../../constants/path";
 import { Project } from "../../types/Project"
 
@@ -77,7 +79,9 @@ const ProjectPage: React.FC<ProjectPageProps> = ({ project }) => {
                 </svg>
                 New task
             </button>
-            <TaskModal showModal={showModal} setShowModal={setShowModal} />
+            <TaskModal showModal={showModal} setShowModal={setShowModal} title="Create task">
+                <TaskForm />
+            </TaskModal>
         </>
     );
 }

@@ -1,12 +1,14 @@
-import { Fragment, useState, useEffect } from 'react'
+import { Fragment, ReactNode } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 
 type TaskModalProps = {
     showModal: boolean,
     setShowModal: (value: boolean) => void;
+    title: string;
+    children: ReactNode
 };
 
-const TaskModal: React.FC<TaskModalProps> = ({ showModal, setShowModal }) => {
+const TaskModal: React.FC<TaskModalProps> = ({ showModal, setShowModal, title, children }) => {
  
     return (
         <Transition.Root show={showModal} as={Fragment}>
@@ -60,9 +62,9 @@ const TaskModal: React.FC<TaskModalProps> = ({ showModal, setShowModal }) => {
                             <div className="sm:flex sm:items-start">
                                 <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
                                     <Dialog.Title className="text-lg leading-6 font-bold text-gray-900">
-                                        <h1 className='text-4xl'>Title</h1>
+                                        <h1 className='text-4xl'>{title}</h1>
                                     </Dialog.Title>
-                                    <p>Content</p>
+                                    {children}
                                 </div>
                             </div>
                         </div>
