@@ -17,6 +17,8 @@ export const addTask = async (req, res) => {
 
     try {
         const dbTask = await Task.create(req.body);
+        dbProject.tasks.push(dbTask._id);
+        await dbProject.save();
         res.json(dbTask);
     } catch (error) {
         console.log(error);
