@@ -80,7 +80,7 @@ const ProjectPage: React.FC<ProjectPageProps> = ({ project }) => {
                 New task
             </button>
             <TaskModal showModal={showModal} setShowModal={setShowModal} title="Create task">
-                <TaskForm />
+                <TaskForm project={_id || ''} />
             </TaskModal>
         </>
     );
