@@ -4,8 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import Alert from "../Atoms/Alert";
 import ProjectTitle from "../Atoms/ProjectTitle";
-import TaskModal from "../Atoms/TaskModal";
-import TaskForm from "../TaskForm";
+import CreateTask from "./CreateTask";
 
 import { PATH } from "../../constants/path";
 import { Project } from "../../types/Project"
@@ -47,6 +46,8 @@ const ProjectPage: React.FC<ProjectPageProps> = ({ project }) => {
         }
     }
 
+    if (!_id) return <></>;
+
     return (
         <>
             {showAlert && <Alert message={message} error={error} />}
@@ -69,19 +70,7 @@ const ProjectPage: React.FC<ProjectPageProps> = ({ project }) => {
                     </div>
                 </div>
             </div>
-            <button 
-                type="button" 
-                className="text-sm px-5 py-3 w-full md:w-auto rounded-lg uppercase font-bold text-white text-center bg-sky-400 mt-5 flex gap-2 items-center justify-center"
-                onClick={() => setShowModal(true)}
-            >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                New task
-            </button>
-            <TaskModal showModal={showModal} setShowModal={setShowModal} title="Create task">
-                <TaskForm project={_id || ''} />
-            </TaskModal>
+            <CreateTask showModal={showModal} setShowModal={setShowModal} projectId={_id} />
         </>
     );
 }
