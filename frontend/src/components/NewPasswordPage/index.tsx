@@ -5,6 +5,7 @@ import { Link, useParams } from "react-router-dom";
 import Alert from "../Atoms/Alert";
 import Input from "../Atoms/Form/Input";
 import SubmitButton from "../Atoms/Form/SubmitButton";
+import TitleWithSpan from "../Atoms/TitleWithSpan";
 
 import { PATH } from "../../constants/path";
 
@@ -71,7 +72,7 @@ const NewPasswordPage: React.FC = () => {
 
     return (
         <>
-            <h1 className="text-sky-600 font-black text-6xl">Create your account and <span className="text-slate-700">projects</span></h1>
+            <TitleWithSpan title="Recover your account and" spanTitle="projects"/>
                 { showAlert && <Alert message={message} error={error} /> }
                 { showForm ? ( 
                     <form action="" className="my-10 bg-white shadow rounded-lg p-10" onSubmit={e => handleSubmit(e)}>

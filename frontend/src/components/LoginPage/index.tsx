@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Alert from "../Atoms/Alert";
 import Input from "../Atoms/Form/Input";
 import SubmitButton from "../Atoms/Form/SubmitButton";
+import TitleWithSpan from "../Atoms/TitleWithSpan";
 
 import { PATH } from "../../constants/path";
 import useAuth from "../../hooks/useAuth";
@@ -48,8 +49,7 @@ const LoginPage: React.FC = () => {
 
     return (
         <>
-            {/* TODO: Refactor into component */}
-            <h1 className="text-sky-600 font-black text-6xl">Reset your account to access your <span className="text-slate-700">projects</span></h1>
+            <TitleWithSpan title="Log into your account to access your" spanTitle="projects" />
             { showAlert && <Alert message={message} error={error} /> }
             <form action="" className="my-10 bg-white shadow rounded-lg p-10" onSubmit={handleSubmit}>
                 <Input type="email" name="Email" placeholder="example@example.com" ref={emailRef} />

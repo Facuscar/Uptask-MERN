@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Alert from "../Atoms/Alert";
 import Input from "../Atoms/Form/Input";
 import SubmitButton from "../Atoms/Form/SubmitButton";
+import TitleWithSpan from "../Atoms/TitleWithSpan";
 
 import { PATH } from "../../constants/path";
 
@@ -62,8 +63,7 @@ const RegisterPage: React.FC = () => {
 
     return (
         <>
-            {/* TODO: Refactor into a component */}
-            <h1 className="text-sky-600 font-black text-6xl">Create your account and <span className="text-slate-700">projects</span></h1>
+            <TitleWithSpan title="Create your account and" spanTitle="projects" />
 
             {showAlert && <Alert message={message} error={error} />}
 

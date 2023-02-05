@@ -2,9 +2,10 @@ import axios from "axios";
 import { useState, useRef, FormEvent } from "react";
 import { Link } from "react-router-dom";
 
-import Alert from "..//Atoms/Alert";
+import Alert from "../Atoms/Alert";
 import Input from "../Atoms/Form/Input";
 import SubmitButton from "../Atoms/Form/SubmitButton";
+import TitleWithSpan from "../Atoms/TitleWithSpan";
 
 import { PATH } from "../../constants/path";
 
@@ -42,7 +43,7 @@ const ForgotPasswordPage: React.FC = () => {
 
     return (
         <>
-            <h1 className="text-sky-600 font-black text-6xl">Reset your account to access your <span className="text-slate-700">projects</span></h1>
+            <TitleWithSpan title="Reset your account to access your" spanTitle="projects" />
             {showAlert && <Alert message={message} error={error} /> }
             <form className="my-10 bg-white shadow rounded-lg p-10" onSubmit={handleSubmit}>
                 <Input type="email" name="Email" placeholder="example@example.com" ref={emailRef} />
