@@ -6,6 +6,7 @@ import Alert from "../Atoms/Alert";
 import Input from "../Atoms/Form/Input";
 import SubmitButton from "../Atoms/Form/SubmitButton";
 import TitleWithSpan from "../Atoms/TitleWithSpan";
+import AuthNav from "../AuthNav";
 
 import { PATH } from "../../constants/path";
 import useAuth from "../../hooks/useAuth";
@@ -57,11 +58,7 @@ const LoginPage: React.FC = () => {
 
                 <SubmitButton value="Log in" />
             </form>
-            {/* TODO: Refactor into component */}
-            <nav className="lg:flex lg:justify-between">
-                <Link className="block text-center my-5 text-slate-500 uppercase text-sm" to={PATH.REGISTER} >Sign up</Link>
-                <Link className="block text-center my-5 text-slate-500 uppercase text-sm" to={PATH.FORGOT_PASSWORD} >I forgot my password</Link>
-            </nav>
+            <AuthNav leftText="Sign up" leftTo={PATH.REGISTER} rightText="I forgot my password" rightTo={PATH.FORGOT_PASSWORD} />
         </>
     )
 }

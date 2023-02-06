@@ -6,6 +6,7 @@ import Alert from "../Atoms/Alert";
 import Input from "../Atoms/Form/Input";
 import SubmitButton from "../Atoms/Form/SubmitButton";
 import TitleWithSpan from "../Atoms/TitleWithSpan";
+import AuthNav from "../AuthNav";
 
 import { PATH } from "../../constants/path";
 
@@ -50,11 +51,7 @@ const ForgotPasswordPage: React.FC = () => {
 
                 <SubmitButton value="Send the email" />
             </form>
-            {/* TODO: Transform into nav component */}
-            <nav className="lg:flex lg:justify-between">
-                <Link className="block text-center my-5 text-slate-500 uppercase text-sm" to={PATH.LOGIN} >Log in</Link>
-                <Link className="block text-center my-5 text-slate-500 uppercase text-sm" to={PATH.REGISTER}>Register</Link>
-            </nav>
+            <AuthNav leftText="Sign in" leftTo={PATH.LOGIN} rightText="Sign up" rightTo={PATH.REGISTER} />
         </>
     )
 }
