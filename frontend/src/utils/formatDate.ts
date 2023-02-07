@@ -1,5 +1,7 @@
-export const formatDate = (date: string) => {
-    const newDate = new Date(date);
+export const formatDate = (date: any) => {
+    const formattedDate = date.split('T')[0].split('-');
+    
+    const newDate = new Date(formattedDate);
 
     return newDate.toLocaleDateString('en-US', {
         weekday: 'long',
@@ -8,3 +10,4 @@ export const formatDate = (date: string) => {
         day: 'numeric',
     });
 }
+    
