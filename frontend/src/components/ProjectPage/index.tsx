@@ -8,6 +8,7 @@ import Alert from "../Atoms/Alert";
 import DeleteIcon from "../Atoms/DeleteIcon";
 import EditIcon from "../Atoms/EditIcon";
 import ProjectTitle from "../Atoms/ProjectTitle";
+import TaskList from "../TaskList";
 
 import { PATH } from "../../constants/path";
 import { Project } from "../../types/Project"
@@ -83,6 +84,9 @@ const ProjectPage: React.FC = () => {
                 </div>
             </div>
             <CreateTask showModal={showModal} setShowModal={setShowModal} projectId={_id} />
+            <div className="bg-white shadow mt-10 rounded-lg">
+                {project.tasks ? <TaskList tasks={project.tasks} /> : <p>You don't have any tasks yet!</p>}
+            </div>
         </>
     );
 }
