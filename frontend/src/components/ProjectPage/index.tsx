@@ -118,7 +118,7 @@ const ProjectPage: React.FC = () => {
             </div>
             <CreateTask showModal={showModal} setShowModal={setShowModal} projectId={_id} createTask={createTask} />
             <div className="bg-white shadow mt-10 rounded-lg">
-                {tasks ? <TaskList tasks={tasks} /> : <p>You don't have any tasks yet!</p>}
+                {project._id && tasks ? <TaskList createTask={createTask} tasks={tasks} id={project._id} /> : <p>You don't have any tasks yet!</p>}
             </div>
         </>
     );
