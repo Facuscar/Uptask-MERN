@@ -6,7 +6,6 @@ type TaskProps = {
 };
 
 const TaskList: React.FC<TaskProps> = ({ tasks }) => {
-    console.log(tasks)
     return (
         <>
             {tasks.map(task => (

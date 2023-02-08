@@ -1,6 +1,4 @@
-import axios from "axios";
 import { useState, useRef, FormEvent } from "react";
-import { useNavigate } from "react-router-dom";
 
 import Alert from "../../../Atoms/Alert";
 import Input from "../../../Atoms/Form/Input";
@@ -11,9 +9,10 @@ import { Task, Priority } from "../../../../types/Task";
 
 type TaskFormProps = {
     project: string;
+    createTask: (task: Task) => void;
 };
 
-const TaskForm: React.FC<TaskFormProps> = ({ project }) => {
+const TaskForm: React.FC<TaskFormProps> = ({ project, createTask }) => {
     const nameRef = useRef<HTMLInputElement>(null);
     const descriptionRef = useRef<HTMLInputElement>(null);
     const dueDateRef = useRef<HTMLInputElement>(null);
@@ -23,35 +22,13 @@ const TaskForm: React.FC<TaskFormProps> = ({ project }) => {
     const [message, setMessage] = useState<string>('');
     const [error, setError] = useState<boolean>(false);
 
-    const navigate = useNavigate();
-
     const OPTIONS = ["Low", "Medium", "High"];
 
-    const createTask = async (task : Task) => {
-        try {
-            const token = localStorage.getItem('token');
-            if(!token) navigate('/');
-
-            const config = {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`
-                }
-            }
-
-            const { data } = await axios.post(import.meta.env.VITE_API_TASKS_URL, task, config)
-            console.log(data);
-
-        } catch (error: any) {
-            console.log(error); 
-        }
-    }
+    
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(!nameRef.current?.value)
-        console.log(descriptionRef.current?.value)
-        console.log(priorityRef.current?.value)
+
         if (nameRef.current === null || descriptionRef.current === null || priorityRef.current === null || dueDateRef.current === null) return;
 
         const name = nameRef.current.value;

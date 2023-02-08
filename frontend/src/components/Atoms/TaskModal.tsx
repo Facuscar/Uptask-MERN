@@ -5,7 +5,7 @@ type TaskModalProps = {
     showModal: boolean,
     setShowModal: (value: boolean) => void;
     title: string;
-    children: ReactNode
+    children: ReactNode;
 };
 
 const TaskModal: React.FC<TaskModalProps> = ({ showModal, setShowModal, title, children }) => {

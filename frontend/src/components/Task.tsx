@@ -7,7 +7,6 @@ type TaskProps = {
 
 const Task: React.FC<TaskProps> = ({ task }) => {
     const { description, name, dueDate, priority, _id, state } = task
-    console.log(task)
     return (
         <div className="border-b p-5 flex justify-between items-center">
             <div>

@@ -58,7 +58,6 @@ const NewPasswordPage: React.FC = () => {
 
             const { data } = await axios.post<{ msg: string }>(url, { password: passwordRef.current?.value });
 
-            console.log(data);
             setError(false);
             setMessage(data.msg);
         } catch (error: any) {

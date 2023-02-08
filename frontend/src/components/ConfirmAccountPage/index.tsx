@@ -18,7 +18,6 @@ const ConfirmAccountPage: React.FC = () => {
         const confirmAccount = async () => {
             try {
                 const url = `${import.meta.env.VITE_API_USERS_URL}/confirm/${token}`;
-                console.log(url);
                 const data = await axios.get<{ msg: string }>(url);
                 setMessage(data.data.msg);
                 setError(false);

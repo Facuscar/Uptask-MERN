@@ -12,6 +12,7 @@ import TaskList from "../TaskList";
 
 import { PATH } from "../../constants/path";
 import { Project } from "../../types/Project"
+import { Task } from "../../types/Task";
 import { getProject } from "../../utils/getProject";
 
 const ProjectPage: React.FC = () => {
@@ -25,6 +26,7 @@ const ProjectPage: React.FC = () => {
     const [showModal, setShowModal] = useState<boolean>(false);
 
     const [project, setProject] = useState<Project>();
+    const [tasks, setTasks] = useState<Task[]>();
 
     const { id } = params;
 
@@ -33,6 +35,7 @@ const ProjectPage: React.FC = () => {
             const data = await getProject(id);
             if (!data) navigate('/');
             setProject(data);
+            setTasks(data?.tasks);
         } 
         loadProject();
     }, []);
@@ -64,6 +67,36 @@ const ProjectPage: React.FC = () => {
         }
     }
 
+    const createTask = async (task : Task) => {
+        try {
+            const token = localStorage.getItem('token');
+            if(!token) navigate('/');
+
+            const config = {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                }
+            }
+
+            const { data } = await axios.post<Task>(import.meta.env.VITE_API_TASKS_URL, task, config)
+
+            setTasks( prev => {
+                if (prev) {
+                    return [...prev, data];
+                } else {
+                    return [data];
+                }
+            });
+
+            setShowModal(false);
+            setShowAlert(false);
+
+        } catch (error: any) {
+            console.log(error); 
+        }
+    }
+
     if (!_id) return <></>;
 
     return (
@@ -83,9 +116,9 @@ const ProjectPage: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <CreateTask showModal={showModal} setShowModal={setShowModal} projectId={_id} />
+            <CreateTask showModal={showModal} setShowModal={setShowModal} projectId={_id} createTask={createTask} />
             <div className="bg-white shadow mt-10 rounded-lg">
-                {project.tasks ? <TaskList tasks={project.tasks} /> : <p>You don't have any tasks yet!</p>}
+                {tasks ? <TaskList tasks={tasks} /> : <p>You don't have any tasks yet!</p>}
             </div>
         </>
     );
