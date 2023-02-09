@@ -2,13 +2,16 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
-import CreateTask from "./CreateTask";
+import CreateTaskButton from "./components/CreateTaskButton";
+import TaskForm from "./components/TaskForm";
+import TaskList from "./components/TaskList";
+import TaskModal from "./components/TaskModal";
 
 import Alert from "../Atoms/Alert";
 import DeleteIcon from "../Atoms/DeleteIcon";
 import EditIcon from "../Atoms/EditIcon";
 import ProjectTitle from "../Atoms/ProjectTitle";
-import TaskList from "../TaskList";
+
 
 import { PATH } from "../../constants/path";
 import { Project } from "../../types/Project"
@@ -28,6 +31,7 @@ const ProjectPage: React.FC = () => {
     const [project, setProject] = useState<Project>();
     const [tasks, setTasks] = useState<Task[]>();
 
+    const [currentTask, setCurrentTask] = useState<Task>();
     const { id } = params;
 
     useEffect(() => {
@@ -67,11 +71,8 @@ const ProjectPage: React.FC = () => {
         }
     }
 
-    const createTask = async (task : Task) => {
+    const createTask = async (task : Task, token: string) => {
         try {
-            const token = localStorage.getItem('token');
-            if(!token) navigate('/');
-
             const config = {
                 headers: {
                     "Content-Type": "application/json",
@@ -79,7 +80,7 @@ const ProjectPage: React.FC = () => {
                 }
             }
 
-            const { data } = await axios.post<Task>(import.meta.env.VITE_API_TASKS_URL, task, config)
+            const { data } = await axios.post<Task>(import.meta.env.VITE_API_TASKS_URL, task, config);
 
             setTasks( prev => {
                 if (prev) {
@@ -89,12 +90,45 @@ const ProjectPage: React.FC = () => {
                 }
             });
 
-            setShowModal(false);
-            setShowAlert(false);
-
         } catch (error: any) {
             console.log(error); 
         }
+    }
+
+    const editTask = async (task: Task, token: string) => {
+        try {
+            const config = {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                }
+            }
+
+            const { data } = await axios.put<Task>(`${import.meta.env.VITE_API_TASKS_URL}/${task._id}`, task, config);
+
+            setTasks( prev => {
+                if (prev)
+                return prev.map( oldTask => oldTask._id === task._id ? task : oldTask);
+            })
+        } catch (error: any) {
+            console.log(error); 
+        }
+    }
+
+    const submitTask = (task: Task) => {
+        const token = localStorage.getItem('token');
+        if(!token) {
+            navigate('/'); 
+            return;
+        }
+
+        if (task._id) {
+            editTask(task, token);
+        } else {
+            createTask(task, token);
+        }
+        
+        setShowModal(false);
     }
 
     if (!_id) return <></>;
@@ -105,7 +139,6 @@ const ProjectPage: React.FC = () => {
             <div className="flex justify-between">
                 <ProjectTitle title={name} />
                 <div className="flex justify-between gap-5">
-                    {/* TODO: Refactor icons into components */}
                     <div className="flex items-center gap-2 text-gray-400 hover:text-black">
                         <EditIcon />
                         <Link to={`${PATH.EDIT_PROJECT}/${_id}`} className="uppercase font-bold">Edit</Link>
@@ -116,9 +149,14 @@ const ProjectPage: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <CreateTask showModal={showModal} setShowModal={setShowModal} projectId={_id} createTask={createTask} />
+            <CreateTaskButton setShowModal={setShowModal} setCurrentTask={setCurrentTask} />
+            <TaskModal showModal={showModal} setShowModal={setShowModal} title="Create task">
+                <TaskForm project={_id} submitTask={submitTask} task={currentTask}/>
+            </TaskModal>
             <div className="bg-white shadow mt-10 rounded-lg">
-                {project._id && tasks ? <TaskList createTask={createTask} tasks={tasks} id={project._id} /> : <p>You don't have any tasks yet!</p>}
+                {project._id && tasks ? 
+                    <TaskList tasks={tasks} setShowModal={setShowModal} setCurrentTask={setCurrentTask}/> 
+                    : <p>You don't have any tasks yet!</p>}
             </div>
         </>
     );

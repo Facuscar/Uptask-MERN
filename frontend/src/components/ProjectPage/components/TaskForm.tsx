@@ -1,19 +1,19 @@
 import { useState, useRef, FormEvent } from "react";
 
-import Alert from "../../../Atoms/Alert";
-import Input from "../../../Atoms/Form/Input";
-import Select from "../../../Atoms/Form/Select";
-import SubmitButton from "../../../Atoms/Form/SubmitButton";
+import Alert from "../../Atoms/Alert";
+import Input from "../../Atoms/Form/Input";
+import Select from "../../Atoms/Form/Select";
+import SubmitButton from "../../Atoms/Form/SubmitButton";
 
-import { Task, Priority } from "../../../../types/Task";
+import { Task, Priority } from "../../../types/Task";
 
 type TaskFormProps = {
-    createTask: (task: Task) => void;
+    submitTask: (task: Task) => void;
     project: string;
     task?: Task;
 };
 
-const TaskForm: React.FC<TaskFormProps> = ({ createTask, project, task }) => {
+const TaskForm: React.FC<TaskFormProps> = ({ submitTask, project, task }) => {
     const nameRef = useRef<HTMLInputElement>(null);
     const descriptionRef = useRef<HTMLInputElement>(null);
     const dueDateRef = useRef<HTMLInputElement>(null);
@@ -55,7 +55,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ createTask, project, task }) => {
             _id: task?._id
         }
 
-        createTask(newTask);
+        submitTask(newTask);
     }
 
     return (
