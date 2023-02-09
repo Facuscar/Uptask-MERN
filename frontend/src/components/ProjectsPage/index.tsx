@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import ProjectList from "../ProjectList";
 
 import { Project } from "../../types/Project";
+import { getConfig } from "../../utils/getConfig";
 
 const ProjectsPage: React.FC = () => {
 
@@ -17,16 +18,12 @@ const ProjectsPage: React.FC = () => {
        const getProjects = async () => {
             try {
                 const token = localStorage.getItem('token');
-                if (!token) navigate('/');
+                if (!token) {
+                    navigate('/');
+                    return;
+                }
 
-                const config = {
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
-                    },
-                };
-
-                const { data } = await axios<Project[]>(import.meta.env.VITE_API_PROJECTS_URL, config);
+                const { data } = await axios<Project[]>(import.meta.env.VITE_API_PROJECTS_URL, getConfig(token));
 
                 setProjects(data);
 

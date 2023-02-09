@@ -1,5 +1,7 @@
 import axios from "axios";
 
+import { getConfig } from "./getConfig";
+
 import { Project } from "../types/Project";
 
 export const getProject = async (id: string | undefined) => {
@@ -9,15 +11,8 @@ export const getProject = async (id: string | undefined) => {
         if (!token) {
             return;
         }
-
-        const config = {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`
-            },
-        };
         
-        const { data } = await axios.get<Project>(`${import.meta.env.VITE_API_PROJECTS_URL}/${id}`, config);
+        const { data } = await axios.get<Project>(`${import.meta.env.VITE_API_PROJECTS_URL}/${id}`, getConfig(token));
         return data;
     } catch (error) {
         console.log(error);

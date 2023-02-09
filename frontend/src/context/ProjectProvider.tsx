@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 import { Project } from "../types/Project";
 
+import { getConfig } from "../utils/getConfig";
+
 type Context = {
     submitProject: (project: Project) => Promise<{ message: string, success: boolean } | undefined>;
     editProject: (project: Project) => Promise<{ message: string, success: boolean } | undefined>;
@@ -23,16 +25,12 @@ export const ProjectsProvider = ({ children } : { children: ReactNode }) => {
         try {
             const token = localStorage.getItem('token');
             
-            if (!token) navigate('/');
-
-            const config = {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                }
+            if (!token) {
+                navigate('/');
+                return;
             }
 
-            const { data } = await axios.post<{msg: string}>(import.meta.env.VITE_API_PROJECTS_URL, project, config);
+            const { data } = await axios.post<{msg: string}>(import.meta.env.VITE_API_PROJECTS_URL, project, getConfig(token));
             success = true;
             message = data.msg;
         } catch (error: any) {
@@ -53,16 +51,12 @@ export const ProjectsProvider = ({ children } : { children: ReactNode }) => {
         try {
             const token = localStorage.getItem('token');
 
-            if (!token) navigate('/');
-
-             const config = {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                }
+            if (!token) {
+                navigate('/');
+                return;
             }
 
-            const { data } = await axios.put<{msg: string}>(`${import.meta.env.VITE_API_PROJECTS_URL}/${project._id}`, project, config);
+            const { data } = await axios.put<{msg: string}>(`${import.meta.env.VITE_API_PROJECTS_URL}/${project._id}`, project, getConfig(token));
             success = true;
             message = data.msg; 
 

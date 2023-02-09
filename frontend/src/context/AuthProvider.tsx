@@ -2,6 +2,8 @@ import axios from "axios";
 import { useState, useEffect, createContext, ReactNode } from "react";
 import { useNavigate } from 'react-router-dom';
 
+import { getConfig } from "../utils/getConfig";
+
 type User = {
     email: string,
     name: string,
@@ -33,15 +35,8 @@ export const AuthProvider = ({ children } : { children: ReactNode}) => {
                 return;
             }
 
-            const config = {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`
-                }
-            }
-
             try {
-                const { data } = await axios<User>(`${import.meta.env.VITE_API_USERS_URL}/profile`, config);
+                const { data } = await axios<User>(`${import.meta.env.VITE_API_USERS_URL}/profile`, getConfig(token));
                 setAuth(data);
                 navigate('/projects');
             } catch (error: any) {

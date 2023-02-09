@@ -17,6 +17,7 @@ import { PATH } from "../../constants/path";
 import { Project } from "../../types/Project"
 import { Task } from "../../types/Task";
 import { getProject } from "../../utils/getProject";
+import { getConfig } from "../../utils/getConfig";
 
 const ProjectPage: React.FC = () => {
     const params = useParams();
@@ -51,16 +52,13 @@ const ProjectPage: React.FC = () => {
     const deleteProject = async () => {
         try {
             const token = localStorage.getItem('token');
-            if(!token) navigate('/');
 
-            const config = {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`
-                }
+            if(!token) {
+                navigate('/');
+                return;
             }
 
-            const { data } = await axios.delete<{msg: string}>(`${import.meta.env.VITE_API_PROJECTS_URL}/${project._id}`, config);
+            const { data } = await axios.delete<{msg: string}>(`${import.meta.env.VITE_API_PROJECTS_URL}/${project._id}`, getConfig(token));
 
             navigate(PATH.PROJECTS);
         } catch (error: any) {
@@ -73,14 +71,7 @@ const ProjectPage: React.FC = () => {
 
     const createTask = async (task : Task, token: string) => {
         try {
-            const config = {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`
-                }
-            }
-
-            const { data } = await axios.post<Task>(import.meta.env.VITE_API_TASKS_URL, task, config);
+            const { data } = await axios.post<Task>(import.meta.env.VITE_API_TASKS_URL, task, getConfig(token));
 
             setTasks( prev => {
                 if (prev) {
@@ -97,14 +88,7 @@ const ProjectPage: React.FC = () => {
 
     const editTask = async (task: Task, token: string) => {
         try {
-            const config = {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`
-                }
-            }
-
-            const { data } = await axios.put<Task>(`${import.meta.env.VITE_API_TASKS_URL}/${task._id}`, task, config);
+            const { data } = await axios.put<Task>(`${import.meta.env.VITE_API_TASKS_URL}/${task._id}`, task, getConfig(token));
 
             setTasks( prev => {
                 if (prev)
@@ -117,6 +101,7 @@ const ProjectPage: React.FC = () => {
 
     const submitTask = (task: Task) => {
         const token = localStorage.getItem('token');
+        
         if(!token) {
             navigate('/'); 
             return;
