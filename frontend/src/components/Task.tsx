@@ -26,12 +26,12 @@ const Task: React.FC<TaskProps> = ({ task, projectId, createTask }) => {
                 <p className="mb-1 text-gray-600">Priority: {priority}</p>
             </div>
             <div className="flex gap-2">
-                <button className="bg-indigo-600 px-4 py-3 text-white uppercase font-bold text-sm rounded-lg" onClick={() => setShowModal(true)} >Editar</button>
+                <button className="bg-indigo-600 px-4 py-3 text-white uppercase font-bold text-sm rounded-lg" onClick={() => setShowModal(true)} >Edit</button>
                 <button>Complete</button>
                 <button className="bg-red-600 px-4 py-3 text-white uppercase font-bold text-sm rounded-lg">Delete</button>
             </div>
             <TaskModal showModal={showModal} setShowModal={setShowModal} title="Create task">
-                <TaskForm project={projectId} createTask={createTask} />
+                <TaskForm project={projectId} createTask={createTask} task={task} />
             </TaskModal>
         </div>
     );

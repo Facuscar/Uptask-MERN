@@ -8,11 +8,12 @@ import SubmitButton from "../../../Atoms/Form/SubmitButton";
 import { Task, Priority } from "../../../../types/Task";
 
 type TaskFormProps = {
-    project: string;
     createTask: (task: Task) => void;
+    project: string;
+    task?: Task;
 };
 
-const TaskForm: React.FC<TaskFormProps> = ({ project, createTask }) => {
+const TaskForm: React.FC<TaskFormProps> = ({ createTask, project, task }) => {
     const nameRef = useRef<HTMLInputElement>(null);
     const descriptionRef = useRef<HTMLInputElement>(null);
     const dueDateRef = useRef<HTMLInputElement>(null);
@@ -23,8 +24,10 @@ const TaskForm: React.FC<TaskFormProps> = ({ project, createTask }) => {
     const [error, setError] = useState<boolean>(false);
 
     const OPTIONS = ["Low", "Medium", "High"];
-
     
+    const formatDate = (date: string | undefined) => {
+        if (date) return date.split('T')[0];
+    }
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -42,16 +45,17 @@ const TaskForm: React.FC<TaskFormProps> = ({ project, createTask }) => {
             setShowAlert(true);
         }
 
-        const task: Task = {
+        const newTask: Task = {
             name,
             description,
             dueDate,
             priority,
             state: false,
             project,
+            _id: task?._id
         }
 
-        createTask(task);
+        createTask(newTask);
     }
 
     return (
@@ -59,12 +63,12 @@ const TaskForm: React.FC<TaskFormProps> = ({ project, createTask }) => {
             {showAlert && <Alert message={message} error={error} />}
             <form className="my-10" onSubmit={handleSubmit}>
                 <div className="mb-5">
-                    <Input name="Task name" id="name" type="text" placeholder="Validate UX design in figma" ref={nameRef} />
-                    <Input name="Task description" id="description" type="text" placeholder="Make sure the buttons and inputs are properly aligned" ref={descriptionRef} />
-                    <Input name="Due date" id="due_date" type="date" ref={dueDateRef} />
-                    <Select name="Task priority" id="priority" options={OPTIONS} ref={priorityRef} />
+                    <Input name="Task name" id="name" type="text" placeholder="Validate UX design in figma" ref={nameRef} defaultValue={task?.name} />
+                    <Input name="Task description" id="description" type="text" placeholder="Make sure the buttons and inputs are properly aligned" ref={descriptionRef} defaultValue={task?.description} />
+                    <Input name="Due date" id="due_date" type="date" ref={dueDateRef} defaultValue={formatDate(task?.dueDate)} />
+                    <Select name="Task priority" id="priority" options={OPTIONS} ref={priorityRef} defaultValue={task?.priority} />
 
-                    <SubmitButton value="Create task" />
+                    <SubmitButton value={task ? 'Update Task': 'Create Task'} />
                 </div>
             </form>
         </>
