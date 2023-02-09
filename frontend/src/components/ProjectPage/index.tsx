@@ -3,9 +3,11 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 import CreateTaskButton from "./components/CreateTaskButton";
+import ConfirmDelete from "./components/ConfirmDelete";
 import TaskForm from "./components/TaskForm";
 import TaskList from "./components/TaskList";
 import TaskModal from "./components/TaskModal";
+
 
 import Alert from "../Atoms/Alert";
 import DeleteIcon from "../Atoms/DeleteIcon";
@@ -28,6 +30,7 @@ const ProjectPage: React.FC = () => {
     const [error, setError] = useState<boolean>(false);
 
     const [showModal, setShowModal] = useState<boolean>(false);
+    const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
 
     const [project, setProject] = useState<Project>();
     const [tasks, setTasks] = useState<Task[]>();
@@ -118,6 +121,11 @@ const ProjectPage: React.FC = () => {
 
     if (!_id) return <></>;
 
+    const getTitle = () => {
+        const title = !currentTask && !showDeleteModal ? 'Create task' : currentTask && !showDeleteModal ? 'Edit task' : 'Delete task';
+        return title;
+    };
+
     return (
         <>
             {showAlert && <Alert message={message} error={error} />}
@@ -135,12 +143,14 @@ const ProjectPage: React.FC = () => {
                 </div>
             </div>
             <CreateTaskButton setShowModal={setShowModal} setCurrentTask={setCurrentTask} />
-            <TaskModal showModal={showModal} setShowModal={setShowModal} title="Create task">
-                <TaskForm project={_id} submitTask={submitTask} task={currentTask}/>
+            <TaskModal showModal={showModal} setShowModal={setShowModal} title={getTitle()}>
+                { showDeleteModal 
+                    ? <ConfirmDelete />
+                    : <TaskForm project={_id} submitTask={submitTask} task={currentTask}/> }
             </TaskModal>
             <div className="bg-white shadow mt-10 rounded-lg">
-                {project._id && tasks ? 
-                    <TaskList tasks={tasks} setShowModal={setShowModal} setCurrentTask={setCurrentTask}/> 
+                {project._id && tasks 
+                    ? <TaskList tasks={tasks} setShowModal={setShowModal} setCurrentTask={setCurrentTask} setShowDeleteModal={setShowDeleteModal}/> 
                     : <p>You don't have any tasks yet!</p>}
             </div>
         </>
