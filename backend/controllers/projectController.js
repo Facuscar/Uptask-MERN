@@ -86,10 +86,10 @@ export const deleteProject = async (req, res) => {
     }
 };
 
-export const addCollaborator = async (req, res) => {
+export const addContributor = async (req, res) => {
 
 };
 
-export const deleteCollaborator = async (req, res) => {
+export const deleteContributor = async (req, res) => {
 
 };

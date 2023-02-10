@@ -182,6 +182,15 @@ const ProjectPage: React.FC = () => {
                     ? <TaskList tasks={tasks} setShowModal={setShowModal} setCurrentTask={setCurrentTask} setShowDeleteModal={setShowDeleteModal}/> 
                     : <p>You don't have any tasks yet!</p>}
             </div>
+            <div className="flex items-center justify-between mt-10">
+                <p className="font-bold text-xl">Contributors</p>
+                <Link 
+                    to={`${PATH.NEW_COLLABORATOR}/${_id}`} 
+                    className="text-gray-400 uppercase font-bold hover:text-black"
+                >
+                    Add contributor
+                </Link>
+            </div>
         </>
     );
 }

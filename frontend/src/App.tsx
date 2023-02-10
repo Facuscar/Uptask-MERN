@@ -6,6 +6,7 @@ import { ProjectsProvider } from "./context/ProjectProvider";
 import ConfirmAccount from "./pages/ConfirmAccount";
 import EditProject from "./pages/EditProject";
 import ForgotPassword from "./pages/ForgotPassword";
+import NewContributor from "./pages/NewContributor";
 import NewPassword from "./pages/NewPassword";
 import NewProject from "./pages/NewProject";
 import Login from "./pages/Login";
@@ -20,6 +21,7 @@ function App() {
     <BrowserRouter>
       <AuthProvider>
           <ProjectsProvider>
+
             <Routes>
               <Route path="/" element={ <AuthLayout /> }>
                 <Route index element={ <Login /> } />
@@ -28,12 +30,15 @@ function App() {
                 <Route path={`${PATH.FORGOT_PASSWORD}/:token`} element={ <NewPassword /> } />
                 <Route path={`${PATH.CONFIRM_ACCOUNT}/:token`} element={ <ConfirmAccount /> } />
               </Route>
+
               <Route path={PATH.PROJECTS} element={<ProtectedRoute />}>
                 <Route index element={<Projects />} />
                 <Route path={PATH.CREATE_PROJECT} element={<NewProject />} />
+                <Route path={`${PATH.NEW_COLLABORATOR}/:id`} element={<NewContributor />} />
                 <Route path={":id"} element={<Project />} />
                 <Route path={`${PATH.EDIT_PROJECT}/:id`} element={<EditProject />} />
               </Route>
+
             </Routes>
           </ProjectsProvider>
         </AuthProvider>
