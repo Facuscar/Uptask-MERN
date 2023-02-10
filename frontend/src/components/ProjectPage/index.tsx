@@ -48,6 +48,14 @@ const ProjectPage: React.FC = () => {
         loadProject();
     }, []);
 
+    useEffect(() => {
+        if (!showModal && showDeleteModal) {
+            setTimeout(() => {
+                setShowDeleteModal(false);
+            }, 300)
+        }
+    }, [showModal]);
+
     if (!project) return <>Project skeleton...</>;
 
     const { name, _id } = project;
@@ -70,7 +78,7 @@ const ProjectPage: React.FC = () => {
         } finally {
             setShowAlert(true);
         }
-    }
+    };
 
     const createTask = async (task : Task, token: string) => {
         try {
@@ -87,7 +95,7 @@ const ProjectPage: React.FC = () => {
         } catch (error: any) {
             console.log(error); 
         }
-    }
+    };
 
     const editTask = async (task: Task, token: string) => {
         try {
@@ -100,7 +108,7 @@ const ProjectPage: React.FC = () => {
         } catch (error: any) {
             console.log(error); 
         }
-    }
+    };
 
     const submitTask = (task: Task) => {
         const token = localStorage.getItem('token');
@@ -117,7 +125,28 @@ const ProjectPage: React.FC = () => {
         }
         
         setShowModal(false);
-    }
+    };
+
+    const deleteTask = async () => {
+        const token = localStorage.getItem('token');
+
+        if(!token) {
+            navigate('/'); 
+            return;
+        }
+
+        try {
+            const { data } = await axios.delete(`${import.meta.env.VITE_API_TASKS_URL}/${currentTask?._id}`, getConfig(token))
+            setTasks( prev => {
+                if (prev)
+                return prev.filter( oldTask => oldTask._id !== currentTask?._id);
+            });
+
+            setShowModal(false);
+        } catch (error: any) {
+            console.log(error);
+        }
+    };
 
     if (!_id) return <></>;
 
@@ -145,7 +174,7 @@ const ProjectPage: React.FC = () => {
             <CreateTaskButton setShowModal={setShowModal} setCurrentTask={setCurrentTask} />
             <TaskModal showModal={showModal} setShowModal={setShowModal} title={getTitle()}>
                 { showDeleteModal 
-                    ? <ConfirmDelete />
+                    ? <ConfirmDelete deleteTask={deleteTask} setShowModal={setShowModal} />
                     : <TaskForm project={_id} submitTask={submitTask} task={currentTask}/> }
             </TaskModal>
             <div className="bg-white shadow mt-10 rounded-lg">

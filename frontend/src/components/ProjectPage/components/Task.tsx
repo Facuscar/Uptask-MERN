@@ -19,6 +19,7 @@ const Task: React.FC<TaskProps> = ({ task, setShowModal, setCurrentTask, setShow
     const handleDeleteClick = () => {
         setShowModal(true);
         setShowDeleteModal(true);
+        setCurrentTask(task);
     }
 
     return (
