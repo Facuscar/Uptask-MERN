@@ -6,7 +6,7 @@ type Path = {
     PROJECTS: string,
     CREATE_PROJECT: string,
     EDIT_PROJECT: string,
-    NEW_COLLABORATOR: string,
+    NEW_CONTRIBUTOR: string,
 };
 
 export const PATH: Path = {
@@ -17,5 +17,5 @@ export const PATH: Path = {
     PROJECTS: '/projects',
     CREATE_PROJECT: '/projects/create-project',
     EDIT_PROJECT: '/projects/edit-project',
-    NEW_COLLABORATOR: '/projects/new-contributor',
+    NEW_CONTRIBUTOR: '/projects/new-contributor',
 };

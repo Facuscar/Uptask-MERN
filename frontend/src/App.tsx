@@ -34,7 +34,7 @@ function App() {
               <Route path={PATH.PROJECTS} element={<ProtectedRoute />}>
                 <Route index element={<Projects />} />
                 <Route path={PATH.CREATE_PROJECT} element={<NewProject />} />
-                <Route path={`${PATH.NEW_COLLABORATOR}/:id`} element={<NewContributor />} />
+                <Route path={`${PATH.NEW_CONTRIBUTOR}/:id`} element={<NewContributor />} />
                 <Route path={":id"} element={<Project />} />
                 <Route path={`${PATH.EDIT_PROJECT}/:id`} element={<EditProject />} />
               </Route>

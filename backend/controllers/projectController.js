@@ -1,4 +1,5 @@
 import Project from "../models/Project.js";
+import User from "../models/User.js";
 
 export const getProjects = async (req, res) => {
     const projects = await Project.find().where('creator').equals(req.user).select('-tasks');
@@ -84,6 +85,19 @@ export const deleteProject = async (req, res) => {
     } catch (error) {
         console.log(error);
     }
+};
+
+export const getContributor = async (req, res) => {
+    const { email } = req.body;
+
+    const user = await User.findOne({email}).select('-confirmed -createAt -password -token -updatedAt -__v');
+
+    if (!user) {
+        const error = new Error('User not found');
+        return res.status(404).json({ msg: error.message });
+    }
+
+    res.json(user)
 };
 
 export const addContributor = async (req, res) => {

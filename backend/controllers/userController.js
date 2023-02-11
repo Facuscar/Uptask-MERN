@@ -1,4 +1,4 @@
-import { User } from "../models/User.js";
+import User from "../models/User.js";
 import generateId from "../helpers/generateId.js";
 import generateJWT from "../helpers/generateJWT.js";
 import { registerEmail, recoverPassword } from "../helpers/emails.js";

@@ -5,7 +5,7 @@ import Input from "../../Atoms/Form/Input";
 import SubmitButton from "../../Atoms/Form/SubmitButton";
 
 type ContributorFormProps = {
-    submitContributor: (email: string) => void;
+    submitContributor: (email: string) => Promise <{ error: boolean, message: string } | undefined>;
 };
 
 const ContributorForm: React.FC<ContributorFormProps> = ({ submitContributor }) => {
@@ -15,7 +15,7 @@ const ContributorForm: React.FC<ContributorFormProps> = ({ submitContributor }) 
 
     const emailRef = useRef<HTMLInputElement>(null);
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         if (!emailRef.current?.value) {
@@ -26,9 +26,12 @@ const ContributorForm: React.FC<ContributorFormProps> = ({ submitContributor }) 
         } 
 
         setError(false);
-        setShowAlert(false);
         const email = emailRef.current.value;
-        submitContributor(email);
+        const response = await submitContributor(email);
+        if (!response) return;
+        setMessage(response.message);
+        setError(response.error);
+        setShowAlert(true);
     }
 
     return (
