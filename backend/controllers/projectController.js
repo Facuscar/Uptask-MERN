@@ -90,14 +90,17 @@ export const deleteProject = async (req, res) => {
 export const getContributor = async (req, res) => {
     const { email } = req.body;
 
-    const user = await User.findOne({email}).select('-confirmed -createAt -password -token -updatedAt -__v');
+    const user = await User.findOne({email}).select('-confirmed -createdAt -password -token -updatedAt -__v');
 
     if (!user) {
         const error = new Error('User not found');
         return res.status(404).json({ msg: error.message });
     }
 
-    res.json(user)
+    res.json({
+        user, 
+        msg: 'User found',
+    });
 };
 
 export const addContributor = async (req, res) => {
