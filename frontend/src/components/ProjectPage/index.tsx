@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 
 import CreateTaskButton from "./components/CreateTaskButton";
 import ConfirmDelete from "./components/ConfirmDelete";
+import ContributorList from './components/ContributorList';
 import TaskForm from "./components/TaskForm";
 import TaskList from "./components/TaskList";
 import TaskModal from "./components/TaskModal";
@@ -20,6 +21,7 @@ import { Project } from "../../types/Project"
 import { Task } from "../../types/Task";
 import { getProject } from "../../utils/getProject";
 import { getConfig } from "../../utils/getConfig";
+import { Contributor } from '../../types/Contributor';
 
 const ProjectPage: React.FC = () => {
     const params = useParams();
@@ -34,6 +36,7 @@ const ProjectPage: React.FC = () => {
 
     const [project, setProject] = useState<Project>();
     const [tasks, setTasks] = useState<Task[]>();
+    const [contributors, setContributors] = useState<Contributor[]>();
 
     const [currentTask, setCurrentTask] = useState<Task>();
     const { id } = params;
@@ -46,7 +49,8 @@ const ProjectPage: React.FC = () => {
                 return;
             };
             setProject(data);
-            setTasks(data?.tasks);
+            setTasks(data.tasks);
+            setContributors(data.contributors);
         } 
         loadProject();
     }, []);
@@ -181,9 +185,9 @@ const ProjectPage: React.FC = () => {
                     : <TaskForm project={_id} submitTask={submitTask} task={currentTask}/> }
             </TaskModal>
             <div className="bg-white shadow mt-10 rounded-lg">
-                {project._id && tasks 
+                {tasks && tasks.length > 0
                     ? <TaskList tasks={tasks} setShowModal={setShowModal} setCurrentTask={setCurrentTask} setShowDeleteModal={setShowDeleteModal}/> 
-                    : <p>You don't have any tasks yet!</p>}
+                    : <p className="text-center my-5 p-10">You don't have any tasks yet!</p>}
             </div>
             <div className="flex items-center justify-between mt-10">
                 <p className="font-bold text-xl">Contributors</p>
@@ -193,6 +197,13 @@ const ProjectPage: React.FC = () => {
                 >
                     Add contributor
                 </Link>
+            </div>
+
+            <div className="bg-white shadow mt-10 rounded-lg">
+                {contributors && contributors.length > 0
+                    ? <ContributorList contributors={contributors} />
+                    : <p className="text-center my-5 p-10">This project doesn't have any contributors</p>
+                }
             </div>
         </>
     );

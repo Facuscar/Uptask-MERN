@@ -1,4 +1,5 @@
 import { Task } from "./Task";
+import { Contributor } from './Contributor';
 
 export type Project = {
     name: string;
@@ -6,5 +7,6 @@ export type Project = {
     dueDate: string;
     client: string;
     _id?: string;
-    tasks?: Task[];
+    tasks: Task[];
+    contributors: Contributor[];
 };
