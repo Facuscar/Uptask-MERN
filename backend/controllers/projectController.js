@@ -104,7 +104,40 @@ export const getContributor = async (req, res) => {
 };
 
 export const addContributor = async (req, res) => {
+    const project = await Project.findById(req.params.id);
 
+    if (!project) {
+        const error = new Error('Project not found');
+        return res.status(404).json({ msg: error.message });
+    }
+
+    if (project.creator.toString() !== req.user._id.toString()) {
+        const error = new Error('Only project owners can add contributors');
+        return res.status(404).json({ msg: error.message });
+    }
+
+    const { contributor } = req.body;
+    const user = await User.findOne({ email: contributor }).select("-confirmed -createdAt -password -token -updatedAt -__v");
+
+    if (!user) {
+        const error = new Error('User not found');
+        return res.status(404).json({ msg: error.message });
+    };
+
+    if (project.creator.toString() === user._id.toString()) {
+        const error = new Error('You already are part of the project!');
+        return res.status(404).json({ msg: error.message });
+    }
+
+    if (project.contributors.includes(user._id)) {
+        const error = new Error('This user is already contributor for this project');
+        return res.status(404).json({ msg: error.message });
+    }
+
+    project.contributors.push(user._id);
+
+    await project.save();
+    res.json({msg: 'Contributor included successfully'});
 };
 
 export const deleteContributor = async (req, res) => {

@@ -25,13 +25,16 @@ const ContributorForm: React.FC<ContributorFormProps> = ({ submitContributor }) 
             return;
         } 
 
-        setError(false);
         const email = emailRef.current.value;
         const response = await submitContributor(email);
         if (!response) return;
         setMessage(response.message);
         setError(response.error);
         setShowAlert(true);
+
+        setTimeout(() => {
+            setShowAlert(false);
+        }, 3000)
     }
 
     return (

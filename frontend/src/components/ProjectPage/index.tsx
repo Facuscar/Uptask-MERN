@@ -41,7 +41,10 @@ const ProjectPage: React.FC = () => {
     useEffect(() => {
         const loadProject = async () => {
             const data = await getProject(id);
-            if (!data) navigate('/');
+            if (!data) {
+                navigate('/');
+                return;
+            };
             setProject(data);
             setTasks(data?.tasks);
         } 
