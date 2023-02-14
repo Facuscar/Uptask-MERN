@@ -1,4 +1,4 @@
-import { Contributor as ContributorType } from "../../../types/Contributor";
+import { Contributor as ContributorType } from "../../../../../types/Contributor";
 
 type ContributorProps = {
     contributor: ContributorType;

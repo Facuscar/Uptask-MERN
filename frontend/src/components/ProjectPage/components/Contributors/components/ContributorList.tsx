@@ -1,10 +1,10 @@
 import { useState } from "react";
 
-import Modal from "./Modal";
-import ConfirmDelete from "./ConfirmDelete";
+import Modal from "../../Modal";
+import ConfirmDelete from "../../ConfirmDelete";
 import Contributor from "./Contributor";
 
-import { Contributor as ContributorType } from "../../../types/Contributor";
+import { Contributor as ContributorType } from "../../../../../types/Contributor";
 
 type ContributorListProps = {
     contributors: ContributorType[];

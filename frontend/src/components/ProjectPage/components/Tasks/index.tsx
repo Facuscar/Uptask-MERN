@@ -2,10 +2,10 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import CreateTaskButton from "../CreateTaskButton";
+import CreateTaskButton from "./components/CreateTaskButton";
 import Modal from "../Modal";
-import TaskForm from "../TaskForm";
-import TaskList from "../TaskList";
+import TaskForm from "./components/TaskForm";
+import TaskList from "./components/TaskList";
 
 import { Task } from "../../../../types/Task";
 import { getConfig } from "../../../../utils/getConfig";

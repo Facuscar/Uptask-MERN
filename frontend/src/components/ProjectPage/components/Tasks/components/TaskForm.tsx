@@ -1,11 +1,11 @@
 import { useState, useRef, FormEvent } from "react";
 
-import Alert from "../../Atoms/Alert";
-import Input from "../../Atoms/Form/Input";
-import Select from "../../Atoms/Form/Select";
-import SubmitButton from "../../Atoms/Form/SubmitButton";
+import Alert from "../../../../Atoms/Alert";
+import Input from "../../../../Atoms/Form/Input";
+import Select from "../../../../Atoms/Form/Select";
+import SubmitButton from "../../../../Atoms/Form/SubmitButton";
 
-import { Task, Priority } from "../../../types/Task";
+import { Task, Priority } from "../../../../../types/Task";
 
 type TaskFormProps = {
     submitTask: (task: Task) => void;

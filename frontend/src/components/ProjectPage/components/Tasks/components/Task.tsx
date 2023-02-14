@@ -1,5 +1,5 @@
-import { Task as TaskType } from "../../../types/Task";
-import { formatDate } from "../../../utils/formatDate";
+import { Task as TaskType } from "../../../../../types/Task";
+import { formatDate } from "../../../../../utils/formatDate";
 
 type TaskProps = {
     setCurrentTask: (task: TaskType) => void;
