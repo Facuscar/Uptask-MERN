@@ -37,7 +37,6 @@ const ProjectPage: React.FC = () => {
     if (!_id) return <></>;
 
     return (
-        // Make huge refactor of this file
         <>
             <Header name={name} projectId={_id} />
 
