@@ -16,10 +16,15 @@ type TaskListProps = {
 const TaskList: React.FC<TaskListProps> = ({ tasks, setShowModal, setCurrentTask, deleteTask }) => {
     const [deleteModal, setDeleteModal] = useState<boolean>(false);
 
+    const handleDelete = () => {
+        deleteTask();
+        setDeleteModal(false);
+    }
+
     return (
         <>
             <Modal showModal={deleteModal} setShowModal={setDeleteModal} title="Delete task">
-            <ConfirmDelete setShowModal={setDeleteModal} deleteUnit={deleteTask} />
+                <ConfirmDelete setShowModal={setDeleteModal} deleteUnit={handleDelete} />
             </Modal>
             {tasks.map(task => (
                 <Task 

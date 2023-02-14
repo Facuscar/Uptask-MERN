@@ -38,6 +38,8 @@ const ProjectPage: React.FC = () => {
     const [contributors, setContributors] = useState<Contributor[]>();
 
     const [currentTask, setCurrentTask] = useState<Task>();
+    const [currentContributor, setCurrentContributor] = useState<Contributor>();
+
     const { id } = params;
 
     useEffect(() => {
@@ -140,11 +142,14 @@ const ProjectPage: React.FC = () => {
                 return prev.filter( oldTask => oldTask._id !== currentTask?._id);
             });
 
-            setShowModal(false);
         } catch (error: any) {
             console.log(error);
         }
     };
+
+    const deleteContributor = async () => {
+
+    }
 
     if (!_id) return <></>;
 
@@ -154,6 +159,7 @@ const ProjectPage: React.FC = () => {
     };
 
     return (
+        // Make huge refactor of this file
         <>
             {showAlert && <Alert message={message} error={error} />}
             <div className="flex justify-between">
@@ -190,7 +196,7 @@ const ProjectPage: React.FC = () => {
 
             <div className="bg-white shadow mt-10 rounded-lg">
                 {contributors && contributors.length > 0
-                    ? <ContributorList contributors={contributors} />
+                    ? <ContributorList contributors={contributors} setCurrentContributor={setCurrentContributor} deleteContributor={deleteContributor} />
                     : <p className="text-center my-5 p-10">This project doesn't have any contributors</p>
                 }
             </div>

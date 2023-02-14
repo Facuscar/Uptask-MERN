@@ -14,6 +14,11 @@ const Task: React.FC<TaskProps> = ({ task, setShowModal, setCurrentTask, setDele
     const handleClick = () => {
         setShowModal(true);
         setCurrentTask(task);
+    };
+
+    const handleDeleteClick = () => {
+        setDeleteModal(true);
+        setCurrentTask(task);
     }
 
     return (
@@ -27,7 +32,7 @@ const Task: React.FC<TaskProps> = ({ task, setShowModal, setCurrentTask, setDele
             <div className="flex gap-2">
                 <button className="bg-indigo-600 px-4 py-3 text-white uppercase font-bold text-sm rounded-lg" onClick={handleClick} >Edit</button>
                 <button className={`${state ? 'bg-lime-600': 'bg-slate-600'} px-4 py-3 text-white uppercase font-bold text-sm rounded-lg`}>{state ? 'Completed' : 'Complete'}</button>
-                <button className="bg-red-600 px-4 py-3 text-white uppercase font-bold text-sm rounded-lg" onClick={() => setDeleteModal(true)}>Delete</button>
+                <button className="bg-red-600 px-4 py-3 text-white uppercase font-bold text-sm rounded-lg" onClick={handleDeleteClick}>Delete</button>
             </div>
         </div>
     );
