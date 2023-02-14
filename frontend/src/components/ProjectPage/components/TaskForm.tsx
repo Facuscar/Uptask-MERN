@@ -9,11 +9,11 @@ import { Task, Priority } from "../../../types/Task";
 
 type TaskFormProps = {
     submitTask: (task: Task) => void;
-    project: string;
+    projectId: string;
     task?: Task;
 };
 
-const TaskForm: React.FC<TaskFormProps> = ({ submitTask, project, task }) => {
+const TaskForm: React.FC<TaskFormProps> = ({ submitTask, projectId, task }) => {
     const nameRef = useRef<HTMLInputElement>(null);
     const descriptionRef = useRef<HTMLInputElement>(null);
     const dueDateRef = useRef<HTMLInputElement>(null);
@@ -44,14 +44,14 @@ const TaskForm: React.FC<TaskFormProps> = ({ submitTask, project, task }) => {
             setMessage("All fields are required");
             setShowAlert(true);
         }
-
+        // Refactor Task / Project Types logic (regarding option field ID)
         const newTask: Task = {
             name,
             description,
             dueDate,
             priority,
             state: false,
-            project,
+            project: projectId,
             _id: task?._id
         }
 

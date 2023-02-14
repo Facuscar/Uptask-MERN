@@ -14,10 +14,10 @@ import * as S from './styles';
 
 type HeaderProps = {
     name: string;
-    _id: string;
+    projectId: string;
 };
 
-const Header: React.FC<HeaderProps> = ({ name, _id }) => {
+const Header: React.FC<HeaderProps> = ({ name, projectId }) => {
     const navigate = useNavigate();
 
     const deleteProject = async () => {
@@ -29,7 +29,7 @@ const Header: React.FC<HeaderProps> = ({ name, _id }) => {
                 return;
             }
 
-            const { data } = await axios.delete<{msg: string}>(`${import.meta.env.VITE_API_PROJECTS_URL}/${_id}`, getConfig(token));
+            const { data } = await axios.delete<{msg: string}>(`${import.meta.env.VITE_API_PROJECTS_URL}/${projectId}`, getConfig(token));
 
             navigate(PATH.PROJECTS);
         } catch (error: any) {
@@ -52,7 +52,7 @@ const Header: React.FC<HeaderProps> = ({ name, _id }) => {
                 <S.IconsWrapper>
                     <S.IconWrapper>
                         <EditIcon />
-                        <Link to={`${PATH.EDIT_PROJECT}/${_id}`} className="uppercase font-bold">Edit</Link>
+                        <Link to={`${PATH.EDIT_PROJECT}/${projectId}`} className="uppercase font-bold">Edit</Link>
                     </S.IconWrapper>
                     <S.IconWrapper>
                         <DeleteIcon />
