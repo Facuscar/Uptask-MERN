@@ -15,10 +15,15 @@ type ContributorListProps = {
 const ContributorList: React.FC<ContributorListProps> = ({ contributors, setCurrentContributor, deleteContributor }) => {
     const [deleteModal, setDeleteModal] = useState<boolean>(false);
 
+    const handleDelete = () => {
+        deleteContributor();
+        setDeleteModal(false);
+    }
+
     return (
         <>
             <Modal title="Delete contributor" showModal={deleteModal} setShowModal={setDeleteModal}>
-                <ConfirmDelete setShowModal={setDeleteModal} deleteUnit={deleteContributor} />
+                <ConfirmDelete setShowModal={setDeleteModal} deleteUnit={handleDelete} />
             </Modal>
             {contributors.map(contributor => (
                 <Contributor 

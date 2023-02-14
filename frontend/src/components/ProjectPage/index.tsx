@@ -148,7 +148,7 @@ const ProjectPage: React.FC = () => {
     };
 
     const deleteContributor = async () => {
-
+        console.log(currentContributor);
     }
 
     if (!_id) return <></>;
