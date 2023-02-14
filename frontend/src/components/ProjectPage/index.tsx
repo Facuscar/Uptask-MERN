@@ -7,7 +7,7 @@ import ConfirmDelete from "./components/ConfirmDelete";
 import ContributorList from './components/ContributorList';
 import TaskForm from "./components/TaskForm";
 import TaskList from "./components/TaskList";
-import TaskModal from "./components/TaskModal";
+import Modal from "./components/Modal";
 
 
 import Alert from "../Atoms/Alert";
@@ -32,7 +32,6 @@ const ProjectPage: React.FC = () => {
     const [error, setError] = useState<boolean>(false);
 
     const [showModal, setShowModal] = useState<boolean>(false);
-    const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
 
     const [project, setProject] = useState<Project>();
     const [tasks, setTasks] = useState<Task[]>();
@@ -54,14 +53,6 @@ const ProjectPage: React.FC = () => {
         } 
         loadProject();
     }, []);
-
-    useEffect(() => {
-        if (!showModal && showDeleteModal) {
-            setTimeout(() => {
-                setShowDeleteModal(false);
-            }, 300)
-        }
-    }, [showModal]);
 
     if (!project) return <>Project skeleton...</>;
 
@@ -158,7 +149,7 @@ const ProjectPage: React.FC = () => {
     if (!_id) return <></>;
 
     const getTitle = () => {
-        const title = !currentTask && !showDeleteModal ? 'Create task' : currentTask && !showDeleteModal ? 'Edit task' : 'Delete task';
+        const title = !currentTask ? 'Create task' : 'Edit task';
         return title;
     };
 
@@ -179,14 +170,12 @@ const ProjectPage: React.FC = () => {
                 </div>
             </div>
             <CreateTaskButton setShowModal={setShowModal} setCurrentTask={setCurrentTask} />
-            <TaskModal showModal={showModal} setShowModal={setShowModal} title={getTitle()}>
-                { showDeleteModal 
-                    ? <ConfirmDelete deleteTask={deleteTask} setShowModal={setShowModal} />
-                    : <TaskForm project={_id} submitTask={submitTask} task={currentTask}/> }
-            </TaskModal>
+            <Modal showModal={showModal} setShowModal={setShowModal} title={getTitle()}>
+                <TaskForm project={_id} submitTask={submitTask} task={currentTask}/>
+            </Modal>
             <div className="bg-white shadow mt-10 rounded-lg">
                 {tasks && tasks.length > 0
-                    ? <TaskList tasks={tasks} setShowModal={setShowModal} setCurrentTask={setCurrentTask} setShowDeleteModal={setShowDeleteModal}/> 
+                    ? <TaskList tasks={tasks} setShowModal={setShowModal} setCurrentTask={setCurrentTask} deleteTask={deleteTask} /> 
                     : <p className="text-center my-5 p-10">You don't have any tasks yet!</p>}
             </div>
             <div className="flex items-center justify-between mt-10">

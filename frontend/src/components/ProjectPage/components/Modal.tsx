@@ -1,14 +1,14 @@
 import { Fragment, ReactNode } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 
-type TaskModalProps = {
+type ModalProps = {
     showModal: boolean,
     setShowModal: (value: boolean) => void;
     title: string;
     children: ReactNode;
 };
 
-const TaskModal: React.FC<TaskModalProps> = ({ showModal, setShowModal, title, children }) => {
+const Modal: React.FC<ModalProps> = ({ showModal, setShowModal, title, children }) => {
  
     return (
         <Transition.Root show={showModal} as={Fragment}>
@@ -75,4 +75,4 @@ const TaskModal: React.FC<TaskModalProps> = ({ showModal, setShowModal, title, c
     )
 }
 
-export default TaskModal
+export default Modal;

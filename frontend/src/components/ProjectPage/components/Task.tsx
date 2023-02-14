@@ -3,22 +3,16 @@ import { formatDate } from "../../../utils/formatDate";
 
 type TaskProps = {
     setCurrentTask: (task: TaskType) => void;
+    setDeleteModal: (v: boolean) => void;
     setShowModal: (v: boolean) => void;
-    setShowDeleteModal: (v: boolean) => void;
     task: TaskType;
 };
 
-const Task: React.FC<TaskProps> = ({ task, setShowModal, setCurrentTask, setShowDeleteModal }) => {
+const Task: React.FC<TaskProps> = ({ task, setShowModal, setCurrentTask, setDeleteModal }) => {
     const { description, name, dueDate, priority, state } = task
 
     const handleClick = () => {
         setShowModal(true);
-        setCurrentTask(task);
-    }
-
-    const handleDeleteClick = () => {
-        setShowModal(true);
-        setShowDeleteModal(true);
         setCurrentTask(task);
     }
 
@@ -33,7 +27,7 @@ const Task: React.FC<TaskProps> = ({ task, setShowModal, setCurrentTask, setShow
             <div className="flex gap-2">
                 <button className="bg-indigo-600 px-4 py-3 text-white uppercase font-bold text-sm rounded-lg" onClick={handleClick} >Edit</button>
                 <button className={`${state ? 'bg-lime-600': 'bg-slate-600'} px-4 py-3 text-white uppercase font-bold text-sm rounded-lg`}>{state ? 'Completed' : 'Complete'}</button>
-                <button className="bg-red-600 px-4 py-3 text-white uppercase font-bold text-sm rounded-lg" onClick={handleDeleteClick}>Delete</button>
+                <button className="bg-red-600 px-4 py-3 text-white uppercase font-bold text-sm rounded-lg" onClick={() => setDeleteModal(true)}>Delete</button>
             </div>
         </div>
     );
