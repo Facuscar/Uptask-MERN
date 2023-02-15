@@ -7,6 +7,8 @@ import TitleWithSpan from "../Atoms/TitleWithSpan";
 
 import { PATH } from "../../constants/path";
 
+import * as S from './styles';
+
 const ConfirmAccountPage: React.FC = () => {
     const [message, setMessage] = useState<string>('');
     const [error, setError] = useState<boolean>(false);
@@ -32,10 +34,11 @@ const ConfirmAccountPage: React.FC = () => {
     return (
         <>
             <TitleWithSpan title="Confirm your account to create your" spanTitle="projects" />
-            <div className="mt-20 md:mt-5 shadow:lg px-5 py-10 rounded-xl bg-white">
+            <S.BottomWrapper>
                 <Alert message={message} error={error} />
                 { !error && <Link className="block text-center my-5 text-slate-500 uppercase text-sm" to={PATH.LOGIN} >Log in</Link>}
-            </div>
+            </S.BottomWrapper>
+
         </>
     )
 }
