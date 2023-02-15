@@ -7,6 +7,8 @@ import ProjectForm from "../ProjectForm";
 import { Project } from "../../types/Project";
 import { getProject } from "../../utils/getProject";
 
+import * as S from './styles';
+
 const EditProjectPage: React.FC = () => {
     const params = useParams();
     const navigate = useNavigate();
@@ -31,9 +33,9 @@ const EditProjectPage: React.FC = () => {
     return (
         <>
             <ProjectTitle title={`Edit: ${name}`} />
-            <div className="p-5 flex justify-center">
+            <S.FormWrapper>
                 <ProjectForm project={project} />
-            </div>
+            </S.FormWrapper>
         </>
     );
 }
