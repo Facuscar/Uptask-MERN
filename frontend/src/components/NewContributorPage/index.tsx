@@ -91,9 +91,11 @@ const NewContributorPage: React.FC = () => {
                 return;
             }
 
+            if (!project || !contributor) return;
+
             const { data } = await axios.post<{msg : string}>(
-                `${import.meta.env.VITE_API_PROJECTS_URL}/contributor/${project?._id}`, 
-                { contributor: contributor?.email }, 
+                `${import.meta.env.VITE_API_PROJECTS_URL}/contributor/${project._id}`, 
+                { contributor: contributor.email }, 
                 getConfig(token)
             );
             setError(false);
@@ -111,9 +113,11 @@ const NewContributorPage: React.FC = () => {
 
     if (!project) return <>NewContributor Skeleton</>;
 
+    const { name } = project;
+
     return (
         <>
-            <h1 className="text-4xl font-black text-center">{`Add contributor to ${project.name}`}</h1>
+            <h1 className="text-4xl font-black text-center">{`Add contributor to ${name}`}</h1>
             { showAlert &&  <Alert message={message} error={error} /> }
             <div className="mt-10 flex justify-center">
                 <ContributorForm submitContributor={submitContributor} />

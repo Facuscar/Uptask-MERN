@@ -7,7 +7,6 @@ import Tasks from "./components/Tasks";
 
 import { Project } from "../../types/Project"
 import { getProject } from "../../utils/getProject";
-import { Contributor } from '../../types/Contributor';
 
 const ProjectPage: React.FC = () => {
     const params = useParams();

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { PATH } from "../../constants/path";
 
 import useProjects from "../../hooks/useProjects";
-import { Project } from "../../types/Project";
+import { Project, NewProject } from "../../types/Project";
 
 import Alert from "../Atoms/Alert";
 import Input from "../Atoms/Form/Input";
@@ -22,11 +22,8 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ project }) => {
     const [showAlert, setShowAlert] = useState<boolean>(false);
     const [message, setMessage] = useState<string>('');
     const [error, setError] = useState<boolean>(false);
-    const [isEditing, setIsEditing] = useState<boolean>(false);
-
-    useEffect(() => {
-        if (project?._id) setIsEditing(true);    
-    }, []);
+    
+    const isEditing = project !== undefined;
 
     const navigate = useNavigate();
 
@@ -48,14 +45,14 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ project }) => {
             return;
         }
 
-        const newProject: Project = {
+        const newProject: NewProject = {
             name: nameRef.current.value,
             description: descriptionRef.current.value,
             dueDate:  dueDateRef.current.value,
             client: clientRef.current.value,
         }
 
-        if (isEditing) newProject._id = project?._id;
+        if (isEditing) newProject._id = project._id;
         
 
         const response = isEditing 

@@ -2,13 +2,13 @@ import axios from "axios";
 import { createContext, ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { Project } from "../types/Project";
+import { NewProject } from "../types/Project";
 
 import { getConfig } from "../utils/getConfig";
 
 type Context = {
-    submitProject: (project: Project) => Promise<{ message: string, success: boolean } | undefined>;
-    editProject: (project: Project) => Promise<{ message: string, success: boolean } | undefined>;
+    submitProject: (project: NewProject) => Promise<{ message: string, success: boolean } | undefined>;
+    editProject: (project: NewProject) => Promise<{ message: string, success: boolean } | undefined>;
 };
 
 const ProjectsContext = createContext<Context | null>(null);
@@ -17,7 +17,7 @@ export const ProjectsProvider = ({ children } : { children: ReactNode }) => {
 
     const navigate = useNavigate();
 
-    const submitProject = async (project: Project) => {
+    const submitProject = async (project: NewProject) => {
         
         let success = false;
         let message = '';
@@ -43,7 +43,7 @@ export const ProjectsProvider = ({ children } : { children: ReactNode }) => {
         }
     }
 
-    const editProject = async (project:Project) => {
+    const editProject = async (project: NewProject) => {
 
         let success = false;
         let message = ''
