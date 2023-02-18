@@ -11,6 +11,8 @@ import AuthNav from "../AuthNav";
 import { PATH } from "../../constants/path";
 import useAuth from "../../hooks/useAuth";
 
+import * as S from './styles';
+
 const LoginPage: React.FC = () => {
     const emailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
@@ -52,12 +54,12 @@ const LoginPage: React.FC = () => {
         <>
             <TitleWithSpan title="Log into your account to access your" spanTitle="projects" />
             { showAlert && <Alert message={message} error={error} /> }
-            <form action="" className="my-10 bg-white shadow rounded-lg p-10" onSubmit={handleSubmit}>
+            <S.LoginPageForm onSubmit={handleSubmit}>
                 <Input type="email" name="Email" placeholder="example@example.com" ref={emailRef} />
                 <Input type="password" name="Password" placeholder="Your password" ref={passwordRef} />
 
                 <SubmitButton value="Log in" />
-            </form>
+            </S.LoginPageForm>
             <AuthNav leftText="Sign up" leftTo={PATH.REGISTER} rightText="I forgot my password" rightTo={PATH.FORGOT_PASSWORD} />
         </>
     )
