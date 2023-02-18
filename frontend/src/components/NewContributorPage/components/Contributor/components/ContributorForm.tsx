@@ -1,8 +1,8 @@
 import { useState, useRef, FormEvent } from "react";
 
-import Alert from "../../Atoms/Alert";
-import Input from "../../Atoms/Form/Input";
-import SubmitButton from "../../Atoms/Form/SubmitButton";
+import Alert from "../../../../Atoms/Alert";
+import Input from "../../../../Atoms/Form/Input";
+import SubmitButton from "../../../../Atoms/Form/SubmitButton";
 
 type ContributorFormProps = {
     submitContributor: (email: string) => Promise <{ error: boolean, message: string } | undefined>;
