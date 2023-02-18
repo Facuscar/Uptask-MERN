@@ -9,6 +9,8 @@ import AuthNav from "../AuthNav";
 
 import { PATH } from "../../constants/path";
 
+import * as S from './styles';
+
 const ForgotPasswordPage: React.FC = () => {
 
     const emailRef = useRef<HTMLInputElement>(null);
@@ -45,11 +47,10 @@ const ForgotPasswordPage: React.FC = () => {
         <>
             <TitleWithSpan title="Reset your account to access your" spanTitle="projects" />
             {showAlert && <Alert message={message} error={error} /> }
-            <form className="my-10 bg-white shadow rounded-lg p-10" onSubmit={handleSubmit}>
+            <S.ForgotPasswordForm onSubmit={handleSubmit}>
                 <Input type="email" name="Email" placeholder="example@example.com" ref={emailRef} />
-
                 <SubmitButton value="Send the email" />
-            </form>
+            </S.ForgotPasswordForm>
             <AuthNav leftText="Sign in" leftTo={PATH.LOGIN} rightText="Sign up" rightTo={PATH.REGISTER} />
         </>
     )
