@@ -1,5 +1,6 @@
-import Button from '../../Atoms/Button';
-import { Contributor } from "../../../types/Contributor";
+import Button from '../../../../Atoms/Button';
+
+import { Contributor } from "../../../../../types/Contributor";
 
 type ContributorCardProps = {
     contributor: Contributor;
