@@ -1,13 +1,16 @@
 import axios from "axios";
 import { useState, useEffect, useRef, FormEvent  }from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import Alert from "../Atoms/Alert";
+import AuthNavLink from "../Atoms/AuthNavLink";
 import Input from "../Atoms/Form/Input";
 import SubmitButton from "../Atoms/Form/SubmitButton";
 import TitleWithSpan from "../Atoms/TitleWithSpan";
 
 import { PATH } from "../../constants/path";
+
+import * as S from './styles';
 
 const NewPasswordPage: React.FC = () => {
     const params = useParams();
@@ -74,14 +77,14 @@ const NewPasswordPage: React.FC = () => {
             <TitleWithSpan title="Recover your account and" spanTitle="projects"/>
                 { showAlert && <Alert message={message} error={error} /> }
                 { showForm ? ( 
-                    <form action="" className="my-10 bg-white shadow rounded-lg p-10" onSubmit={e => handleSubmit(e)}>
+                    <S.NewPasswordForm onSubmit={e => handleSubmit(e)}>
                     <Input type="password" name="New Password" placeholder="New password" id="password" ref={passwordRef} />
                     <Input type="password" name="Repeat your new password" placeholder="Repeat your new password" id="second_password" ref={secondPasswordRef} />
 
                     <SubmitButton value="Reset your password" />
-                    </form>
+                    </S.NewPasswordForm>
                 ) : (
-                    <Link className="block text-center my-5 text-slate-500 uppercase text-sm" to={PATH.LOGIN} >Log in</Link>
+                    <AuthNavLink to={PATH.LOGIN} text="Log in" />
                 )}
         </>
     )

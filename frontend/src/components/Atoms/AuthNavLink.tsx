@@ -5,6 +5,8 @@ type AuthNavLinkProps = {
     text: string;
 }
 
-const AuthNavLink: React.FC<AuthNavLinkProps> = ({ text, to }) => <Link to={to}>{text}</Link>
+const AuthNavLink: React.FC<AuthNavLinkProps> = ({ text, to }) => (
+    <Link to={to} className="block text-center my-5 text-slate-500 uppercase text-sm">{text}</Link>
+);
 
 export default AuthNavLink;
