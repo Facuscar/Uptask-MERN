@@ -1,8 +1,10 @@
 import { useState, useRef, FormEvent } from "react";
 
-import Alert from "../../../../Atoms/Alert";
-import Input from "../../../../Atoms/Form/Input";
-import SubmitButton from "../../../../Atoms/Form/SubmitButton";
+import Alert from "../../../../../Atoms/Alert";
+import Input from "../../../../../Atoms/Form/Input";
+import SubmitButton from "../../../../../Atoms/Form/SubmitButton";
+
+import * as S from './styles';
 
 type ContributorFormProps = {
     submitContributor: (email: string) => Promise <{ error: boolean, message: string } | undefined>;
@@ -38,12 +40,12 @@ const ContributorForm: React.FC<ContributorFormProps> = ({ submitContributor }) 
     }
 
     return (
-        <form className="bg-white py-10 px-5 md:w-1/2 rounded-lg shadow" onSubmit={e => handleSubmit(e)}>
+        <S.SearchForm onSubmit={e => handleSubmit(e)}>
             { showAlert && <Alert message={message} error={error} /> }
             <Input name="Contributor email" type="enail" id="contributor_email" placeholder="example@example.com" ref={emailRef}/>
 
             <SubmitButton value="Find contributor" />
-        </form>
+        </S.SearchForm>
     );
 };
 
