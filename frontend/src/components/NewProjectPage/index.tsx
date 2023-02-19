@@ -1,15 +1,17 @@
 import ProjectForm from "../ProjectForm";
 import ProjectTitle from "../Atoms/ProjectTitle";
 
+import * as S from './styles';
+
 const NewProjectPage = () => {
 
     return (
         <>
             <ProjectTitle title="Create project" />
 
-            <div className="mt-10 flex justify-center">
+            <S.FormWrapper>
                 <ProjectForm />
-            </div>
+            </S.FormWrapper>
         </>
     )
 }
