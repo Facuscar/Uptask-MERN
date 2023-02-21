@@ -1,4 +1,4 @@
-import AuthNavLink from "../Atoms/AuthNavLink";
+import AuthNavLink from "components/Atoms/AuthNavLink";
 
 import * as S from './styles';
 

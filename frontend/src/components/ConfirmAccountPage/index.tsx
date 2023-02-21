@@ -1,11 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-
-import Alert from "../Atoms/Alert";
-import TitleWithSpan from "../Atoms/TitleWithSpan";
-
-import { PATH } from "../../constants/path";
+import Alert from "components/Atoms/Alert";
+import TitleWithSpan from "components/Atoms/TitleWithSpan";
+import { PATH } from "constants/path";
 
 import * as S from './styles';
 

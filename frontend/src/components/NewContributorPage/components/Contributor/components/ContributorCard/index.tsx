@@ -1,6 +1,5 @@
-import Button from '../../../../../Atoms/Button';
-
-import { Contributor } from "../../../../../../types/Contributor";
+import Button from 'components/Atoms/Button';
+import { Contributor } from "types/Contributor";
 
 import * as S from './styles';
 

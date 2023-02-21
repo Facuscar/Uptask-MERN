@@ -1,14 +1,14 @@
 import axios from "axios";
-import { useState, useEffect, useRef, FormEvent  }from "react";
+import { useState, useEffect, useRef, FormEvent } from "react";
 import { useParams } from "react-router-dom";
 
-import Alert from "../Atoms/Alert";
-import AuthNavLink from "../Atoms/AuthNavLink";
-import Input from "../Atoms/Form/Input";
-import SubmitButton from "../Atoms/Form/SubmitButton";
-import TitleWithSpan from "../Atoms/TitleWithSpan";
+import Alert from "components/Atoms/Alert";
+import AuthNavLink from "components/Atoms/AuthNavLink";
+import Input from "components/Atoms/Form/Input";
+import SubmitButton from "components/Atoms/Form/SubmitButton";
+import TitleWithSpan from "components/Atoms/TitleWithSpan";
 
-import { PATH } from "../../constants/path";
+import { PATH } from "constants/path";
 
 import * as S from './styles';
 

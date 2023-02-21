@@ -2,14 +2,13 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import Alert from "components/Atoms/Alert";
+import { getConfig } from "utils/getConfig";
+import { Contributor } from "types/Contributor";
+import { Project } from "types/Project";
+
 import ContributorCard from "./components/ContributorCard";
 import ContributorForm from "./components/ContributorForm";
-
-import Alert from "../../../Atoms/Alert";
-
-import { getConfig } from "../../../../utils/getConfig";
-import { Contributor } from "../../../../types/Contributor";
-import { Project } from "../../../../types/Project";
 
 import * as S from './styles';
 

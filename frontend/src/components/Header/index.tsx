@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom";
 
-import SearchInput from "../Atoms/SearchInput";
-import Button from "../Atoms/Button";
-
-import { PATH } from "../../constants/path";
+import SearchInput from "components/Atoms/SearchInput";
+import Button from "components/Atoms/Button";
+import { PATH } from "constants/path";
 
 import * as S from './styles';
 

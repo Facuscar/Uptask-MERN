@@ -1,12 +1,13 @@
 import { useEffect, useState} from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
+import ProjectTitle from "components/Atoms/ProjectTitle";
+import { getProject } from "utils/getProject";
+import { Project } from "types/Project";
+
 import ContributorSection from "./components/Contributor";
 
-import ProjectTitle from "../Atoms/ProjectTitle";
 
-import { getProject } from "../../utils/getProject";
-import { Project } from "../../types/Project";
 
 const NewContributorPage: React.FC = () => {
     const [project, setProject] = useState<Project>();

@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-import ProjectTitle from "../Atoms/ProjectTitle";
-import ProjectForm from "../ProjectForm";
-
-import { Project } from "../../types/Project";
-import { getProject } from "../../utils/getProject";
+import ProjectTitle from "components/Atoms/ProjectTitle";
+import ProjectForm from "components/ProjectForm";
+import { Project } from "types/Project";
+import { getProject } from "utils/getProject";
 
 import * as S from './styles';
 

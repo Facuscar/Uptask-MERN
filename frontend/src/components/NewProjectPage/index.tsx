@@ -1,5 +1,5 @@
-import ProjectForm from "../ProjectForm";
-import ProjectTitle from "../Atoms/ProjectTitle";
+import ProjectForm from "components/ProjectForm";
+import ProjectTitle from "components/Atoms/ProjectTitle";
 
 import * as S from './styles';
 
