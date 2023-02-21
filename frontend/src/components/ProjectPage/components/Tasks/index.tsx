@@ -103,7 +103,7 @@ const Tasks: React.FC<TasksProps> = ({ projectId, projectTasks }) => {
             <S.TasksWrapper>
                 {tasks.length > 0
                     ? <TaskList tasks={tasks} setShowModal={setShowModal} setCurrentTask={setCurrentTask} deleteTask={deleteTask} /> 
-                    : <p className="text-center my-5 p-10">You don't have any tasks yet!</p>}
+                    : <S.AltText>You don't have any tasks yet!</S.AltText>}
             </S.TasksWrapper>
         </>
     );

@@ -1,11 +1,13 @@
 import { useState, useRef, FormEvent } from "react";
 
-import Alert from "../../../../Atoms/Alert";
-import Input from "../../../../Atoms/Form/Input";
-import Select from "../../../../Atoms/Form/Select";
-import SubmitButton from "../../../../Atoms/Form/SubmitButton";
+import Alert from "../../../../../Atoms/Alert";
+import Input from "../../../../../Atoms/Form/Input";
+import Select from "../../../../../Atoms/Form/Select";
+import SubmitButton from "../../../../../Atoms/Form/SubmitButton";
 
-import { Task, Priority } from "../../../../../types/Task";
+import { Task, Priority } from "../../../../../../types/Task";
+
+import * as S from './styles';
 
 type TaskFormProps = {
     submitTask: (task: Task) => void;
@@ -61,16 +63,42 @@ const TaskForm: React.FC<TaskFormProps> = ({ submitTask, projectId, task }) => {
     return (
         <>
             {showAlert && <Alert message={message} error={error} />}
-            <form className="my-10" onSubmit={handleSubmit}>
-                <div className="mb-5">
-                    <Input name="Task name" id="name" type="text" placeholder="Validate UX design in figma" ref={nameRef} defaultValue={task?.name} />
-                    <Input name="Task description" id="description" type="text" placeholder="Make sure the buttons and inputs are properly aligned" ref={descriptionRef} defaultValue={task?.description} />
-                    <Input name="Due date" id="due_date" type="date" ref={dueDateRef} defaultValue={formatDate(task?.dueDate)} />
-                    <Select name="Task priority" id="priority" options={OPTIONS} ref={priorityRef} defaultValue={task?.priority} />
+            <S.Form onSubmit={handleSubmit}>
+                <S.Wrapper>
+                    <Input 
+                        name="Task name" 
+                        id="name" 
+                        type="text" 
+                        placeholder="Validate UX design in figma" 
+                        ref={nameRef} 
+                        defaultValue={task?.name} 
+                    />
+                    <Input 
+                        name="Task description" 
+                        id="description" 
+                        type="text" 
+                        placeholder="Make sure the buttons and inputs are properly aligned" 
+                        ref={descriptionRef} 
+                        defaultValue={task?.description} 
+                    />
+                    <Input 
+                        name="Due date" 
+                        id="due_date" 
+                        type="date" 
+                        ref={dueDateRef} 
+                        defaultValue={formatDate(task?.dueDate)} 
+                    />
+                    <Select 
+                        name="Task priority" 
+                        id="priority" 
+                        options={OPTIONS} 
+                        ref={priorityRef}
+                        defaultValue={task?.priority} 
+                    />
 
                     <SubmitButton value={task ? 'Update Task': 'Create Task'} />
-                </div>
-            </form>
+                </S.Wrapper>
+            </S.Form>
         </>
     );
     
