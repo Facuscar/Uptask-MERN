@@ -1,4 +1,6 @@
-import AuthNavLink from "./Atoms/AuthNavLink";
+import AuthNavLink from "../Atoms/AuthNavLink";
+
+import * as S from './styles';
 
 type AuthNavProps = {
     leftTo: string;
@@ -9,10 +11,10 @@ type AuthNavProps = {
 
 const AuthNav: React.FC<AuthNavProps> = ({ leftText, leftTo, rightText, rightTo }) => {
     return (
-        <nav className="lg:flex lg:justify-between">
+        <S.LinkWrapper>
             <AuthNavLink to={leftTo} text={leftText} />
             <AuthNavLink to={rightTo} text={rightText} />
-        </nav>
+        </S.LinkWrapper>
     );
 };
 
