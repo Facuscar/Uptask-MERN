@@ -1,5 +1,6 @@
 
-import { Project } from "../../types/Project";
+import { Project } from "types/Project";
+
 import ProjectCard from "./ProjectCard";
 
 type ProjectListProps = {
