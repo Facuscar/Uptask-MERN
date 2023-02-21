@@ -7,6 +7,8 @@ import ProjectList from "../ProjectList";
 import { Project } from "../../types/Project";
 import { getConfig } from "../../utils/getConfig";
 
+import * as S from './styles';
+
 const ProjectsPage: React.FC = () => {
 
     const navigate = useNavigate();
@@ -40,9 +42,9 @@ const ProjectsPage: React.FC = () => {
     if (loading) return <div>Projects skeletons..</div>
 
     return (
-        <div className="bg-white shadow mt-10 rounded-lg">
-            {projects?.length ? <ProjectList projects={projects} /> : <p className="text-center text-gray-600 uppercase p-5">You haven't created any projects yet</p>}
-        </div>
+        <S.ListWrapper>
+            {projects?.length ? <ProjectList projects={projects} /> : <S.AltText>You haven't created any projects yet</S.AltText>}
+        </S.ListWrapper>
     )
 }
 
