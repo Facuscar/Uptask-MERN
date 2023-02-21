@@ -8,6 +8,8 @@ import SubmitButton from 'components/Atoms/Form/SubmitButton';
 import { PATH } from "constants/path";
 import { Project, NewProject } from "types/Project";
 
+import * as S from './styles';
+
 type ProjectFormProps = {
     project?: Project;
 };
@@ -84,7 +86,7 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ project }) => {
     };
 
     return (
-        <form className="bg-white py-10 px-5 md:w-1/2 rounded-lg" onSubmit={e => handleSubmit(e)}>
+        <S.Form onSubmit={handleSubmit}>
             { showAlert && <Alert error={error} message={message} /> }
             <Input type="text" name="Project name" placeholder="Online Store" id="project_name" ref={nameRef} defaultValue={project?.name} />
             <Input type="text" name="Description" placeholder="Build an online store for my client" id="description" ref={descriptionRef} defaultValue={project?.description} />
@@ -92,8 +94,7 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ project }) => {
             <Input type="text" name="Client's name" placeholder="Uncle Joe" id="client" ref={clientRef} defaultValue={project?.client} />
 
             <SubmitButton value={isEditing ? "Update project" : "Create project"} />
-
-        </form>
+        </S.Form>
     );
 };
 
