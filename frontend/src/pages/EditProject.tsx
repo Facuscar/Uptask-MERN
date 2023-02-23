@@ -1,4 +1,4 @@
-import EditProjectComponent from "../components/EditProjectPage";
+import EditProjectComponent from "components/EditProjectPage";
 
 const EditProject: React.FC = () => <EditProjectComponent />;
 

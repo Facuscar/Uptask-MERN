@@ -1,4 +1,4 @@
-import ForgotPasswordComponent from "../components/ForgotPasswordPage";
+import ForgotPasswordComponent from "components/ForgotPasswordPage";
 
 const ForgotPassword: React.FC = () => <ForgotPasswordComponent />
 

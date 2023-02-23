@@ -1,4 +1,4 @@
-import RegisterComponent from "../components/RegisterPage";
+import RegisterComponent from "components/RegisterPage";
 
 const Register: React.FC = () => <RegisterComponent />
 

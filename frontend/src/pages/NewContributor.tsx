@@ -1,4 +1,4 @@
-import NewContributorComponent from "../components/NewContributorPage";
+import NewContributorComponent from "components/NewContributorPage";
 
 const NewContributor: React.FC = () => {
     return <NewContributorComponent />;

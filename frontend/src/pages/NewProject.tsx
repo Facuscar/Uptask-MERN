@@ -1,4 +1,4 @@
-import NewProjectComponent from "../components/NewProjectPage";
+import NewProjectComponent from "components/NewProjectPage";
 
 const NewProject = () => <NewProjectComponent />
 

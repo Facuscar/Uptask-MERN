@@ -1,4 +1,4 @@
-import ConfirmAccountComponent from "../components/ConfirmAccountPage";
+import ConfirmAccountComponent from "components/ConfirmAccountPage";
 
 const ConfirmAccount: React.FC = () => <ConfirmAccountComponent />;
 

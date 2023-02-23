@@ -1,8 +1,8 @@
 import axios from "axios";
 
-import { getConfig } from "./getConfig";
+import { Project } from "types/Project";
 
-import { Project } from "../types/Project";
+import { getConfig } from "./getConfig";
 
 export const getProject = async (id: string | undefined) => {
 

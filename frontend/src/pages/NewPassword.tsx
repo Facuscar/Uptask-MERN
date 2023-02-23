@@ -1,4 +1,4 @@
-import NewPasswordComponent from "../components/NewPasswordPage";
+import NewPasswordComponent from "components/NewPasswordPage";
 
 const NewPassword: React.FC = () => <NewPasswordComponent />
 
