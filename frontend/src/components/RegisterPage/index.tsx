@@ -1,9 +1,8 @@
 import RegisterForm from "./components/RegisterForm";
 
-import TitleWithSpan from "../Atoms/TitleWithSpan";
-import AuthNav from "../AuthNav";
-
-import { PATH } from "../../constants/path";
+import TitleWithSpan from "components/Atoms/TitleWithSpan";
+import AuthNav from "components/AuthNav";
+import { PATH } from "constants/path";
 
 const RegisterPage: React.FC = () => {
 

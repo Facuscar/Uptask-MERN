@@ -1,9 +1,9 @@
 import axios from "axios";
 import { useState, useRef, FormEvent } from "react";
 
-import Alert from "../../../Atoms/Alert";
-import Input from "../../../Atoms/Form/Input";
-import SubmitButton from "../../../Atoms/Form/SubmitButton";
+import Alert from "components/Atoms/Alert";
+import Input from "components/Atoms/Form/Input";
+import SubmitButton from "components/Atoms/Form/SubmitButton";
 
 const RegisterForm: React.FC = () => {
 

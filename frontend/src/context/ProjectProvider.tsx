@@ -2,9 +2,8 @@ import axios from "axios";
 import { createContext, ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { NewProject } from "../types/Project";
-
-import { getConfig } from "../utils/getConfig";
+import { NewProject } from "types/Project";
+import { getConfig } from "utils/getConfig";
 
 type Context = {
     submitProject: (project: NewProject) => Promise<{ message: string, success: boolean } | undefined>;

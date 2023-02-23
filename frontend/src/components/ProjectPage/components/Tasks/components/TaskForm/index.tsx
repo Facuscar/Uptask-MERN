@@ -1,11 +1,10 @@
 import { useState, useRef, FormEvent } from "react";
 
-import Alert from "../../../../../Atoms/Alert";
-import Input from "../../../../../Atoms/Form/Input";
-import Select from "../../../../../Atoms/Form/Select";
-import SubmitButton from "../../../../../Atoms/Form/SubmitButton";
-
-import { Task, Priority } from "../../../../../../types/Task";
+import Alert from "components/Atoms/Alert";
+import Input from "components/Atoms/Form/Input";
+import Select from "components/Atoms/Form/Select";
+import SubmitButton from "components/Atoms/Form/SubmitButton";
+import { Task, Priority } from "types/Task";
 
 import * as S from './styles';
 

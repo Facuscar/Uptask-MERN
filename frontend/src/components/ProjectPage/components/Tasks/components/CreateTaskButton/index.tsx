@@ -1,6 +1,6 @@
-import PlusIcon from "../../../../../Atoms/PlusIcon";
+import PlusIcon from "components/Atoms/PlusIcon";
 
-import { Task } from "../../../../../../types/Task";
+import { Task } from "types/Task";
 
 import * as S from './styles';
 

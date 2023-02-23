@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-import { Contributor } from "../../../../types/Contributor";
-import { PATH } from "../../../../constants/path";
+import { Contributor } from "types/Contributor";
+import { PATH } from "constants/path";
 
 import ContributorList from "./components/ContributorList";
 

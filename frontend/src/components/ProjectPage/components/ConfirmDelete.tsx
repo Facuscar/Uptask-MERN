@@ -1,4 +1,4 @@
-import WarningIcon from "../../Atoms/WarningIcon";
+import WarningIcon from "components/Atoms/WarningIcon";
 
 type ConfirmDeleteProps = {
     deleteUnit: () => void;

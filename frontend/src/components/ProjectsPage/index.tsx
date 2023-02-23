@@ -2,10 +2,9 @@ import axios from "axios";
 import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
-import ProjectList from "../ProjectList";
-
-import { Project } from "../../types/Project";
-import { getConfig } from "../../utils/getConfig";
+import ProjectList from "components/ProjectList";
+import { Project } from "types/Project";
+import { getConfig } from "utils/getConfig";
 
 import * as S from './styles';
 

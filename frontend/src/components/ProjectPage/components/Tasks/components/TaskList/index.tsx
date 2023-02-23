@@ -1,10 +1,9 @@
 import { useState } from "react";
 
-import ConfirmDelete from "../../../ConfirmDelete";
-import Modal from "../../../Modal";
-import Task from "../Task";
-
-import { Task as TaskType } from "../../../../../../types/Task";
+import ConfirmDelete from "components/ProjectPage/components/ConfirmDelete";
+import Modal from "components/ProjectPage/components/Modal";
+import Task from "components/ProjectPage/components/Tasks/components/Task";
+import { Task as TaskType } from "types/Task";
 
 type TaskListProps = {
     deleteTask: () => void;

@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
+import { Project } from "types/Project"
+import { getProject } from "utils/getProject";
+
 import Contributors from "./components/Contributors";
 import Header from "./components/Header";
 import Tasks from "./components/Tasks";
-
-import { Project } from "../../types/Project"
-import { getProject } from "../../utils/getProject";
 
 const ProjectPage: React.FC = () => {
     const params = useParams();

@@ -1,5 +1,5 @@
-import { PATH } from "../../constants/path";
-import useAuth from "../../hooks/useAuth";
+import { PATH } from "constants/path";
+import useAuth from "hooks/useAuth";
 
 import * as S from './styles';
 

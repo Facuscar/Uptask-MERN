@@ -2,13 +2,13 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
-import Alert from "../../../Atoms/Alert";
-import DeleteIcon from "../../../Atoms/DeleteIcon";
-import EditIcon from "../../../Atoms/EditIcon";
-import ProjectTitle from "../../../Atoms/ProjectTitle";
+import Alert from "components/Atoms/Alert";
+import DeleteIcon from "components/Atoms/DeleteIcon";
+import EditIcon from "components/Atoms/EditIcon";
+import ProjectTitle from "components/Atoms/ProjectTitle";
 
-import { PATH } from "../../../../constants/path";
-import { getConfig } from "../../../../utils/getConfig";
+import { PATH } from "constants/path";
+import { getConfig } from "utils/getConfig";
 
 import * as S from './styles';
 

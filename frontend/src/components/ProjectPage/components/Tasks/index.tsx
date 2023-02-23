@@ -2,13 +2,14 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import Modal from "components/ProjectPage/components/Modal";
+import { Task } from "types/Task";
+import { getConfig } from "utils/getConfig";
+
+
 import CreateTaskButton from "./components/CreateTaskButton";
-import Modal from "../Modal";
 import TaskForm from "./components/TaskForm";
 import TaskList from "./components/TaskList";
-
-import { Task } from "../../../../types/Task";
-import { getConfig } from "../../../../utils/getConfig";
 
 import * as S from './styles';
 
