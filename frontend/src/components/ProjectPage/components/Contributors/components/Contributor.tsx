@@ -16,6 +16,7 @@ const Contributor: React.FC<ContributorProps> = ({ contributor, setDeleteModal, 
 
     return (
         <div className="border-b p-5 flex justify-between items-center">
+            {/* refactor component with styles.tsx */}
             <div>
                 <p>{name}</p>
                 <p className="text-sm text-gray-700">{email}</p>

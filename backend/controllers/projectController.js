@@ -75,7 +75,7 @@ export const deleteProject = async (req, res) => {
     }
 
     if (project.creator.toString() !== req.user._id.toString()) {
-        const error = new Error('You dont have access to this project');
+        const error = new Error('Only the owner can delete the project');
         return res.status(401).json({ msg: error.message });
     }
 
@@ -137,9 +137,24 @@ export const addContributor = async (req, res) => {
     project.contributors.push(user._id);
 
     await project.save();
-    res.json({msg: 'Contributor included successfully'});
+    res.json({ msg: 'Contributor included successfully' });
 };
 
 export const deleteContributor = async (req, res) => {
+    const project = await Project.findById(req.params.id);
 
+    if (!project) {
+        const error = new Error('Project not found');
+        return res.status(404).json({ msg: error.message });
+    }
+
+    if (project.creator.toString() !== req.user._id.toString()) {
+        const error = new Error('Invalid action');
+        return res.status(404).json({ msg: error.message });
+    }
+
+    project.contributors.pull(req.body.id);
+    console.log(project.contributors);
+    await project.save();
+    res.json({ msg: 'Contributor deleted successfully' });
 };

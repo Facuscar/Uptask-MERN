@@ -18,8 +18,8 @@ router.route('/').get(checkAuth, getProjects).post(checkAuth, newProject);
 
 router.route('/:id').get(checkAuth, getProject).put(checkAuth, editProject).delete(checkAuth, deleteProject);
 
-router.post('/contributor', checkAuth, getContributor)
+router.post('/contributor', checkAuth, getContributor);
 router.post('/contributor/:id', checkAuth, addContributor);
-router.delete('/contributor/:id', checkAuth, deleteContributor);
+router.post('/delete-contributor/:id', checkAuth, deleteContributor);
 
 export default router;

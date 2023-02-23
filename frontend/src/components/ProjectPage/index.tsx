@@ -32,9 +32,6 @@ const ProjectPage: React.FC = () => {
 
     const { name, _id, tasks, contributors } = project;
 
-    //Refactor the option id field issue
-    if (!_id) return <></>;
-
     return (
         <>
             <Header name={name} projectId={_id} />
