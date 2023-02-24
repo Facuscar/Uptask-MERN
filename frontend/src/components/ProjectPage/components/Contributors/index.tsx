@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import Alert from "components/Atoms/Alert";
 import { PATH } from "constants/path";
@@ -8,6 +8,8 @@ import { Contributor } from "types/Contributor";
 import { getConfig } from "utils/getConfig";
 
 import ContributorList from "./components/ContributorList";
+
+import * as S from './styles';
 
 type ContributorsProps = {
     projectId: string;
@@ -60,21 +62,20 @@ const Contributors: React.FC<ContributorsProps> = ({ projectId, projectContribut
         <>
             {/* refactor this component with styles.tsx */}
             {showAlert && <Alert message={message} error={error} /> }
-            <div className="flex items-center justify-between mt-10">
-                <p className="font-bold text-xl">Contributors</p>
-                <Link 
+            <S.HeaderWrapper>
+                <S.HeaderTitle>Contributors</S.HeaderTitle>
+                <S.HeaderLink 
                     to={`${PATH.NEW_CONTRIBUTOR}/${projectId}`} 
-                    className="text-gray-400 uppercase font-bold hover:text-black"
                 >
                     Add contributor
-                </Link>
-            </div>
-            <div className="bg-white shadow mt-10 rounded-lg">
+                </S.HeaderLink>
+            </S.HeaderWrapper>
+            <S.ContributorListWrapper>
                 {contributors.length > 0
                     ? <ContributorList contributors={contributors} setCurrentContributor={setCurrentContributor} deleteContributor={deleteContributor} />
-                    : <p className="text-center my-5 p-10">This project doesn't have any contributors</p>
+                    : <S.NoContributorsText>This project doesn't have any contributors</S.NoContributorsText>
                 }
-            </div>
+            </S.ContributorListWrapper>
         </>
     );
 }

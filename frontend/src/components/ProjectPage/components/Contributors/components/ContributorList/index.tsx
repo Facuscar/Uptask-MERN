@@ -23,7 +23,6 @@ const ContributorList: React.FC<ContributorListProps> = ({ contributors, setCurr
 
     return (
         <>
-        {/* refactor into folder/index.tsx */}
             <Modal title="Delete contributor" showModal={deleteModal} setShowModal={setDeleteModal}>
                 <ConfirmDelete setShowModal={setDeleteModal} deleteUnit={handleDelete} />
             </Modal>
