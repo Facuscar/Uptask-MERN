@@ -3,7 +3,7 @@ import { useState } from "react";
 import Modal from "components/ProjectPage/components/Modal";
 import ConfirmDelete from "components/ProjectPage/components/ConfirmDelete";
 
-import Contributor from "./Contributor";
+import Contributor from "../Contributor";
 
 import { Contributor as ContributorType } from "types/Contributor";
 
