@@ -60,7 +60,6 @@ const Contributors: React.FC<ContributorsProps> = ({ projectId, projectContribut
 
     return (
         <>
-            {/* refactor this component with styles.tsx */}
             {showAlert && <Alert message={message} error={error} /> }
             <S.HeaderWrapper>
                 <S.HeaderTitle>Contributors</S.HeaderTitle>
