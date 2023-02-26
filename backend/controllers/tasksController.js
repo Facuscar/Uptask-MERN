@@ -90,7 +90,10 @@ export const deleteTask = async (req, res) => {
     }
 
     try {
-        await task.deleteOne();
+        const dbProject = Project.findById(project);
+        dbProject.tasks.pull(task._id);
+
+        await Promise.allSettled([await task.deleteOne(), await dbProject.save()]);
         res.json({ msg: 'Task deleted successfully' });
     } catch (error) {
         console.log(error);
