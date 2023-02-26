@@ -98,5 +98,25 @@ export const deleteTask = async (req, res) => {
 }
 
 export const toggleTask = async (req, res) => {
-    
+    const { id } = req.params;
+    const task = await Task.findById(id).populate('project');
+
+    const { project } = task;
+
+    if (!project) {
+        const error = new Error('The requested task or project does not exist');
+        return res.status(404).json({ msg: error.message });
+    }
+
+    const isCreator = project.creator.toString() === req.user._id.toString();
+    const isContributor = project.contributors.some( (contributor) => contributor._id.toString() === req.user._id.toString());
+
+    if (!isCreator && !isContributor) {
+        const error = new Error('You dont have access to this project');
+        return res.status(404).json({ msg: error.message });
+    }
+
+    task.state = !task.state
+    await task.save();
+    res.json({task, msg: 'Task state changed successfully'});
 }

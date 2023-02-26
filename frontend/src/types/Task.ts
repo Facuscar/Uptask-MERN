@@ -6,6 +6,6 @@ export type Task = {
     state: boolean;
     dueDate: string;
     priority: Priority;
-    _id?: string;
+    _id: string;
     project: string;
 };

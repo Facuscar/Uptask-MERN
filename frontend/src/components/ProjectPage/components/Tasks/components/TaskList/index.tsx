@@ -6,6 +6,7 @@ import Task from "components/ProjectPage/components/Tasks/components/Task";
 import { Task as TaskType } from "types/Task";
 
 type TaskListProps = {
+    completeTask: (taskId: string) => void;
     deleteTask: () => void;
     isCreator: boolean;
     setCurrentTask: (task: TaskType) => void;
@@ -13,7 +14,7 @@ type TaskListProps = {
     tasks: TaskType[];
 };
 
-const TaskList: React.FC<TaskListProps> = ({ tasks, setShowModal, setCurrentTask, deleteTask, isCreator }) => {
+const TaskList: React.FC<TaskListProps> = ({ tasks, setShowModal, setCurrentTask, deleteTask, completeTask, isCreator }) => {
     const [deleteModal, setDeleteModal] = useState<boolean>(false);
 
     const handleDelete = () => {
@@ -34,6 +35,7 @@ const TaskList: React.FC<TaskListProps> = ({ tasks, setShowModal, setCurrentTask
                     setShowModal={setShowModal} 
                     setCurrentTask={setCurrentTask}
                     setDeleteModal={setDeleteModal}
+                    completeTask={completeTask}
                 />
             ))}
         </>

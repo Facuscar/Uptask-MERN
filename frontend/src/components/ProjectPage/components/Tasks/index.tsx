@@ -13,6 +13,11 @@ import TaskList from "./components/TaskList";
 
 import * as S from './styles';
 
+type CompleteTaskResponse = {
+    task?: Task;
+    msg: string;
+};
+
 type TasksProps = {
     isCreator: boolean;
     projectId: string;
@@ -96,6 +101,29 @@ const Tasks: React.FC<TasksProps> = ({ isCreator, projectId, projectTasks }) => 
         }
     };
 
+    const completeTask = async (taskId: string) => {
+        try {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                navigate('/');
+                return;
+            }
+
+            const { data } = await axios.post<CompleteTaskResponse>(`${import.meta.env.VITE_API_TASKS_URL}/state/${taskId}`, {}, getConfig(token));
+
+            const { task } = data;
+
+            if (task) {
+                setTasks( (prevTasks) => {
+                    return prevTasks.map( prevTask => (prevTask._id === task._id) ? task : prevTask)
+                })
+            }
+            
+        } catch (error: any) {
+            console.log(error.response.data);
+        }
+    }
+
     return (
         <>
             { isCreator && <CreateTaskButton setShowModal={setShowModal} setCurrentTask={setCurrentTask} />}
@@ -109,7 +137,8 @@ const Tasks: React.FC<TasksProps> = ({ isCreator, projectId, projectTasks }) => 
                         setShowModal={setShowModal} 
                         setCurrentTask={setCurrentTask} 
                         deleteTask={deleteTask} 
-                        isCreator={isCreator} 
+                        completeTask={completeTask}
+                        isCreator={isCreator}
                     /> 
                     : <S.AltText>You don't have any tasks yet!</S.AltText>}
             </S.TasksWrapper>
