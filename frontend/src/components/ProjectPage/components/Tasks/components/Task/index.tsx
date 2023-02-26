@@ -1,5 +1,9 @@
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 import { Task as TaskType } from "types/Task";
 import { formatDate } from "utils/formatDate";
+import { getConfig } from "utils/getConfig";
 
 import * as S from './styles';
 
@@ -12,7 +16,9 @@ type TaskProps = {
 };
 
 const Task: React.FC<TaskProps> = ({ task, setShowModal, setCurrentTask, setDeleteModal, isCreator }) => {
-    const { description, name, dueDate, priority, state } = task
+    const navigate = useNavigate();
+
+    const { description, name, dueDate, priority, state, _id } = task
 
     const handleClick = () => {
         setShowModal(true);
@@ -22,6 +28,24 @@ const Task: React.FC<TaskProps> = ({ task, setShowModal, setCurrentTask, setDele
     const handleDeleteClick = () => {
         setDeleteModal(true);
         setCurrentTask(task);
+    }
+
+    const handleCompleteClick = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                navigate('/');
+                return;
+            }
+
+            console.log(`${import.meta.env.VITE_API_TASKS_URL}/state/${_id}`);
+
+            const { data } = await axios.post(`${import.meta.env.VITE_API_TASKS_URL}/state/${_id}`, {}, getConfig(token));
+
+            console.log(data);
+        } catch (error: any) {
+            console.log(error.response.data);
+        }
     }
 
     return (
@@ -34,7 +58,10 @@ const Task: React.FC<TaskProps> = ({ task, setShowModal, setCurrentTask, setDele
             </S.Wrapper>
             <S.ButtonsWrapper>
                 { isCreator && <S.EditButton onClick={handleClick} >Edit</S.EditButton>}
-                <S.CompleteButton state={state}>{state ? 'Completed' : 'Complete'}</S.CompleteButton>
+                <S.CompleteButton 
+                    onClick={handleCompleteClick}
+                    state={state}
+                >{state ? 'Completed' : 'Complete'}</S.CompleteButton>
                 { isCreator && <S.DeleteButton onClick={handleDeleteClick}>Delete</S.DeleteButton>}
             </S.ButtonsWrapper>
         </S.TaskWrapper>
