@@ -2,7 +2,7 @@ import Alert from "components/Atoms/Alert";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-import useCreator from 'hooks/useCreator';
+import useAuth from "hooks/useAuth";
 import { Project } from "types/Project"
 import { getProject } from "utils/getProject";
 
@@ -12,6 +12,7 @@ import Tasks from "./components/Tasks";
 
 const ProjectPage: React.FC = () => {
     const params = useParams();
+    const userId = useAuth()?.auth?._id;
 
     const [project, setProject] = useState<Project>();
 
@@ -40,7 +41,7 @@ const ProjectPage: React.FC = () => {
 
     const { name, _id, tasks, contributors, creator } = project;
 
-    const isCreator = useCreator(creator);
+    const isCreator = creator === userId;
 
     return (
         <>
