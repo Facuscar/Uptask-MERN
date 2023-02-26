@@ -11,8 +11,6 @@ type CreateTaskButtonProps = {
 
 const CreateTaskButton: React.FC<CreateTaskButtonProps> = ({ setShowModal, setCurrentTask }) => {
     const handleClick = () => {
-        console.log('hi');
-        
         setShowModal(true);
         setCurrentTask(undefined);
     }
