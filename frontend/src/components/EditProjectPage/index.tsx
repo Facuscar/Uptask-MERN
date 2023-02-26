@@ -20,7 +20,7 @@ const EditProjectPage: React.FC = () => {
         const loadProject = async () => {
             const data = await getProject(id);
             if (!data) navigate('/');
-            setProject(data);
+            setProject(data.project);
         } 
         loadProject();
     }, []);
@@ -28,6 +28,8 @@ const EditProjectPage: React.FC = () => {
     if (!project) return <>Edit project skeleton...</>
 
     const { name } = project;
+    console.log(project);
+    
 
     return (
         <>
