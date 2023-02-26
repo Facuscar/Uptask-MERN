@@ -2,6 +2,7 @@ import Alert from "components/Atoms/Alert";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
+import useCreator from 'hooks/useCreator';
 import { Project } from "types/Project"
 import { getProject } from "utils/getProject";
 
@@ -35,17 +36,19 @@ const ProjectPage: React.FC = () => {
 
     if (loading) return <>Project Page skeleton...</>;
 
-    if (!project) return <Alert message={message} error />;  
+    if (!project) return <Alert message={message} error />;
 
-    const { name, _id, tasks, contributors } = project;
+    const { name, _id, tasks, contributors, creator } = project;
+
+    const isCreator = useCreator(creator);
 
     return (
         <>
-            <Header name={name} projectId={_id} />
+            <Header name={name} projectId={_id} isCreator={isCreator} />
 
-            <Tasks projectId={_id} projectTasks={tasks} />
+            <Tasks projectId={_id} projectTasks={tasks} isCreator={isCreator} />
 
-            <Contributors projectId={_id} projectContributors={contributors} />
+            {isCreator && <Contributors projectId={_id} projectContributors={contributors} />}
         </>    
     );
 }

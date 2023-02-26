@@ -2,6 +2,7 @@ import { Task } from "./Task";
 import { Contributor } from './Contributor';
 
 export type Project = {
+    creator: string;
     name: string;
     description: string;
     dueDate: string;

@@ -14,11 +14,12 @@ import TaskList from "./components/TaskList";
 import * as S from './styles';
 
 type TasksProps = {
+    isCreator: boolean;
     projectId: string;
     projectTasks: Task[];
 };
 
-const Tasks: React.FC<TasksProps> = ({ projectId, projectTasks }) => {
+const Tasks: React.FC<TasksProps> = ({ isCreator, projectId, projectTasks }) => {
     const [showModal, setShowModal] = useState<boolean>(false);
     const [tasks, setTasks] = useState<Task[]>(projectTasks)
     const [currentTask, setCurrentTask] = useState<Task>();
@@ -97,13 +98,19 @@ const Tasks: React.FC<TasksProps> = ({ projectId, projectTasks }) => {
 
     return (
         <>
-            <CreateTaskButton setShowModal={setShowModal} setCurrentTask={setCurrentTask} />
+            { isCreator && <CreateTaskButton setShowModal={setShowModal} setCurrentTask={setCurrentTask} />}
             <Modal showModal={showModal} setShowModal={setShowModal} title={getTitle()}>
                 <TaskForm projectId={projectId} submitTask={submitTask} task={currentTask}/>
             </Modal>
             <S.TasksWrapper>
                 {tasks.length > 0
-                    ? <TaskList tasks={tasks} setShowModal={setShowModal} setCurrentTask={setCurrentTask} deleteTask={deleteTask} /> 
+                    ? <TaskList 
+                        tasks={tasks} 
+                        setShowModal={setShowModal} 
+                        setCurrentTask={setCurrentTask} 
+                        deleteTask={deleteTask} 
+                        isCreator={isCreator} 
+                    /> 
                     : <S.AltText>You don't have any tasks yet!</S.AltText>}
             </S.TasksWrapper>
         </>

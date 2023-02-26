@@ -13,11 +13,12 @@ import { getConfig } from "utils/getConfig";
 import * as S from './styles';
 
 type HeaderProps = {
+    isCreator: boolean;
     name: string;
     projectId: string;
 };
 
-const Header: React.FC<HeaderProps> = ({ name, projectId }) => {
+const Header: React.FC<HeaderProps> = ({ name, projectId, isCreator }) => {
     const navigate = useNavigate();
 
     const deleteProject = async () => {
@@ -49,7 +50,7 @@ const Header: React.FC<HeaderProps> = ({ name, projectId }) => {
             {showAlert && <Alert message={message} error={error} />}
             <S.HeaderWrapper>
                 <ProjectTitle title={name} />
-                <S.IconsWrapper>
+                { isCreator && <S.IconsWrapper>
                     <S.IconWrapper>
                         <EditIcon />
                         <Link to={`${PATH.EDIT_PROJECT}/${projectId}`} className="uppercase font-bold">Edit</Link>
@@ -59,7 +60,7 @@ const Header: React.FC<HeaderProps> = ({ name, projectId }) => {
                         {/* Refactor into button with variants component */}
                         <button className="uppercase font-bold" onClick={deleteProject}>Delete</button>
                     </S.IconWrapper>
-                </S.IconsWrapper>
+                </S.IconsWrapper>}
             </S.HeaderWrapper>
         </>
     );

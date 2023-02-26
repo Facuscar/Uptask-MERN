@@ -4,13 +4,14 @@ import { formatDate } from "utils/formatDate";
 import * as S from './styles';
 
 type TaskProps = {
+    isCreator: boolean;
     setCurrentTask: (task: TaskType) => void;
     setDeleteModal: (v: boolean) => void;
     setShowModal: (v: boolean) => void;
     task: TaskType;
 };
 
-const Task: React.FC<TaskProps> = ({ task, setShowModal, setCurrentTask, setDeleteModal }) => {
+const Task: React.FC<TaskProps> = ({ task, setShowModal, setCurrentTask, setDeleteModal, isCreator }) => {
     const { description, name, dueDate, priority, state } = task
 
     const handleClick = () => {
@@ -32,9 +33,9 @@ const Task: React.FC<TaskProps> = ({ task, setShowModal, setCurrentTask, setDele
                 <S.PriorityText>{`Priority: ${priority}`}</S.PriorityText>
             </S.Wrapper>
             <S.ButtonsWrapper>
-                <S.EditButton onClick={handleClick} >Edit</S.EditButton>
+                { isCreator && <S.EditButton onClick={handleClick} >Edit</S.EditButton>}
                 <S.CompleteButton state={state}>{state ? 'Completed' : 'Complete'}</S.CompleteButton>
-                <S.DeleteButton onClick={handleDeleteClick}>Delete</S.DeleteButton>
+                { isCreator && <S.DeleteButton onClick={handleDeleteClick}>Delete</S.DeleteButton>}
             </S.ButtonsWrapper>
         </S.TaskWrapper>
     );
