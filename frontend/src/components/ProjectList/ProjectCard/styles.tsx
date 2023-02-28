@@ -5,8 +5,16 @@ export const Wrapper: React.FC<{ children: ReactNode }> = ({ children }) => (
     <div className="border-b p-5">{children}</div>
 );
 
-export const ProjectName: React.FC<{ projectName: string, clientName: string }> = ({ projectName, clientName }) => (
-    <p className="flex-1">{projectName}<span className="text-sm text-gray-500 uppercase"> - {clientName}</span></p>
+export const ProjectName: React.FC<{ 
+    projectName: string, 
+    clientName: string, 
+    isCreator: boolean 
+}> = ({ projectName, clientName, isCreator }) => (
+    <div className="flex">
+        <p className="flex-1">{projectName}<span className="text-sm text-gray-500 uppercase"> - {clientName}</span></p>
+        { !isCreator && <p className="p-2 text-xs rounded-lg text-white bg-green-500 font-bold uppercase">Contributor</p> }
+    </div>
+    
 );
 
 export const ProjectLink: React.FC<{ to: string, children: ReactNode }> = ({ children, to }) => (
