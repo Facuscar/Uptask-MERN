@@ -24,12 +24,11 @@ const ProjectPage: React.FC = () => {
     useEffect(() => {
         const loadProject = async () => {
             const data = await getProject(id);
+            setLoading(false);
             if (!data.project) {
                 setMessage(data);
                 return;
             };
-
-            setLoading(false);
             setProject(data.project);
         };
         loadProject();

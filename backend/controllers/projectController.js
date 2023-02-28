@@ -38,7 +38,7 @@ export const getProject = async (req, res) => {
     const isContributor = project.contributors.some( (contributor) => contributor._id.toString() === req.user._id.toString());
 
     if (!isCreator && !isContributor) {
-        const error = new Error('You dont have access to this project');
+        const error = new Error('You do not have access to this project');
         return res.status(401).json({ msg: error.message });
     }
 

@@ -38,7 +38,6 @@ export const AuthProvider = ({ children } : { children: ReactNode}) => {
             try {
                 const { data } = await axios<User>(`${import.meta.env.VITE_API_USERS_URL}/profile`, getConfig(token));
                 setAuth(data);
-                navigate('/projects');
             } catch (error: any) {
                 setAuth(null);
             } finally {
