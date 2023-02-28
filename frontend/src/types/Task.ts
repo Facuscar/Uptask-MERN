@@ -1,11 +1,17 @@
 export type Priority = "Low" | "Medium" | "High";
 
-export type Task = {
-    name: string;
-    description: string;
-    state: boolean;
-    dueDate: string;
-    priority: Priority;
+export type CompletedBy = {
     _id: string;
+    name: string;
+}
+
+export type Task = {
+    _id: string;
+    completedBy?: CompletedBy;
+    description: string;
+    dueDate: string;
+    name: string;
+    state: boolean;
+    priority: Priority;
     project: string;
 };

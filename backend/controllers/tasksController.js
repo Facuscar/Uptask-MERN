@@ -120,6 +120,13 @@ export const toggleTask = async (req, res) => {
     }
 
     task.state = !task.state
+    task.completedBy = req.user._id;
+
     await task.save();
-    res.json({task, msg: 'Task state changed successfully'});
+
+    const dbTask = await Task.findById(id)
+        .populate('project')
+        .populate('completedBy');
+
+    res.json({task: dbTask, msg: 'Task state changed successfully'});
 }

@@ -14,7 +14,7 @@ type TaskProps = {
 
 const Task: React.FC<TaskProps> = ({ task, setShowModal, setCurrentTask, setDeleteModal, isCreator, completeTask }) => {
 
-    const { description, name, dueDate, priority, state, _id } = task
+    const { description, name, dueDate, priority, state, _id, completedBy } = task
 
     const handleClick = () => {
         setShowModal(true);
@@ -37,6 +37,7 @@ const Task: React.FC<TaskProps> = ({ task, setShowModal, setCurrentTask, setDele
                 <S.DescriptionText>{description}</S.DescriptionText>
                 <S.DateText>{formatDate(dueDate)}</S.DateText>
                 <S.PriorityText>{`Priority: ${priority}`}</S.PriorityText>
+                { (completedBy && state) && <S.CompletedByText>{`Completed by: ${completedBy.name}`}</S.CompletedByText> }
             </S.Wrapper>
             <S.ButtonsWrapper>
                 { isCreator && <S.EditButton onClick={handleClick} >Edit</S.EditButton>}

@@ -116,7 +116,7 @@ const Tasks: React.FC<TasksProps> = ({ isCreator, projectId, projectTasks }) => 
             if (task) {
                 setTasks( (prevTasks) => {
                     return prevTasks.map( prevTask => (prevTask._id === task._id) ? task : prevTask)
-                })
+                });
             }
             
         } catch (error: any) {

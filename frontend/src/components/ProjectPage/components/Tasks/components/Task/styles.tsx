@@ -45,3 +45,7 @@ export const DescriptionText: React.FC<{ children: string }> = ({ children }) =>
 export const PriorityText: React.FC<{ children: string }> = ({ children }) => (
     <p className="mb-1 text-gray-600">{children}</p>
 );
+
+export const CompletedByText: React.FC<{ children: string }> = ({ children }) => (
+    <p className="text-white bg-lime-600 px-2 py-1 rounded inline">{children}</p>
+);
