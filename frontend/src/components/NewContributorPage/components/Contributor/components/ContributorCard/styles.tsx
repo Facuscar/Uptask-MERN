@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 
 export const MainWrapper: React.FC<{ children: ReactNode }> = ({ children }) => (
-    <div className="flex justify-center mt-10">{children}</div>
+    <div className="flex justify-center mt-10 w-full">{children}</div>
 )
 
 

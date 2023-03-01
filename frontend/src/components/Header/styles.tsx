@@ -9,9 +9,9 @@ export const Wrapper: React.FC<{ children: ReactNode }> = ({ children }) => (
 )
 
 export const Heading: React.FC<{ children: string }> = ({ children }) => (
-    <h2 className="text-4xl text-sky-600 font-black text-center">{children}</h2>
+    <h2 className="text-4xl text-sky-600 font-black text-center mb-5 md:mb-0">{children}</h2>
 )
 
 export const NavWrapper: React.FC<{ children: ReactNode }> = ({ children }) => (
-    <div className="flex items-center gap-4">{children}</div>
+    <div className="flex items-center gap-4 flex-col md:flex-row">{children}</div>
 )

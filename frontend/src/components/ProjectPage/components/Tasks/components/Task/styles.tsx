@@ -9,7 +9,7 @@ export const Wrapper: React.FC<{ children: ReactNode }> = ({ children }) => (
 );
 
 export const ButtonsWrapper: React.FC<{ children: ReactNode }> = ({ children }) => (
-    <div className="flex gap-2">{children}</div>
+    <div className="flex flex-col lg:flex-row gap-2">{children}</div>
 );
 
 export const EditButton: React.FC<{ children: string } & HTMLAttributes<HTMLButtonElement>> = ({ children, ...props }) => (

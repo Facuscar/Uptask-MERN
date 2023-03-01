@@ -40,7 +40,7 @@ const ContributorForm: React.FC<ContributorFormProps> = ({ submitContributor }) 
     }
 
     return (
-        <S.SearchForm onSubmit={e => handleSubmit(e)}>
+        <S.SearchForm onSubmit={handleSubmit}>
             { showAlert && <Alert message={message} error={error} /> }
             <Input name="Contributor email" type="enail" id="contributor_email" placeholder="example@example.com" ref={emailRef}/>
 

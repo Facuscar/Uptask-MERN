@@ -22,7 +22,7 @@ const NewContributorPage: React.FC = () => {
                 navigate('/');
                 return;
             }
-            setProject(data);
+            setProject(data.project);
         }
         loadProject();
     }, [])

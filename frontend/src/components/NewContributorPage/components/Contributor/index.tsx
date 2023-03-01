@@ -32,7 +32,7 @@ const ContributorSection: React.FC<{ project: Project }> = ({ project }) => {
     const [isLoading, setIsLoading] = useState<boolean>();
     const [contributor, setContributor] = useState<Contributor>();
 
-    const addContributor = async () => {
+    const addContributor = async (e) => {
         try {
             const token = localStorage.getItem('token');
             if (!token) {
