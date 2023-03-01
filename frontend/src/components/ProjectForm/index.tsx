@@ -1,10 +1,10 @@
 import { useState ,useRef, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 
-import useProjects from "hooks/useProjects";
 import Alert from "components/Atoms/Alert";
 import Input from "components/Atoms/Form/Input";
 import SubmitButton from 'components/Atoms/Form/SubmitButton';
+import { useProjects } from "context/ProjectProvider";
 import { PATH } from "constants/path";
 import { Project, NewProject } from "types/Project";
 
@@ -28,7 +28,7 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ project }) => {
 
     const navigate = useNavigate();
 
-    const ProjectContext = useProjects();
+    const { editProject, submitProject } = useProjects();
 
     const formatDate = (date: string | undefined) => {
         if (date) return date.split('T')[0];
@@ -57,8 +57,8 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ project }) => {
         
 
         const response = isEditing 
-        ? await ProjectContext?.editProject(newProject) 
-        : await ProjectContext?.submitProject(newProject);
+        ? await editProject(newProject) 
+        : await submitProject(newProject);
 
         setShowAlert(true)
 

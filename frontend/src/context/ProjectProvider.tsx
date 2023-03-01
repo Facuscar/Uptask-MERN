@@ -1,10 +1,11 @@
 import axios from "axios";
-import { createContext, ReactNode } from "react";
+import { useMemo, useContext, createContext, ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { NewProject } from "types/Project";
 import { getConfig } from "utils/getConfig";
 
+/* REFACTOR THIS CONTEXT */
 type Context = {
     submitProject: (project: NewProject) => Promise<{ message: string, success: boolean } | undefined>;
     editProject: (project: NewProject) => Promise<{ message: string, success: boolean } | undefined>;
@@ -70,14 +71,26 @@ export const ProjectsProvider = ({ children } : { children: ReactNode }) => {
         }
     }
 
-    return (
-        <ProjectsContext.Provider value={{
+    const memoizedValues = useMemo(() => {
+        return {
             submitProject,
             editProject,
-        }}>
+        };
+    }, [submitProject, editProject])
+
+    return (
+        <ProjectsContext.Provider value={memoizedValues}>
            {children} 
         </ProjectsContext.Provider>
     )
 }
 
 export default ProjectsContext;
+
+export const useProjects = () => {
+    const context = useContext(ProjectsContext);
+    if (!context) {
+      throw new Error('[ProjectsContext] Missing context');
+    }
+    return context;
+};
