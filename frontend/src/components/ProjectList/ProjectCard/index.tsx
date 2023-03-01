@@ -1,5 +1,5 @@
+import { useAuth } from "context/AuthProvider";
 import { Project } from "types/Project";
-import useAuth from "hooks/useAuth";
 
 import * as S from './styles';
 
@@ -8,10 +8,10 @@ type ProjectProps = {
 };
 
 const ProjectCard: React.FC<ProjectProps> = ({ project }) => {
-    const userId = useAuth()?.auth?._id;
+    const { auth } = useAuth();
     const { name, client, _id, creator } = project;
 
-    const isCreator = userId === creator;
+    const isCreator = auth?._id === creator;
 
     return (
         <S.Wrapper>

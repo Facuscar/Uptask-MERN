@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import Alert from "components/Atoms/Alert";
 import Input from "components/Atoms/Form/Input";
 import SubmitButton from 'components/Atoms/Form/SubmitButton';
-import { useProjects } from "context/ProjectProvider";
 import { PATH } from "constants/path";
+import { useProjects } from "context/ProjectProvider";
 import { Project, NewProject } from "types/Project";
 
 import * as S from './styles';

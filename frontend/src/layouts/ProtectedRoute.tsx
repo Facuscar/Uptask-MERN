@@ -2,15 +2,10 @@ import { Outlet, Navigate } from "react-router-dom";
 
 import Header from "components/Header";
 import Sidebar from "components/Sidebar";
-import useAuth from "hooks/useAuth";
+import { useAuth } from "context/AuthProvider";
 
 const ProtectedRoute = () => {
-    const userContext = useAuth();
-
-    let auth = null;
-    let loading = null;
-
-    if ( userContext ) ({ auth, loading } = userContext);
+    const { auth, loading } = useAuth();
 
     if (loading) return <>Loading..</>;
 

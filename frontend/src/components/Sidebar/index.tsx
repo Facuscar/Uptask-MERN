@@ -1,14 +1,11 @@
 import { PATH } from "constants/path";
-import useAuth from "hooks/useAuth";
+import { useAuth } from "context/AuthProvider";
 
 import * as S from './styles';
 
 const Sidebar: React.FC = () => {
 
-    const userContext = useAuth();
-    let auth = null;
-
-    if (userContext) ({ auth } = userContext);
+    const { auth } = useAuth();
 
     return (
         <S.Aside>

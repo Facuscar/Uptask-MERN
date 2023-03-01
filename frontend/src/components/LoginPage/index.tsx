@@ -8,7 +8,7 @@ import SubmitButton from "components/Atoms/Form/SubmitButton";
 import TitleWithSpan from "components/Atoms/TitleWithSpan";
 import AuthNav from "components/AuthNav";
 import { PATH } from "constants/path";
-import useAuth from "hooks/useAuth";
+import { useAuth } from "context/AuthProvider";
 
 import * as S from './styles';
 
@@ -21,7 +21,7 @@ const LoginPage: React.FC = () => {
     const [error, setError] = useState<boolean>(false);
 
     const navigate = useNavigate();
-    const userContext = useAuth();
+    const { setAuth } = useAuth();
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -36,7 +36,7 @@ const LoginPage: React.FC = () => {
         try {
             const { data } = await axios.post<{ msg: string, token: string, _id: string, name: string, email: string }>(`${import.meta.env.VITE_API_USERS_URL}/login`, { email: emailRef.current?.value, password: passwordRef.current?.value });
             localStorage.setItem('token', data.token)
-            userContext?.setAuth({
+            setAuth({
                 _id: data._id,
                 name: data.name,
                 email: data.email,
