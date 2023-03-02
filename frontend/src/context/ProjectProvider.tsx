@@ -1,14 +1,16 @@
 import axios from "axios";
-import { useMemo, useContext, createContext, ReactNode } from "react";
+import { useEffect, useState, useMemo, useContext, createContext, ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { NewProject } from "types/Project";
+import { NewProject, Project } from "types/Project";
 import { getConfig } from "utils/getConfig";
 
 /* REFACTOR THIS CONTEXT */
 type Context = {
     submitProject: (project: NewProject) => Promise<{ message: string, success: boolean } | undefined>;
     editProject: (project: NewProject) => Promise<{ message: string, success: boolean } | undefined>;
+    loading: boolean;
+    projects: Project[] | undefined;
 };
 
 const ProjectsContext = createContext<Context | null>(null);
@@ -16,6 +18,33 @@ const ProjectsContext = createContext<Context | null>(null);
 export const ProjectsProvider = ({ children } : { children: ReactNode }) => {
 
     const navigate = useNavigate();
+
+    const [loading, setLoading] = useState(true);
+    const [projects, setProjects] = useState<Project[]>();
+
+    useEffect(() => {
+       const getProjects = async () => {
+            try {
+                const token = localStorage.getItem('token');
+                if (!token) {
+                    navigate('/');
+                    return;
+                }
+
+                const { data } = await axios<Project[]>(import.meta.env.VITE_API_PROJECTS_URL, getConfig(token));
+
+                setProjects(data);
+
+            } catch (error: any) {
+                console.log(error.response);
+            } finally {
+                setLoading(false);
+            }
+       } 
+       
+       getProjects();
+    }, []);
+
 
     const submitProject = async (project: NewProject) => {
         
@@ -75,6 +104,8 @@ export const ProjectsProvider = ({ children } : { children: ReactNode }) => {
         return {
             submitProject,
             editProject,
+            loading,
+            projects,
         };
     }, [submitProject, editProject])
 
