@@ -1,4 +1,6 @@
 import express from "express";
+import { Server } from "socket.io"; 
+
 import connectDB from "./config/db.js";
 import cors from "cors"
 import dotenv from "dotenv";
@@ -33,6 +35,17 @@ app.use("/api/tasks", tasksRoutes);
 
 const PORT = process.env.PORT || 4000;
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
     console.log('Test');
+});
+
+const io = new Server(server, {
+    pingTimeout: 60000,
+    cors: {
+        origin: process.env.WHITELISTED_URL,
+    },
+});
+
+io.on('connection', (socket) => {
+    console.log('Connected to socket IO');
 });
