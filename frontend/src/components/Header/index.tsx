@@ -10,11 +10,6 @@ import Search from "./components/Search";
 import * as S from './styles';
 
 const Header: React.FC = () => {
-    const { setSearching } = useProjects();
-
-    const handleClick = () => {
-        setSearching(true);
-    }
 
     return (
         <S.MainWrapper>
@@ -22,10 +17,9 @@ const Header: React.FC = () => {
                 <S.Heading>UpTask</S.Heading>
 
                 <S.NavWrapper>
-                    <Button text="Search project" type="button" onClick={handleClick} />
+                    <Search />
                     <Link to={PATH.PROJECTS} className="font-bold uppercase">Projects</Link>
                     <Button type="button" text="Log out" />
-                    <Search />
                 </S.NavWrapper>
             </S.Wrapper>
         </S.MainWrapper>

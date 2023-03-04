@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState, useMemo, useContext, createContext, ReactNode } from "react";
+import { useEffect, useState, useMemo, useContext, createContext, ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { NewProject, Project } from "types/Project";
@@ -10,8 +10,8 @@ type Context = {
     editProject: (project: NewProject) => Promise<{ message: string, success: boolean } | undefined>;
     projects: Project[] | undefined;
     setProjects: (projects: Project[]) => void;
-    searching: boolean;
-    setSearching: (isSearching: boolean) => void;
+    filteredProjects: Project[] | undefined;
+    setFilteredProjects: (projects: Project[]) => void;
 };
 
 const ProjectsContext = createContext<Context | null>(null);
@@ -21,7 +21,7 @@ export const ProjectsProvider = ({ children } : { children: ReactNode }) => {
     const navigate = useNavigate();
 
     const [projects, setProjects] = useState<Project[]>();
-    const [searching, setSearching] = useState<boolean>(false);
+    const [filteredProjects, setFilteredProjects] = useState<Project[]>();
 
     const submitProject = async (project: NewProject) => {
         
@@ -77,14 +77,18 @@ export const ProjectsProvider = ({ children } : { children: ReactNode }) => {
         }
     }
 
+    useEffect(() => {
+        setFilteredProjects(projects);
+    }, [projects]);
+
     const memoizedValues = useMemo(() => {
         return {
             submitProject,
             editProject,
             projects,
             setProjects,
-            searching,
-            setSearching,
+            filteredProjects,
+            setFilteredProjects
         };
     }, [submitProject, editProject])
 
