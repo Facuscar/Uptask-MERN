@@ -48,7 +48,4 @@ const io = new Server(server, {
 
 io.on('connection', (socket) => {
     console.log('Connected to socket IO');
-    socket.on('test', () => {
-        console.log('Test event received');
-    })
 });
