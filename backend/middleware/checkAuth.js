@@ -2,7 +2,6 @@ import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 
 const checkAuth = async (req, res, next) => {
-    console.log(req.headers);
     if (
         req.headers.authorization && req.headers.authorization.startsWith("Bearer")
     ) {
@@ -12,7 +11,6 @@ const checkAuth = async (req, res, next) => {
             const { id } = jwt.verify(token, process.env.JWT_SECRET);
             
             req.user = await User.findById(id).select('-password -confirmed -token -createdAt -updatedAt -__v');
-            console.log(req.user);
 
             return next();
         } catch (error) {

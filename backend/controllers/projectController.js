@@ -165,7 +165,6 @@ export const deleteContributor = async (req, res) => {
     }
 
     project.contributors.pull(req.body.id);
-    console.log(project.contributors);
     await project.save();
     res.json({ msg: 'Contributor deleted successfully' });
 };

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import io from "socket.io-client";
 
 import ProjectList from "components/ProjectList";
 import { useProjects } from "context/ProjectProvider";
@@ -10,10 +11,15 @@ import { Project } from "types/Project";
 import * as S from './styles';
 
 const ProjectsPage: React.FC = () => {
+    let socket;
 
     const navigate = useNavigate();
     const { filteredProjects, setProjects, projects } = useProjects();
     const [loading, setLoading] = useState<boolean>(true);
+
+    useEffect(() => {
+        socket = io(import.meta.env.VITE_BACKEND_URL)
+    }, []);
 
     useEffect(() => {
         const getProjects = async () => {
