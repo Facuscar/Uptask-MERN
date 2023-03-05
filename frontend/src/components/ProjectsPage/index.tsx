@@ -19,6 +19,7 @@ const ProjectsPage: React.FC = () => {
 
     useEffect(() => {
         socket = io(import.meta.env.VITE_BACKEND_URL)
+        socket.emit('test');
     }, []);
 
     useEffect(() => {
