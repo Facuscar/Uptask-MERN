@@ -1,7 +1,8 @@
-import Alert from "components/Atoms/Alert";
+import { io } from "socket.io-client";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
+import Alert from "components/Atoms/Alert";
 import { useAuth } from "context/AuthProvider";
 import { Project } from "types/Project"
 import { getProject } from "utils/getProject";
@@ -21,6 +22,8 @@ const ProjectPage: React.FC = () => {
 
     const { id } = params;
 
+    let socket;
+
     useEffect(() => {
         const loadProject = async () => {
             const data = await getProject(id);
@@ -32,6 +35,11 @@ const ProjectPage: React.FC = () => {
             setProject(data.project);
         };
         loadProject();
+    }, []);
+
+    useEffect(() => {
+        socket = io(import.meta.env.VITE_BACKEND_URL);
+        socket.emit('open project', params.id);
     }, []);
 
     if (loading) return <>Project Page skeleton...</>;
