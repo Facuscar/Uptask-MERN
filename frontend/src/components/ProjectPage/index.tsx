@@ -39,7 +39,7 @@ const ProjectPage: React.FC = () => {
 
     useEffect(() => {
         socket = io(import.meta.env.VITE_BACKEND_URL);
-        socket.emit('open project', params.id);
+        socket.emit('open project', id)
     }, []);
 
     if (loading) return <>Project Page skeleton...</>;

@@ -1,6 +1,7 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { io, Socket } from "socket.io-client";
 
 import Modal from "components/ProjectPage/components/Modal";
 import { Task } from "types/Task";
@@ -28,8 +29,16 @@ const Tasks: React.FC<TasksProps> = ({ isCreator, projectId, projectTasks }) => 
     const [showModal, setShowModal] = useState<boolean>(false);
     const [tasks, setTasks] = useState<Task[]>(projectTasks)
     const [currentTask, setCurrentTask] = useState<Task>();
-
     const navigate = useNavigate();
+
+    const socket: Socket = io(import.meta.env.VITE_BACKEND_URL);
+
+    useEffect(() => {
+        socket.on('task created', data => {
+            console.log(data);
+        })
+    });
+
 
     const getTitle = () => {
         const title = !currentTask ? 'Create task' : 'Edit task';
@@ -84,6 +93,7 @@ const Tasks: React.FC<TasksProps> = ({ isCreator, projectId, projectTasks }) => 
                 }
             });
 
+            socket.emit('new task', data);
         } catch (error: any) {
             console.log(error); 
         }
