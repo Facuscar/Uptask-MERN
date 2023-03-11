@@ -31,14 +31,11 @@ const Tasks: React.FC<TasksProps> = ({ isCreator, projectId, projectTasks }) => 
     const [currentTask, setCurrentTask] = useState<Task>();
     const navigate = useNavigate();
 
-    const socket: Socket = io(import.meta.env.VITE_BACKEND_URL);
+    let socket: Socket;
 
     useEffect(() => {
-        socket.on('task created', data => {
-            console.log(data);
-        })
-    });
-
+        socket = io(import.meta.env.VITE_BACKEND_URL);
+    }, []);
 
     const getTitle = () => {
         const title = !currentTask ? 'Create task' : 'Edit task';
@@ -92,8 +89,6 @@ const Tasks: React.FC<TasksProps> = ({ isCreator, projectId, projectTasks }) => 
                     return [data];
                 }
             });
-
-            socket.emit('new task', data);
         } catch (error: any) {
             console.log(error); 
         }

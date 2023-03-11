@@ -50,9 +50,4 @@ io.on('connection', (socket) => {
     socket.on('open project', (projectId) => {
         socket.join(projectId);
     });
-
-    socket.on('new task', task => {
-        const project = task.project;
-        socket.to(project).emit('task created', 'this is a fucking test');
-    })
 });
