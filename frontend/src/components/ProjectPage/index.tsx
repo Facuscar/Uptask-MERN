@@ -12,6 +12,8 @@ import Header from "./components/Header";
 import Tasks from "./components/Tasks";
 import { DefaultEventsMap } from "@socket.io/component-emitter";
 
+let socket: Socket<DefaultEventsMap, DefaultEventsMap>;
+
 const ProjectPage: React.FC = () => {
     const params = useParams();
     const { auth } = useAuth();
@@ -22,8 +24,6 @@ const ProjectPage: React.FC = () => {
     const [message, setMessage] = useState<string>('');
 
     const { id } = params;
-
-    let socket: Socket<DefaultEventsMap, DefaultEventsMap>;
 
     useEffect(() => {
         const loadProject = async () => {
@@ -42,6 +42,12 @@ const ProjectPage: React.FC = () => {
         socket = io(import.meta.env.VITE_BACKEND_URL);
         socket.emit('open project', id);
     }, []);
+
+    useEffect(() => {
+        socket.on('task created', newTask => {
+            console.log(newTask);
+        });
+    });
 
     if (loading) return <>Project Page skeleton...</>;
 

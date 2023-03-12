@@ -25,13 +25,13 @@ type TasksProps = {
     projectTasks: Task[];
 };
 
+let socket: Socket;
+
 const Tasks: React.FC<TasksProps> = ({ isCreator, projectId, projectTasks }) => {
     const [showModal, setShowModal] = useState<boolean>(false);
     const [tasks, setTasks] = useState<Task[]>(projectTasks)
     const [currentTask, setCurrentTask] = useState<Task>();
     const navigate = useNavigate();
-
-    let socket: Socket;
 
     useEffect(() => {
         socket = io(import.meta.env.VITE_BACKEND_URL);
@@ -89,6 +89,8 @@ const Tasks: React.FC<TasksProps> = ({ isCreator, projectId, projectTasks }) => 
                     return [data];
                 }
             });
+
+            socket.emit('new task', data);
         } catch (error: any) {
             console.log(error); 
         }
