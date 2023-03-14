@@ -44,6 +44,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ submitTask, projectId, task }) => {
             setError(true);
             setMessage("All fields are required");
             setShowAlert(true);
+            return;
         }
         // Refactor Task / Project Types logic (regarding option field ID)
         const newTask: Task = {

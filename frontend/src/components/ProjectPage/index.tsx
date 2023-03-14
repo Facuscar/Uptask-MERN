@@ -1,4 +1,3 @@
-import { io, Socket } from "socket.io-client";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
@@ -10,9 +9,6 @@ import { getProject } from "utils/getProject";
 import Contributors from "./components/Contributors";
 import Header from "./components/Header";
 import Tasks from "./components/Tasks";
-import { DefaultEventsMap } from "@socket.io/component-emitter";
-
-let socket: Socket<DefaultEventsMap, DefaultEventsMap>;
 
 const ProjectPage: React.FC = () => {
     const params = useParams();
@@ -37,17 +33,6 @@ const ProjectPage: React.FC = () => {
         };
         loadProject();
     }, []);
-
-    useEffect(() => {
-        socket = io(import.meta.env.VITE_BACKEND_URL);
-        socket.emit('open project', id);
-    }, []);
-
-    useEffect(() => {
-        socket.on('task created', newTask => {
-            console.log(newTask);
-        });
-    });
 
     if (loading) return <>Project Page skeleton...</>;
 

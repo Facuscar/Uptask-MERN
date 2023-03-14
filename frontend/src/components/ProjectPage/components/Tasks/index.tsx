@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { io, Socket } from "socket.io-client";
+import { DefaultEventsMap } from "@socket.io/component-emitter";
 
 import Modal from "components/ProjectPage/components/Modal";
 import { Task } from "types/Task";
@@ -11,6 +12,7 @@ import { getConfig } from "utils/getConfig";
 import CreateTaskButton from "./components/CreateTaskButton";
 import TaskForm from "./components/TaskForm";
 import TaskList from "./components/TaskList";
+
 
 import * as S from './styles';
 
@@ -25,17 +27,29 @@ type TasksProps = {
     projectTasks: Task[];
 };
 
-let socket: Socket;
+let socket: Socket<DefaultEventsMap, DefaultEventsMap>;
 
 const Tasks: React.FC<TasksProps> = ({ isCreator, projectId, projectTasks }) => {
     const [showModal, setShowModal] = useState<boolean>(false);
-    const [tasks, setTasks] = useState<Task[]>(projectTasks)
+    const [tasks, setTasks] = useState<Task[]>(projectTasks);
     const [currentTask, setCurrentTask] = useState<Task>();
     const navigate = useNavigate();
 
     useEffect(() => {
         socket = io(import.meta.env.VITE_BACKEND_URL);
+        socket.emit('open project', projectId);
     }, []);
+
+    useEffect(() => {
+        socket.on('task created', (newTask: Task) => {
+            setTasks( prev => {
+                if (prev.some(task => task._id === newTask._id)) {
+                    return prev;
+                }
+                return [...prev, newTask];
+            });
+        });
+    });
 
     const getTitle = () => {
         const title = !currentTask ? 'Create task' : 'Edit task';
