@@ -42,6 +42,7 @@ const Tasks: React.FC<TasksProps> = ({ isCreator, projectId, projectTasks }) => 
 
     useEffect(() => {
         socket.on('task created', (newTask: Task) => {
+            if (newTask.project !== projectId) return;
             setTasks( prev => {
                 if (prev.some(task => task._id === newTask._id)) {
                     return prev;
@@ -49,6 +50,13 @@ const Tasks: React.FC<TasksProps> = ({ isCreator, projectId, projectTasks }) => 
                 return [...prev, newTask];
             });
         });
+
+        socket.on('task deleted', (deletedTask: Task) => {
+            if (deletedTask.project !== projectId) return;
+            setTasks( prev => {
+                return prev.filter( oldTask => oldTask._id !== deletedTask._id);
+            });
+        })
     });
 
     const getTitle = () => {
@@ -70,6 +78,7 @@ const Tasks: React.FC<TasksProps> = ({ isCreator, projectId, projectTasks }) => 
                 return prev.filter( oldTask => oldTask._id !== currentTask?._id);
             });
 
+            socket.emit('delete task', currentTask);
         } catch (error: any) {
             console.log(error);
         }
