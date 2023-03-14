@@ -4,12 +4,12 @@ import Alert from "components/Atoms/Alert";
 import Input from "components/Atoms/Form/Input";
 import Select from "components/Atoms/Form/Select";
 import SubmitButton from "components/Atoms/Form/SubmitButton";
-import { Task, Priority } from "types/Task";
+import { Task, NewTask, Priority } from "types/Task";
 
 import * as S from './styles';
 
 type TaskFormProps = {
-    submitTask: (task: Task) => void;
+    submitTask: (task: NewTask) => void;
     projectId: string;
     task?: Task;
 };
@@ -46,8 +46,8 @@ const TaskForm: React.FC<TaskFormProps> = ({ submitTask, projectId, task }) => {
             setShowAlert(true);
             return;
         }
-        // Refactor Task / Project Types logic (regarding option field ID)
-        const newTask: Task = {
+
+        const newTask: NewTask = {
             name,
             description,
             dueDate,

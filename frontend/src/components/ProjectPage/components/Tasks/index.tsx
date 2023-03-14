@@ -5,7 +5,7 @@ import { io, Socket } from "socket.io-client";
 import { DefaultEventsMap } from "@socket.io/component-emitter";
 
 import Modal from "components/ProjectPage/components/Modal";
-import { Task } from "types/Task";
+import { Task, NewTask } from "types/Task";
 import { getConfig } from "utils/getConfig";
 
 
@@ -84,7 +84,7 @@ const Tasks: React.FC<TasksProps> = ({ isCreator, projectId, projectTasks }) => 
         }
     };
 
-    const submitTask = (task: Task) => {
+    const submitTask = (task: NewTask) => {
         const token = localStorage.getItem('token');
         
         if(!token) {
@@ -92,16 +92,16 @@ const Tasks: React.FC<TasksProps> = ({ isCreator, projectId, projectTasks }) => 
             return;
         }
 
-        if (task._id) {
-            editTask(task, token);
-        } else {
+        if (!task._id) {
             createTask(task, token);
+        } else {
+            editTask(task as Task, token);
         }
         
         setShowModal(false);
     };
 
-    const createTask = async (task : Task, token: string) => {
+    const createTask = async (task: NewTask, token: string) => {
         try {
             const { data } = await axios.post<Task>(import.meta.env.VITE_API_TASKS_URL, task, getConfig(token));
 

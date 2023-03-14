@@ -15,3 +15,14 @@ export type Task = {
     priority: Priority;
     project: string;
 };
+
+export type NewTask = {
+    _id?: string;
+    completedBy?: CompletedBy;
+    description: string;
+    dueDate: string;
+    name: string;
+    state: boolean;
+    priority: Priority;
+    project: string;
+};
