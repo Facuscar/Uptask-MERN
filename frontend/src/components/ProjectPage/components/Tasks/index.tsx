@@ -57,6 +57,15 @@ const Tasks: React.FC<TasksProps> = ({ isCreator, projectId, projectTasks }) => 
                 return prev.filter( oldTask => oldTask._id !== deletedTask._id);
             });
         })
+
+        socket.on('task updated', (updatedTask: Task) => {
+            //TODO: Fix this issue
+            if (updatedTask.project._id) {
+                setTasks( prev => {
+                    return prev.map( oldTask => oldTask._id === updatedTask._id ? updatedTask : oldTask);
+                });
+            }
+        });
     });
 
     const getTitle = () => {
@@ -125,7 +134,9 @@ const Tasks: React.FC<TasksProps> = ({ isCreator, projectId, projectTasks }) => 
 
             setTasks( prev => {
                 return prev.map( oldTask => oldTask._id === task._id ? task : oldTask);
-            })
+            });
+
+            socket.emit('edit task', data)
         } catch (error: any) {
             console.log(error); 
         }
