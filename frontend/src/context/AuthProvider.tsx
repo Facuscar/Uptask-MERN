@@ -13,6 +13,7 @@ type Context = {
     setAuth: (auth: User) => void,
     auth: User | null,
     loading: boolean,
+    logOut: () => void,
 };
 
 
@@ -45,11 +46,16 @@ export const AuthProvider = ({ children } : { children: ReactNode}) => {
         authUser();
     }, []);
 
+    const logOut = () => {
+       setAuth(null); 
+    };
+
     return (
         <AuthContext.Provider value={{
             auth,
             setAuth,
             loading,
+            logOut,
         }}>
             {children}
         </AuthContext.Provider>

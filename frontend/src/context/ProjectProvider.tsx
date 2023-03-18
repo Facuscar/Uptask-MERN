@@ -6,6 +6,7 @@ import { NewProject, Project } from "types/Project";
 import { getConfig } from "utils/getConfig";
 
 type Context = {
+    clearState: () => void;
     submitProject: (project: NewProject) => Promise<{ message: string, success: boolean } | undefined>;
     editProject: (project: NewProject) => Promise<{ message: string, success: boolean } | undefined>;
     projects: Project[] | undefined;
@@ -81,6 +82,11 @@ export const ProjectsProvider = ({ children } : { children: ReactNode }) => {
         setFilteredProjects(projects);
     }, [projects]);
 
+    const clearState = () => {
+        setProjects(undefined);
+        setFilteredProjects(undefined);
+    }
+
     const memoizedValues = useMemo(() => {
         return {
             submitProject,
@@ -88,7 +94,8 @@ export const ProjectsProvider = ({ children } : { children: ReactNode }) => {
             projects,
             setProjects,
             filteredProjects,
-            setFilteredProjects
+            setFilteredProjects,
+            clearState,
         };
     }, [submitProject, editProject])
 
