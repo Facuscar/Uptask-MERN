@@ -45,17 +45,16 @@ export const getTask = async (req, res) => {
 }
 
 export const updateTask = async (req, res) => {
-    const { id } = req.params;
-    const task = await Task.findById(id).populate('project');
+    const { project, _id } = req.body;
+    const dbProject = await Project.findById(project);
+    const task = await Task.findById(_id);
 
-    const { project } = task;
-
-    if (!project) {
+    if (!dbProject) {
         const error = new Error('The requested task or project does not exist');
         return res.status(404).json({ msg: error.message });
     }
 
-    if (project.creator.toString() !== req.user._id.toString()) {
+    if (dbProject.creator.toString() !== req.user._id.toString()) {
         const error = new Error('You dont have access to this project');
         return res.status(403).json({ msg: error.message });
     }
@@ -67,6 +66,7 @@ export const updateTask = async (req, res) => {
 
     try {
         const dbTask = await task.save();
+        console.log(dbTask);
         res.json(dbTask)
     } catch (error) {
         console.log(error);

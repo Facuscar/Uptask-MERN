@@ -59,8 +59,9 @@ const Tasks: React.FC<TasksProps> = ({ isCreator, projectId, projectTasks }) => 
         })
 
         socket.on('task updated', (updatedTask: Task) => {
-            //TODO: Fix this issue
-            if (updatedTask.project._id) {
+            console.log(updatedTask);
+
+            if (updatedTask.project) {
                 setTasks( prev => {
                     return prev.map( oldTask => oldTask._id === updatedTask._id ? updatedTask : oldTask);
                 });
