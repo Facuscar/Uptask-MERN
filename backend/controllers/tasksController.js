@@ -66,7 +66,6 @@ export const updateTask = async (req, res) => {
 
     try {
         const dbTask = await task.save();
-        console.log(dbTask);
         res.json(dbTask)
     } catch (error) {
         console.log(error);
@@ -127,6 +126,10 @@ export const toggleTask = async (req, res) => {
     const dbTask = await Task.findById(id)
         .populate('project')
         .populate('completedBy');
+
+    console.log(dbTask);
+
+    dbTask.project = dbTask.project._id;
 
     res.json({task: dbTask, msg: 'Task state changed successfully'});
 }

@@ -59,14 +59,18 @@ const Tasks: React.FC<TasksProps> = ({ isCreator, projectId, projectTasks }) => 
         })
 
         socket.on('task updated', (updatedTask: Task) => {
-            console.log(updatedTask);
-
             if (updatedTask.project) {
                 setTasks( prev => {
                     return prev.map( oldTask => oldTask._id === updatedTask._id ? updatedTask : oldTask);
                 });
             }
         });
+
+        socket.on('task toggled', (toggledTask: Task) => {
+            setTasks( (prevTasks) => {
+                return prevTasks.map( prevTask => (prevTask._id === toggledTask._id) ? toggledTask : prevTask)
+            });
+        })
     });
 
     const getTitle = () => {
@@ -159,6 +163,8 @@ const Tasks: React.FC<TasksProps> = ({ isCreator, projectId, projectTasks }) => 
                 setTasks( (prevTasks) => {
                     return prevTasks.map( prevTask => (prevTask._id === task._id) ? task : prevTask)
                 });
+
+                socket.emit('change status', task);
             }
             
         } catch (error: any) {
