@@ -7,6 +7,7 @@ import { Project } from "types/Project";
 
 import ContributorSection from "./components/Contributor";
 
+import * as S from './styles';
 
 
 const NewContributorPage: React.FC = () => {
@@ -27,7 +28,14 @@ const NewContributorPage: React.FC = () => {
         loadProject();
     }, [])
 
-    if (!project) return <>NewContributor Skeleton</>;
+    if (!project) return (
+        <S.SkeletonWrapper>
+            <S.TitleSkeleton />
+            <S.FormWrapperSkeleton>
+                <S.FormSkeleton />
+            </S.FormWrapperSkeleton>
+        </S.SkeletonWrapper>
+    );
 
     const { name } = project;
 
