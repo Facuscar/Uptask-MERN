@@ -6,7 +6,7 @@ export const Aside: React.FC<{ children: ReactNode }> = ({ children }) => (
 )
 
 export const UserName: React.FC<{ children: string }> = ({ children }) => (
-    <p className="text-xl font-bold">{children}</p>
+    <p className="text-xl font-bold text-center">{children}</p>
 )
 
 export const NewProjectNav: React.FC<{ children: string, to: string }> = ({ children, to }) => (

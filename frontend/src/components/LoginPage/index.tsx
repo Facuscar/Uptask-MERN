@@ -37,7 +37,7 @@ const LoginPage: React.FC = () => {
         if (!emailRef.current || !passwordRef.current) return;
 
         const email = emailRef.current.value;
-        const password = emailRef.current.value;
+        const password = passwordRef.current.value;
 
         if ([email, password].includes('')) {
             setShowAlert(true);

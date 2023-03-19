@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import Alert from "components/Atoms/Alert";
 import ProjectList from "components/ProjectList";
 import { useProjects } from "context/ProjectProvider";
 import { getConfig } from "utils/getConfig";
@@ -13,6 +14,8 @@ const ProjectsPage: React.FC = () => {
     const navigate = useNavigate();
     const { filteredProjects, setProjects, projects } = useProjects();
     const [loading, setLoading] = useState<boolean>(true);
+
+    const [showAlert, setShowAlert] = useState<boolean>(false);
 
     useEffect(() => {
         const getProjects = async () => {
@@ -29,7 +32,7 @@ const ProjectsPage: React.FC = () => {
                 setProjects(data);
  
             } catch (error: any) {
-                console.log(error.response);
+                setShowAlert(true);
             } finally {
                 setLoading(false);
             }
@@ -41,13 +44,16 @@ const ProjectsPage: React.FC = () => {
     if (loading) return <div>Projects skeletons..</div>
 
     return (
-        <S.ListWrapper>
-            {projects?.length ? 
-                (filteredProjects?.length ? 
-                    <ProjectList projects={filteredProjects} /> : 
-                    <S.AltText>No projects match with your search</S.AltText>) : 
-                <S.AltText>You don't have any projects yet</S.AltText>}
-        </S.ListWrapper>
+        <>
+            {showAlert && <Alert message="Oops... something went wrong" error />}
+            <S.ListWrapper>
+                {projects?.length ? 
+                    (filteredProjects?.length ? 
+                        <ProjectList projects={filteredProjects} /> : 
+                        <S.AltText>No projects match with your search</S.AltText>) : 
+                    <S.AltText>You don't have any projects yet</S.AltText>}
+            </S.ListWrapper>
+        </>
     )
 }
 
