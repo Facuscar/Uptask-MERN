@@ -41,16 +41,28 @@ const ProjectsPage: React.FC = () => {
         getProjects();
     }, []);
 
-    if (loading) return <div>Projects skeletons..</div>
+    if (loading) return (
+        <S.ListWrapper>
+            <S.ProjectSkeletonWrapper>
+                <S.TextSkeleton />
+            </S.ProjectSkeletonWrapper>
+            <S.ProjectSkeletonWrapper>
+                <S.TextSkeleton />
+            </S.ProjectSkeletonWrapper>
+            <S.ProjectSkeletonWrapper>
+                <S.TextSkeleton />
+            </S.ProjectSkeletonWrapper>
+        </S.ListWrapper>
+    );
 
     return (
         <>
             {showAlert && <Alert message="Oops... something went wrong" error />}
             <S.ListWrapper>
-                {projects?.length ? 
-                    (filteredProjects?.length ? 
+                {projects?.length ?
+                    (filteredProjects?.length ?
                         <ProjectList projects={filteredProjects} /> : 
-                        <S.AltText>No projects match with your search</S.AltText>) : 
+                        <S.AltText>No projects match with your search</S.AltText>) :
                     <S.AltText>You don't have any projects yet</S.AltText>}
             </S.ListWrapper>
         </>
