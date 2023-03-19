@@ -12,6 +12,14 @@ import { useAuth } from "context/AuthProvider";
 
 import * as S from './styles';
 
+type LoginResponse = {
+    msg: string, 
+    token: string, 
+    _id: string, 
+    name: string, 
+    email: string,
+}
+
 const LoginPage: React.FC = () => {
     const emailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
@@ -26,7 +34,12 @@ const LoginPage: React.FC = () => {
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if ([emailRef.current?.value, passwordRef.current?.value].includes('')) {
+        if (!emailRef.current || !passwordRef.current) return;
+
+        const email = emailRef.current.value;
+        const password = emailRef.current.value;
+
+        if ([email, password].includes('')) {
             setShowAlert(true);
             setError(true);
             setMessage('All fields are required');
@@ -34,17 +47,26 @@ const LoginPage: React.FC = () => {
         }
 
         try {
-            const { data } = await axios.post<{ msg: string, token: string, _id: string, name: string, email: string }>(`${import.meta.env.VITE_API_USERS_URL}/login`, { email: emailRef.current?.value, password: passwordRef.current?.value });
-            localStorage.setItem('token', data.token)
+            const { data } = await axios.post<LoginResponse>(`${import.meta.env.VITE_API_USERS_URL}/login`, { email, password });
+
+            const { _id, name, token } = data; 
+
+            localStorage.setItem('token', token)
+
             setAuth({
-                _id: data._id,
-                name: data.name,
-                email: data.email,
+                _id,
+                name,
+                email,
             });
+
             navigate('/projects');
         } catch (error: any) {
             setShowAlert(true);
             setError(true);
+            if (!error.response) {
+                setMessage('Oops.. something went wrong');
+                return;
+            }
             setMessage(error.response.data.msg);
         }
     }
