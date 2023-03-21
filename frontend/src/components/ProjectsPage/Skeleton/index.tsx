@@ -14,7 +14,7 @@ export const SkeletonWrapper: React.FC<{ children: ReactNode }> = ({ children })
     <div className="bg-white shadow mt-10 rounded-lg">{children}</div>
 );
 
-const ProjectsPageSkeleton = () => (
+const ProjectsPageSkeleton: React.FC = () => (
     <SkeletonWrapper>
         <ProjectSkeletonWrapper>
             <TextSkeleton />

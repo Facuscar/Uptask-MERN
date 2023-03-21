@@ -17,3 +17,14 @@ export const FormWrapperSkeleton: React.FC<{ children: ReactNode }> = ({ childre
 export const FormSkeleton: React.FC = () => (
     <Skeleton count={3} className='mb-3 text-4xl' />
 );
+
+const NewContributorPageSkeleton: React.FC = () => (
+    <SkeletonWrapper>
+        <TitleSkeleton />
+        <FormWrapperSkeleton>
+            <FormSkeleton />
+        </FormWrapperSkeleton>
+    </SkeletonWrapper>
+);
+
+export default NewContributorPageSkeleton;
