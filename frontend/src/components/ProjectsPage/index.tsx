@@ -8,6 +8,7 @@ import { useProjects } from "context/ProjectProvider";
 import { getConfig } from "utils/getConfig";
 import { Project } from "types/Project";
 
+import Skeleton from "./Skeleton";
 import * as S from './styles';
 
 const ProjectsPage: React.FC = () => {
@@ -42,17 +43,7 @@ const ProjectsPage: React.FC = () => {
     }, []);
 
     if (loading) return (
-        <S.ListWrapper>
-            <S.ProjectSkeletonWrapper>
-                <S.TextSkeleton />
-            </S.ProjectSkeletonWrapper>
-            <S.ProjectSkeletonWrapper>
-                <S.TextSkeleton />
-            </S.ProjectSkeletonWrapper>
-            <S.ProjectSkeletonWrapper>
-                <S.TextSkeleton />
-            </S.ProjectSkeletonWrapper>
-        </S.ListWrapper>
+        <Skeleton />
     );
 
     return (
