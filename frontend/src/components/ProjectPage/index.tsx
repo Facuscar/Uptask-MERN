@@ -9,6 +9,7 @@ import { getProject } from "utils/getProject";
 import Contributors from "./components/Contributors";
 import Header from "./components/Header";
 import Tasks from "./components/Tasks";
+import Skeleton from "./Skeleton";
 
 const ProjectPage: React.FC = () => {
     const params = useParams();
@@ -34,7 +35,7 @@ const ProjectPage: React.FC = () => {
         loadProject();
     }, []);
 
-    if (loading) return <>Project Page skeleton...</>;
+    if (loading) return <Skeleton />;
 
     if (!project) return <Alert message={message} error />;
 
