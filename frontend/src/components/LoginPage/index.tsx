@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState, useRef, FormEvent } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 
 import Alert from "components/Atoms/Alert";
 import Input from "components/Atoms/Form/Input";
@@ -29,7 +29,7 @@ const LoginPage: React.FC = () => {
     const [error, setError] = useState<boolean>(false);
 
     const navigate = useNavigate();
-    const { setAuth } = useAuth();
+    const { setAuth, auth } = useAuth();
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -70,6 +70,8 @@ const LoginPage: React.FC = () => {
             setMessage(error.response.data.msg);
         }
     }
+
+    if (auth?._id) return <Navigate to={PATH.PROJECTS}/>
 
     return (
         <>

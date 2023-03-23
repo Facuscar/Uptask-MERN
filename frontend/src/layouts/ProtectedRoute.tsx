@@ -7,7 +7,7 @@ import { useAuth } from "context/AuthProvider";
 const ProtectedRoute = () => {
     const { auth, loading } = useAuth();
 
-    if (loading) return <>Loading..</>;
+    if (loading) return <></>;
 
     return (
         <>
