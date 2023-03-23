@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import Alert from "components/Atoms/Alert";
 import { useAuth } from "context/AuthProvider";
@@ -22,10 +22,17 @@ const ProjectPage: React.FC = () => {
 
     const { id } = params;
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         const loadProject = async () => {
             const data = await getProject(id);
             setLoading(false);
+            if (!data) {
+                navigate('/');
+                return;
+            }
+
             if (!data.project) {
                 setMessage(data);
                 return;
