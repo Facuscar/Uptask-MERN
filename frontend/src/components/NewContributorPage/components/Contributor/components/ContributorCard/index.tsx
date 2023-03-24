@@ -9,12 +9,13 @@ type ContributorCardProps = {
 };
 
 const ContributorCard: React.FC<ContributorCardProps> = ({ contributor, addContributor }) => {
+    const { name } = contributor;
     return (
         <S.MainWrapper>
             <S.Cardwrapper>
                 <S.CardTitle>Result: </S.CardTitle>
                 <S.NameWrapper>
-                    <p>{contributor.name}</p>
+                    <p>{name}</p>
 
                     <Button text='Add to the project' type='button' onClick={addContributor} />
                 </S.NameWrapper>

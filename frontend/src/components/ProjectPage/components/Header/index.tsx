@@ -53,7 +53,7 @@ const Header: React.FC<HeaderProps> = ({ name, projectId, isCreator }) => {
                 { isCreator && <S.IconsWrapper>
                     <S.IconWrapper>
                         <EditIcon />
-                        <Link to={`${PATH.EDIT_PROJECT}/${projectId}`} className="uppercase font-bold">Edit</Link>
+                        <S.EditProjectLink to={`${PATH.EDIT_PROJECT}/${projectId}`}>Edit</S.EditProjectLink>
                     </S.IconWrapper>
                     <S.IconWrapper>
                         <DeleteIcon />

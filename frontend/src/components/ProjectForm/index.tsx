@@ -39,7 +39,12 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ project }) => {
 
         if (!nameRef.current?.value || !descriptionRef.current?.value || !dueDateRef.current?.value || !clientRef.current?.value) return;
 
-        if ([nameRef.current.value, descriptionRef.current.value, dueDateRef.current.value, clientRef.current.value].includes('')) {
+        const name = nameRef.current.value;
+        const description = descriptionRef.current.value;
+        const dueDate = dueDateRef.current.value;
+        const client = clientRef.current.value;
+
+        if ([name, description, dueDate, client].includes('')) {
             setMessage('All fields are required.');
             setError(true);
             setShowAlert(true);
@@ -47,10 +52,10 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ project }) => {
         }
 
         const newProject: NewProject = {
-            name: nameRef.current.value,
-            description: descriptionRef.current.value,
-            dueDate:  dueDateRef.current.value,
-            client: clientRef.current.value,
+            name,
+            description,
+            dueDate,
+            client,
         }
 
         if (isEditing) newProject._id = project._id;

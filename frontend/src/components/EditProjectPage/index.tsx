@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import 'react-loading-skeleton/dist/skeleton.css'
 
 import ProjectTitle from "components/Atoms/ProjectTitle";
 import ProjectForm from "components/ProjectForm";

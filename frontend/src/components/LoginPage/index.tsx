@@ -59,7 +59,7 @@ const LoginPage: React.FC = () => {
                 email,
             });
 
-            navigate('/projects');
+            navigate(PATH.PROJECTS);
         } catch (error: any) {
             setShowAlert(true);
             setError(true);
