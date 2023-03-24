@@ -18,8 +18,8 @@ const ConfirmAccountPage: React.FC = () => {
         const confirmAccount = async () => {
             try {
                 const url = `${import.meta.env.VITE_API_USERS_URL}/confirm/${token}`;
-                const data = await axios.get<{ msg: string }>(url);
-                setMessage(data.data.msg);
+                const { data } = await axios.get<{ msg: string }>(url);
+                setMessage(data.msg);
                 setError(false);
             } catch (error: any) {
                 setMessage(error.response.data.msg);
@@ -34,7 +34,7 @@ const ConfirmAccountPage: React.FC = () => {
             <TitleWithSpan title="Confirm your account to create your" spanTitle="projects" />
             <S.BottomWrapper>
                 <Alert message={message} error={error} />
-                { !error && <Link className="block text-center my-5 text-slate-500 uppercase text-sm" to={PATH.LOGIN} >Log in</Link>}
+                { !error && <S.LogInLink to={PATH.LOGIN}>Log in</S.LogInLink>}
             </S.BottomWrapper>
 
         </>
